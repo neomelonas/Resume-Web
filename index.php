@@ -1,5 +1,5 @@
 <?
-	$userID = '1';
+	$userID = '1'; //Set userID here, for now.  TODO: change to a thing, someplace else.//
 	include 'lib/php/db.php';
 	include 'lib/php/functions.php';	
 ?>
