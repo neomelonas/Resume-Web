@@ -4,7 +4,7 @@ $con = mysql_connect($host,$name,$pwd);
 
 $localAd	= false;
 $homeAd		= false;
-
+$techCount	= 0;
 function populateName($con, $userID)
 {
 	if (!$con)
@@ -152,70 +152,28 @@ function populateHeader($userID)
 
 function populateEducation($userID)
 {
-	$educationSQL = mysql_query("select edID, edSchoolName, edSchoolCity, edSchoolState, edSchoolCollege, edStart, edEnd from resume.res_education where userID='".$userID."'");
+	$educationSQL = mysql_query("select edSchoolName, edSchoolCity, edSchoolState, edSchoolCollege, edDegree, edMajor, edMajor2, edStart, edEnd from resume.res_education where userID='".$userID."'");
 	while($row = mysql_fetch_array($educationSQL))
 	{
 		echo "<span class='school'>".$row['edSchoolName']."</span>";
 		echo "<span class='timeframe'>".$row['edStart']." &#8211; ".$row['edEnd']."</span>";
 		echo "<span class='citystate'>".$row['edSchoolCity'].", ".$row['edSchoolState']."</span><br />";
 		echo "<span class='college'>".$row['edSchoolCollege']."</span><br />";
-		
-		$edDegSQL = mysql_query("select edDegree from resume.res_ed_degree where userID'".$userID."' and edID='".$row['edID']."'");
-		while($linez = mysql_fetch_array($edDegSQL))
-			{ echo "<span class='degree'>".$linez['edDegree']."</span>"; }
-		
-		$edMajorCountSQL = mysql_query("select edType, count(edType) as edCount from resume.res_ed_major where userID='".$userID."' and edID='".$row['edID']."' group by edType");
-		while($majorCount = mysql_fetch_array($edMajorCountSQL))
-		{
-			$count = $majorCount['edCount'];
-			$type = $majorCount['edType'];
-			if ($type == 1)
-			{
-				if ($count == 3)
-				{
-					echo "<br />Triple Major:  ";
-				}
-				else if ($count == 2)
-				{
-					echo "<br />Dual Major:  ";
-				}
-				else { echo "<br />Major:  "; }
-			}
-			if ($type == 2)
-			{
-				if ($count > 1)
-				{
-					echo "<br />Minors:  ";
-				}
-				else { echo "<br />Minor:  "; }
-			}
-			
-		}
-		
-		$edMajorzSQL = mysql_query("select edMajor, edType from resume.res_ed_major where userID='".$userID."' and edID='".$row['edID']."' order by edType asc");
-		while($majorRow = mysql_fetch_array($edMajorzSQL))
-		{
-			if ($majorRow['edType'] == 1)
-			{
-				echo "<span class='major'>".$majorRow['edMajor']."</span>";
-			}
-			elseif ($majorRow['edType'] == 2)
-			{
-				echo "<span class='major'>".$majorRow['edMajor']."</span>";
-			}
-		}
-		echo "<br />"
-		
+		echo "<span class='degree'>".$row['edDegree']."</span><br />";
+		if ($row['edMajor2'] != NULL)
+		{ echo "<span class='major'>Dual Majors:  ".$row['edMajor']." & ".$row['edMajor2']."</span>"; }
+		else
+		{ echo "<span class='major'>Major:  ".$row['edMajor']."</span>"; }
 	}
 }
 
 function populateRC($userID)
 {
-	$rcSQL = mysql_query("select rcCourseName, rcCourseNumber, rcCourseDesc from resume.res_curriculum where userID='".$userID."'");
+	$rcSQL = mysql_query("select rcCourseName, rcCourseNum, rcCourseDesc from resume.res_curriculum where userID='".$userID."'");
 	while($row = mysql_fetch_array($rcSQL))
 	{
 		if ($row[''] != NULL)
-		{ echo"<li>".$row['rcCourseName']." ".$row['rcCourseNumber'].":  ".$row['rcCourseDesc']."</li>"; }
+		{ echo"<li>".$row['rcCourseName']." ".$row['rcCourseNum'].":  ".$row['rcCourseDesc']."</li>"; }
 		else
 		{ echo"<li>".$row['rcCourseName'].":  ".$row['rcCourseDesc']."</li>"; }
 	}
@@ -259,6 +217,22 @@ function populateTechExp($userID)
 	$techexpSQL = mysql_query("select teDesc from resume.res_techexp where userID='".$userID."'");
 	while($row = mysql_fetch_array($techexpSQL))
 	{ echo "<li>".$row['teDesc']."</li>"; }
+}
+
+function populateTechDetails($userID)
+{
+	echo "<span class='tlanguages'><em>Languages:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tsystems'><em>Operating Systems:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tprograms'><em>Programs:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tother'><em>Other:\t</em><? populateTEDetails($userID) ?></span>";
+}
+
+function populateTEDetails($userID)
+{
+	$techCount++;
+	$BIGtechexpSQL = mysql_query("select teDesc, teType from resume.res_techexp where userID='".$userID."' and where teType='".$techCount."'");
+	while($row = mysql_fetch_array($BIGtechexpSQL))
+	{ echo $row['teDesc']."; "; }
 }
 
 function getShortName($userID)
