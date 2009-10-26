@@ -27,10 +27,10 @@
 				<ul>
 					<li><a href="#" class="all">All</a></li>
 					<li><a href="#" class="ed">Education</a></li>
+					<li><a href="#" class="te">Technology Experience</a></li>
 					<li><a href="#" class="rc">Relevant Curriculum</a></li>
 					<li><a href="#" class="pe">Professional Experience</a></li>
 					<li><a href="#" class="ia">Interests &amp; Activities</a></li>
-					<li><a href="#" class="te">Technology Experience</a></li>
 					<li><a href="#" class="up noline">&uarr;</a></li>
 				</ul>
 				<hr />
@@ -39,6 +39,10 @@
 				<h2><a href="#" class="ed noslip">Education</a></h2>
 				<div id="education" class="slip">
 					<?php populateEducation($userID); ?>
+				</div>
+				<h2><a href="#" class="te noslip">Technology Experience</a></h2>
+				<div id="tech" class="slip">
+					<? populateTechDetails($userID); ?>
 				</div>
 				<h2><a href="#" class="rc noslip">Relevant Curriculum</a></h2>
 				<div id="curriculum" class="slip">
@@ -54,12 +58,6 @@
 				<div id="intact" class="slip">
 					<ul>
 						<? populateIntAct($userID); ?>
-					</ul>
-				</div>
-				<h2><a href="#" class="te noslip">Technology Experience</a></h2>
-				<div id="tech" class="slip">
-					<ul>
-						<? populateTechExp($userID); ?>
 					</ul>
 				</div>
 			</div>
