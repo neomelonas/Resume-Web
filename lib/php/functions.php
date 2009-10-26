@@ -4,7 +4,7 @@ $con = mysql_connect($host,$name,$pwd);
 
 $localAd	= false;
 $homeAd		= false;
-$techCount	= 0;
+$techCount	= 1;
 function populateName($con, $userID)
 {
 	if (!$con)
@@ -229,7 +229,7 @@ function populateTechDetails($userID,$teCount)
 
 function populateTEDetails($userID,$teCount)
 {
-	$BIGtechexpSQL = mysql_query("select teDesc, teType from resume.res_techexp where userID='".$userID."' and where teType='".$techCount."'");
+	$BIGtechexpSQL = mysql_query("select teDesc, teType from resume_dev.res_techexp where userID='".$userID."' and teType='".$techCount."'");
 	while($row = mysql_fetch_array($BIGtechexpSQL))
 	{ echo $row['teDesc']."; "; }
 }
