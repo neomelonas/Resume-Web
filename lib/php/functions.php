@@ -4,7 +4,7 @@ $con = mysql_connect($host,$name,$pwd);
 
 $localAd	= false;
 $homeAd		= false;
-
+$techCount	= 0;
 function populateName($con, $userID)
 {
 	if (!$con)
@@ -169,11 +169,11 @@ function populateEducation($userID)
 
 function populateRC($userID)
 {
-	$rcSQL = mysql_query("select rcCourseName, rcCourseNumber, rcCourseDesc from resume.res_curriculum where userID='".$userID."'");
+	$rcSQL = mysql_query("select rcCourseName, rcCourseNum, rcCourseDesc from resume.res_curriculum where userID='".$userID."'");
 	while($row = mysql_fetch_array($rcSQL))
 	{
 		if ($row[''] != NULL)
-		{ echo"<li>".$row['rcCourseName']." ".$row['rcCourseNumber'].":  ".$row['rcCourseDesc']."</li>"; }
+		{ echo"<li>".$row['rcCourseName']." ".$row['rcCourseNum'].":  ".$row['rcCourseDesc']."</li>"; }
 		else
 		{ echo"<li>".$row['rcCourseName'].":  ".$row['rcCourseDesc']."</li>"; }
 	}
@@ -217,6 +217,22 @@ function populateTechExp($userID)
 	$techexpSQL = mysql_query("select teDesc from resume.res_techexp where userID='".$userID."'");
 	while($row = mysql_fetch_array($techexpSQL))
 	{ echo "<li>".$row['teDesc']."</li>"; }
+}
+
+function populateTechDetails($userID)
+{
+	echo "<span class='tlanguages'><em>Languages:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tsystems'><em>Operating Systems:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tprograms'><em>Programs:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tother'><em>Other:\t</em><? populateTEDetails($userID) ?></span>";
+}
+
+function populateTEDetails($userID)
+{
+	$techCount++;
+	$BIGtechexpSQL = mysql_query("select teDesc, teType from resume.res_techexp where userID='".$userID."' and where teType='".$techCount."'");
+	while($row = mysql_fetch_array($BIGtechexpSQL))
+	{ echo $row['teDesc']."; "; }
 }
 
 function getShortName($userID)
