@@ -42,7 +42,7 @@
 				</div>
 				<h2><a href="#" class="te noslip">Technology Experience</a></h2>
 				<div id="tech" class="slip">
-					<? populateTechDetails($userID); ?>
+					<? populateTechDetails($userID,$teCount); ?>
 				</div>
 				<h2><a href="#" class="rc noslip">Relevant Curriculum</a></h2>
 				<div id="curriculum" class="slip">

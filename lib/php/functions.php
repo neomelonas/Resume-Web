@@ -219,17 +219,16 @@ function populateTechExp($userID)
 	{ echo "<li>".$row['teDesc']."</li>"; }
 }
 
-function populateTechDetails($userID)
+function populateTechDetails($userID,$teCount)
 {
-	echo "<span class='tlanguages'><em>Languages:\t</em><? populateTEDetails($userID) ?></span>";
-	echo "<span class='tsystems'><em>Operating Systems:\t</em><? populateTEDetails($userID) ?></span>";
-	echo "<span class='tprograms'><em>Programs:\t</em><? populateTEDetails($userID) ?></span>";
-	echo "<span class='tother'><em>Other:\t</em><? populateTEDetails($userID) ?></span>";
+	echo "<span class='tlanguages'><em>Languages:\t</em>".populateTEDetails($userID,$teCount)."</span><br />";
+	echo "<span class='tsystems'><em>Operating Systems:\t</em>".populateTEDetails($userID,$teCount)."</span><br />";
+	echo "<span class='tprograms'><em>Programs:\t</em>".populateTEDetails($userID,$teCount)."</span><br />";$techCount++;
+	echo "<span class='tother'><em>Other:\t</em>".populateTEDetails($userID,$teCount)."</span><br />";$techCount++;
 }
 
-function populateTEDetails($userID)
+function populateTEDetails($userID,$teCount)
 {
-	$techCount++;
 	$BIGtechexpSQL = mysql_query("select teDesc, teType from resume.res_techexp where userID='".$userID."' and where teType='".$techCount."'");
 	while($row = mysql_fetch_array($BIGtechexpSQL))
 	{ echo $row['teDesc']."; "; }
