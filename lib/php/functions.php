@@ -152,18 +152,60 @@ function populateHeader($userID)
 
 function populateEducation($userID)
 {
-	$educationSQL = mysql_query("select edSchoolName, edSchoolCity, edSchoolState, edSchoolCollege, edDegree, edMajor, edMajor2, edStart, edEnd from resume.res_education where userID='".$userID."'");
+	$educationSQL = mysql_query("select edID, edSchoolName, edSchoolCity, edSchoolState, edSchoolCollege, edStart, edEnd from resume.res_education where userID='".$userID."'");
 	while($row = mysql_fetch_array($educationSQL))
 	{
 		echo "<span class='school'>".$row['edSchoolName']."</span>";
 		echo "<span class='timeframe'>".$row['edStart']." &#8211; ".$row['edEnd']."</span>";
 		echo "<span class='citystate'>".$row['edSchoolCity'].", ".$row['edSchoolState']."</span><br />";
 		echo "<span class='college'>".$row['edSchoolCollege']."</span><br />";
-		echo "<span class='degree'>".$row['edDegree']."</span><br />";
-		if ($row['edMajor2'] != NULL)
-		{ echo "<span class='major'>Dual Majors:  ".$row['edMajor']." & ".$row['edMajor2']."</span>"; }
-		else
-		{ echo "<span class='major'>Major:  ".$row['edMajor']."</span>"; }
+		
+		$edDegSQL = mysql_query("select edDegree from resume.res_ed_degree where userID'".$userID."' and edID='".$row['edID']."'");
+		while($linez = mysql_fetch_array($edDegSQL))
+			{ echo "<span class='degree'>".$linez['edDegree']."</span>"; }
+		
+		$edMajorCountSQL = mysql_query("select edType, count(edType) as edCount from resume.res_ed_major where userID='".$userID."' and edID='".$row['edID']."' group by edType");
+		while($majorCount = mysql_fetch_array($edMajorCountSQL))
+		{
+			$count = $majorCount['edCount'];
+			$type = $majorCount['edType'];
+			if ($type == 1)
+			{
+				if ($count == 3)
+				{
+					echo "<br />Triple Major:  ";
+				}
+				else if ($count == 2)
+				{
+					echo "<br />Dual Major:  ";
+				}
+				else { echo "<br />Major:  "; }
+			}
+			if ($type == 2)
+			{
+				if ($count > 1)
+				{
+					echo "<br />Minors:  ";
+				}
+				else { echo "<br />Minor:  "; }
+			}
+			
+		}
+		
+		$edMajorzSQL = mysql_query("select edMajor, edType from resume.res_ed_major where userID='".$userID."' and edID='".$row['edID']."' order by edType asc");
+		while($majorRow = mysql_fetch_array($edMajorzSQL))
+		{
+			if ($majorRow['edType'] == 1)
+			{
+				echo "<span class='major'>".$majorRow['edMajor']."</span>";
+			}
+			elseif ($majorRow['edType'] == 2)
+			{
+				echo "<span class='major'>".$majorRow['edMajor']."</span>";
+			}
+		}
+		echo "<br />"
+		
 	}
 }
 
