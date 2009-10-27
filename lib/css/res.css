@@ -50,8 +50,9 @@ nav li{display:inline;padding:5px;}
 #intact {padding-bottom:20px;}
 	#intact li {padding-left:20px;}
 
-#tech {}
+#tech {padding:0 0 10px 10px;}
 	#tech li{padding-left:20px;}
+	span .teTitle{text-style:italic;}
 
 footer {text-align:center;margin-bottom:10px;}
 
