@@ -42,6 +42,24 @@ function populateName($con, $userID)
 	}
 }
 
+
+function metaDescription($userID)
+{
+	$metaDescSQL = mysql_query('select metaDesc from res_meta_desc where userID="'. $userID .'"');
+	while($row = mysql_fetch_array($metaDescSQL))
+	{ echo $row['metaDesc']; }	
+}
+
+function metaKeywords($userID)
+{
+	$metaKeyWordsSQL = mysql_query('select metaWord from res_meta_keywords where userID="'. $userID .'"');
+	while($row = mysql_fetch_array($metaKeyWordsSQL))
+	{
+		echo $row['metaWord'].', ';
+	}
+	echo 'created by Neo Melonas';
+}
+
 function populateHeader($userID)
 {
 	$sql1 = mysql_query("select userFName, userMName, userLName, userEmail, locLID, locHID from resume_dev.res_user where userID='".$userID."'");
@@ -148,7 +166,6 @@ function populateHeader($userID)
 		}
 	}
 }	
-
 
 function populateEducation($userID)
 {
@@ -303,9 +320,9 @@ function populateTechExp($userID)
 
 function populateTechDetails($userID,$teCount)
 {
-	echo "<br /><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,$teCount);$teCount++;
-	echo "<br /><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,$teCount);$teCount++;
-	echo "<br /><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,$teCount);$teCount++;
+	echo "<br /><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,$teCount);
+	echo "<br /><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,$teCount);
+	echo "<br /><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,$teCount);
 	echo "<br /><span class='teTitle'>Other:\t\t</span>";populateTEDetails($userID,$teCount);
 }
 
@@ -332,6 +349,7 @@ function populateTEDetails($userID,$teType)
 	}
 	
 	echo "</span>";
+	$techCount++;
 }
 
 function getShortName($userID)
