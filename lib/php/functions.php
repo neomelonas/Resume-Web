@@ -45,19 +45,22 @@ function populateName($con, $userID)
 
 function metaDescription($userID)
 {
+	echo '"';
 	$metaDescSQL = mysql_query('select metaDesc from res_meta_desc where userID="'. $userID .'"');
 	while($row = mysql_fetch_array($metaDescSQL))
 	{ echo $row['metaDesc']; }	
+	echo '"';
 }
 
 function metaKeywords($userID)
 {
+	echo '"';
 	$metaKeyWordsSQL = mysql_query('select metaWord from res_meta_keywords where userID="'. $userID .'"');
 	while($row = mysql_fetch_array($metaKeyWordsSQL))
 	{
 		echo $row['metaWord'].', ';
 	}
-	echo 'created by Neo Melonas';
+	echo 'created by Neo Melonas"';
 }
 
 function populateHeader($userID)
