@@ -5,7 +5,7 @@ $con = mysql_connect($host,$name,$pwd);
 $localAd	= false;
 $homeAd		= false;
 
-function populateName($con, $userID)
+function getUserTag($userID)
 {
 	if (!$con)
 		{
@@ -14,31 +14,37 @@ function populateName($con, $userID)
 	else
 	{
 		mysql_select_db($db, $con);
-		
-		$nameSQL = mysql_query("select userFName, userMName, userLName from resume_dev.res_user where userID='".$userID."'");
-		while($row = mysql_fetch_array($nameSQL))
+		$userTagSQL = mysql_query('select userID from resume_dev.res_user where userTag="' . $userTag . '"');
+		echo mysql_fetch_object($userTagSQL);
+	}
+}
+
+
+function populateName($con, $userID)
+{
+	$nameSQL = mysql_query("select userFName, userMName, userLName from resume_dev.res_user where userID='".$userID."'");
+	while($row = mysql_fetch_array($nameSQL))
+	{
+		$userFName	= $row['userFName'];
+		$userMName	= $row['userMName'];
+		$userLName	= $row['userLName'];
+
+		$prefSQL = mysql_query("select middleISnick from resume_dev.res_user_pref where userID='".$userID."'");
+		while($row = mysql_fetch_array($prefSQL))
 		{
-			$userFName	= $row['userFName'];
-			$userMName	= $row['userMName'];
-			$userLName	= $row['userLName'];
-			
-			$prefSQL = mysql_query("select middleISnick from resume_dev.res_user_pref where userID='".$userID."'");
-			while($row = mysql_fetch_array($prefSQL))
+			$mISn 	= $row['middleISnick'];
+			//Create User's Name
+			if ($userMName != NULL)
 			{
-				$mISn 	= $row['middleISnick'];
-				//Create User's Name
-				if ($userMName != NULL)
-				{
-					if ($mISn != true)
-					{ $userName = $userFName." ".$userMName." ".$userLName; }
-					else
-					{ $userName = $userFName." \"".$userMName."\" ".$userLName; }
-				}
+				if ($mISn != true)
+				{ $userName = $userFName." ".$userMName." ".$userLName; }
 				else
-				{ $userName = $userFName." ".$userLName; }
+				{ $userName = $userFName." \"".$userMName."\" ".$userLName; }
 			}
-			echo $userName;
+			else
+			{ $userName = $userFName." ".$userLName; }
 		}
+		echo $userName;
 	}
 }
 
