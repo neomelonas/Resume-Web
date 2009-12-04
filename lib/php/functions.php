@@ -237,19 +237,7 @@ function majorStuff($userID, $edID, $edDID, $majorQuant)
 {
 	$mCount	= 1;
 	echo "<span class='major'>";
-	
-	$majorSQL	= mysql_query("select edMajor from resume_dev.res_ed_major where userID='".$userID."' and edID='".$edID."' and edDID='".$edDID."' and majorType='1'");
-	while($majors = mysql_fetch_array($majorSQL))
-	{
-		if ($mCount != $majorQuant)
-		{
-			$mCount++;
-			$commaz	= ", ";
-		}
-		else { $commaz	= " ";}
-		echo $majors['edMajor'].$commaz;
-	}
-	
+	echo $majors['edMajor']; echo " ";	
 	echo "</span>";
 }
 
