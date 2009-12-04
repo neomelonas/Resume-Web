@@ -321,23 +321,23 @@ function populateTechExp($userID)
 
 function populateTechDetails($userID,$teCount)
 {
-	echo "<br /><section class='techskills'><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,1);echo "</section>";
-	echo "<br /><section class='techskills'><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,2);echo "</section>";
-	echo "<br /><section class='techskills'><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,3);echo "</section>";
-	echo "<br /><section class='techskills'><span class='teTitle'>Other:\t\t</span>";populateTEDetails($userID,4);echo "</section>";
+	echo "<ul class='techDetails'>";
+	echo "<li><section class='techskills'><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,1);echo "</section></li>";
+	echo "<li><section class='techskills'><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,2);echo "</section></li>";
+	echo "<li><section class='techskills'><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,3);echo "</section></li>";
+	echo "<li><section class='techskills'><span class='teTitle'>Other:\t\t</span>";populateTEDetails($userID,4);echo "</section></li>;
+	echo "</ul>";
 }
 
 function populateTEDetails($userID,$teType)
 {
-	echo "<ul class='techDetails'>";
+	
 	
 	$BIGtechexpSQL = mysql_query("select teDesc from resume_dev.res_techexp where userID='".$userID."' and teType='".$teType."' order by teID");
 	while($row = mysql_fetch_array($BIGtechexpSQL))
 	{
 		echo "<li>" . $row['teDesc'] . "</li>";
 	}
-	
-	echo "</ul>";
 }
 
 function getShortName($userID)
