@@ -55,8 +55,8 @@ nav li{display:inline;padding:5px;}
 	span .teTitle{text-style:italic;}
 	
 .techDetails li{display:inline;list-style:none;}
-.techDetails li:after{content:";";}
 .techDetails li:first-child{content: " ";}
+.techDetails li:after{content:";";}
 .techDetails li:last-child{content: " ";}
 
 footer {text-align:center;margin-bottom:10px;}
