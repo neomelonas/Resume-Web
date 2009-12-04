@@ -56,7 +56,7 @@ nav li{display:inline;padding:5px;}
 	
 section.techskills li{display:inline;list-style:none;}
 section.techskills li:after{content:";";}
-section.techskills li:last-child{content: " ";
+section.techskills li:last-child{content: " ";}
 
 footer {text-align:center;margin-bottom:10px;}
 
