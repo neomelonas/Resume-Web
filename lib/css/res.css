@@ -56,6 +56,7 @@ nav li{display:inline;padding:5px;}
 	
 .techDetails li{display:inline;list-style:none;}
 .techDetails li:after{content:";";}
+.techDetails li:first-child{content: " ";}
 .techDetails li:last-child{content: " ";}
 
 footer {text-align:center;margin-bottom:10px;}
