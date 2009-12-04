@@ -1,8 +1,8 @@
 <?php
-	if (isset($_GET['user'])
-	{ $userID = $_GET['user']; }
+	if (!isset($_GET['user'])
+	{ $userID = 1; }
 	else
-	{ $userID = '1'; }//Set userID to Neo for now, need to make a "splash" page.//
+	{ $userID = $_GET['user']; }//Set userID to Neo for now, need to make a "splash" page.//
 	include 'lib/php/db.php';
 	include 'lib/php/functions.php';
 ?>
