@@ -1,12 +1,13 @@
 <?php
-//	if (!isset($_GET['user'])
-//	{ $userID = 1; }
-//	else
-	{ $userID = $_GET['user']; }//Set userID to Neo for now, need to make a "splash" page.//
 	include 'lib/php/db.php';
-	include 'lib/php/functions.php';
-?>
-<!doctype html>
+        include 'lib/php/functions.php';
+	$userID = $_GET['user'];
+	if (!isset($userID))
+	{ $userID = 1; }
+	else
+	{ $userTag = $_GET['user']; }//Set userID to Neo for now, need to make a "splash" page.//
+	
+?><!doctype html>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="lib/css/reset.css" />
