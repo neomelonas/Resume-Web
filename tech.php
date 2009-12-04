@@ -6,8 +6,6 @@
 		{ $userID = 1; }
 		else
 		{ $userTag = $_GET['user']; }//Set userID to Neo for now, need to make $
-
-
 ?>
 <!doctype html>
 <html>
@@ -15,7 +13,7 @@
 		<meta charset="UTF-8">
 		<title><?php populateName($con, $userID); ?> | R&eacute;sum&eacute;</title>
 		<link rel="stylesheet" type="text/css" href="lib/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="lib/css/res.css" />
+		<link rel="stylesheet" type="text/css" href="lib/css/tech.css" />
 		<!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="lib/css/bad.css" />
 		<![end if]/-->
