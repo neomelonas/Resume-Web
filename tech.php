@@ -1,7 +1,10 @@
-<?
-	$userID = '1'; //Set userID here, for now.  TODO: change to a thing, someplace else.//
+<?php
+	if (isset($_GET['user'])
+	{ $userID = $_GET['user']; }
+	else
+	{ $userID = '1'; }//Set userID to Neo for now, need to make a "splash" page.//
 	include 'lib/php/db.php';
-	include 'lib/php/functions.php';	
+	include 'lib/php/functions.php';
 ?>
 <!doctype html>
 <html>
@@ -37,29 +40,29 @@
 			</nav>
 			<div id="stuff">
 				<h2><a href="#" class="ed noslip">Education</a></h2>
-				<div id="education" class="slip">
+				<article id="education" class="slip">
 					<?php populateEducation($userID); ?>
-				</div>
+				</article>
 				<h2><a href="#" class="te noslip">Technology Experience</a></h2>
-				<div id="tech" class="slip">
+				<article id="tech" class="slip">
 					<? populateTechDetails($userID,$teCount); ?>
-				</div>
+				</article>
 				<h2><a href="#" class="rc noslip">Relevant Curriculum</a></h2>
-				<div id="curriculum" class="slip">
+				<article id="curriculum" class="slip">
 					<ul>
 						<? populateRC($userID); ?>
 					</ul>
-				</div>
+				</article>
 				<h2><a href="#" class="pe noslip">Professional Experience</a></h2>
-				<div id="experience" class="slip">
+				<article id="experience" class="slip">
 					<? populateExp($userID); ?>
-				</div>
-				<h2><a href="#" class="ia noslip">Interests & Activities</a></h2>
-				<div id="intact" class="slip">
+				</article>
+				<h2><a href="#" class="ia noslip">Interests &amp; Activities</a></h2>
+				<article id="intact" class="slip">
 					<ul>
 						<? populateIntAct($userID); ?>
 					</ul>
-				</div>
+				</article>
 			</div>
 			<footer><div id="footer">
 				<hr />

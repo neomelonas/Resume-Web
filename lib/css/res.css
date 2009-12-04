@@ -1,4 +1,4 @@
-header, nav, article, footer {display:block;}
+header, nav, article, section, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
 #wrapper {margin:auto;width:800px;line-height:1.1em;}
 body {font-family:arial;}
@@ -20,7 +20,7 @@ a:hover{color:#103478;}
 a.noline{text-decoration:none;}
 
 header {margin:10px 0 0 0;text-align:center;}
-header h3 {text-align:center;}
+header h3 {text-align:center;text-transform:uppercase;}
 
 .citystate {float:right;margin:auto;position:relative;text-align:left;width:200px;}
 .timeframe {float:right;text-align:right;width:200px;}
@@ -53,6 +53,10 @@ nav li{display:inline;padding:5px;}
 #tech {padding:0 0 10px 10px;}
 	#tech li{padding-left:20px;}
 	span .teTitle{text-style:italic;}
+	
+section.techskills li{display:inline;list-style:none;}
+section.techskills li:after{content:";";}
+section.techskills li:last-child{content: " ";
 
 footer {text-align:center;margin-bottom:10px;}
 

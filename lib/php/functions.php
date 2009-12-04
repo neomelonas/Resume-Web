@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $con = mysql_connect($host,$name,$pwd);
 
@@ -33,7 +33,7 @@ function populateName($con, $userID)
 					{ $userName = $userFName." ".$userMName." ".$userLName; }
 					else
 					{ $userName = $userFName." \"".$userMName."\" ".$userLName; }
-				}				
+				}
 				else
 				{ $userName = $userFName." ".$userLName; }
 			}
@@ -147,8 +147,6 @@ function populateHeader($userID)
 			}
 			else
 			{ $homeAd = false; }
-			
-
 			
 			
 			$phoneSQL = mysql_query("select phACode, phNum3, phNum4 from resume_dev.res_phone where phID ='".$phoneID."'");
@@ -323,49 +321,43 @@ function populateTechExp($userID)
 
 function populateTechDetails($userID,$teCount)
 {
-	echo "<br /><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,$teCount);
-	echo "<br /><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,$teCount);
-	echo "<br /><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,$teCount);
-	echo "<br /><span class='teTitle'>Other:\t\t</span>";populateTEDetails($userID,$teCount);
+	echo "<br /><section class='techskills'><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,$teCount);echo "</section>";
+	echo "<br /><section class='techskills'><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,$teCount);echo "</section>";
+	echo "<br /><section class='techskills'><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,$teCount);echo "</section>";
+	echo "<br /><section class='techskills'><span class='teTitle'>Other:\t\t</span>";populateTEDetails($userID,$teCount);echo "</section>";
 }
 
 function populateTEDetails($userID,$teType)
 {
-	$techCount	= 1;
-	echo "<span class='techDetails'>";
+	echo "<ul class='techDetails'>";
 	$teSQL = mysql_query("select count(teID) as teQuant from resume_dev.res_techexp where userID='".$userID."' and teType='".$teType."' group by teType");
-	while($row = mysql_fetch_array($teSQL))
-	{
-		$teQuant	= $row['teQuant'];
-	}
-	
+
 	$BIGtechexpSQL = mysql_query("select teDesc from resume_dev.res_techexp where userID='".$userID."' and teType='".$teType."' order by teID");
 	while($row = mysql_fetch_array($BIGtechexpSQL))
 	{
-		if ($techCount != $teQuant)
-		{
-			$techCount++;
-			$semicolonz	= "; ";
-		}
-		else { $semicolonz	= "";}
-		echo $row['teDesc'].$semicolonz;
+		echo "<li>" . $row['teDesc'] . "</li>";
 	}
 	
-	echo "</span>";
-	$techCount++;
+	echo "</ul>";
 }
 
 function getShortName($userID)
 {
-	$getsn = mysql_query("select userFName, userLName, shortname from resume_dev.res_user where userID='".$userID."'");
+	$getsn = mysql_query("select shortname from resume_dev.res_user where userID='".$userID."'");
+	while($row = mysql_fetch_array($getsn))
+	{
+		$shortname	= $row['shortname']; 
+		echo $shortname;
+	}
+}
+function getPath($userID)
+{
+	$getsn = mysql_query("select userFName, userLName from resume_dev.res_user where userID='".$userID."'");
 	while($row = mysql_fetch_array($getsn))
 	{ 
 		$userFName	= $row['userFName']; 
-		$userLName	= $row['userLName']; 
-		$shortname	= $row['shortname']; 
-		
-		echo $uriName	= "./".$shortname."/".$userFName.".".$userLName.".Resume";
+
+		echo $uriName	= "./".getShortName($userID)."/".$userFName.".".$userLName.".Resume";
 	}
 }
-
 ?>

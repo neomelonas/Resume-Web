@@ -1,20 +1,24 @@
-<?
-	$userID = '1'; //Set userID here, for now.  TODO: change to a thing, someplace else.//
+<?php
+	if (isset($_GET['user'])
+	{ $userID = $_GET['user']; }
+	else
+	{ $userID = '1'; }//Set userID to Neo for now, need to make a "splash" page.//
 	include 'lib/php/db.php';
-	include 'lib/php/functions.php';	
+	include 'lib/php/functions.php';
 ?>
 <!doctype html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title><? populateName($con, $userID); ?> | R&eacute;sum&eacute;</title>
 		<link rel="stylesheet" type="text/css" href="lib/css/reset.css" />
+		<title><? populateName($con, $userID); ?> | R&eacute;sum&eacute;</title>
 		<link rel="stylesheet" type="text/css" href="lib/css/res.css" />
 		<!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="lib/css/bad.css" />
 		<![end if]/-->
 		<noscript><link rel="stylesheet" type="text/css" href="lib/css/noscript.css" /></noscript>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta charset="UTF-8">
+		<!-- Eventually do other "meta" stuff /-->
 	</head>
 	<body>
 		<div id="wrapper">
@@ -50,7 +54,7 @@
 				<div id="experience" class="slip">
 					<? populateExp($userID); ?>
 				</div>
-				<h2><a href="#" class="ia noslip">Interests & Activities</a></h2>
+				<h2><a href="#" class="ia noslip">Interests &amp; Activities</a></h2>
 				<div id="intact" class="slip">
 					<ul>
 						<? populateIntAct($userID); ?>
@@ -66,7 +70,7 @@
 			<footer><div id="footer">
 				<hr />
 				<p>
-					Download As:  <a href="<? getShortName($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<? getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<? getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<? getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF & DOCX & DOC R&eacute;sum&eacute;s)">ZIP</a>
+					Download As:  <a href="<? getPath($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<? getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<? getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<? getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF & DOCX & DOC R&eacute;sum&eacute;s)">ZIP</a>
 				</p>
 				<hr /></div>
 			</footer>
