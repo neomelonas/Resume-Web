@@ -5,7 +5,7 @@
 		if (!isset($userID))
 		{ $userID = 1; }
 		else
-		{ $userID = getUserTag($userID); }//Set userID to Neo for now, need to make $
+		{ $userID = getUserID($userTag); }//Set userID to Neo for now, need to make $
 ?>
 <!doctype html>
 <html>
@@ -26,7 +26,7 @@
 			<header>
 				<? populateHeader($userID); ?>
 			</header>
-			<nav id="nav">
+			<nav class="nav">
 				<h4>Click to Expand</h4>
 				<hr />
 				<ul>

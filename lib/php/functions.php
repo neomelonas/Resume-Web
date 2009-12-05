@@ -5,7 +5,7 @@ $con = mysql_connect($host,$name,$pwd);
 $localAd	= false;
 $homeAd		= false;
 
-function getUserTag($userID)
+function getUserID($userTag)
 {
 	if (!$con)
 		{
@@ -15,8 +15,17 @@ function getUserTag($userID)
 	{
 		mysql_select_db($db, $con);
 		$userTagSQL = mysql_query('select userID from resume_dev.res_user where userTag="' . $userTag . '"');
-		echo mysql_fetch_object($userTagSQL);
+		while($row = mysql_fetch_object($userTagSQL))
+		{ $userID = $row->userID; }
 	}
+}
+
+function getUserPrefs($userID)
+{
+	$prefSQL = mysql_query("select middleISnick, preferredPH, showGPA, defaultResumeType, from resume_dev.res_user_pref where userID='".$userID."'");
+	while($row = mysql_fetch_array($prefSQL))
+	{
+		$mISn 	= $row['middleISnick'];
 }
 
 
@@ -180,65 +189,42 @@ function populateEducation($userID)
 	while($row = mysql_fetch_array($educationSQL))
 	{
 		$edID	= $row['edID'];
-		
+		// School Name
 		echo "<span class='school'>".$row['edSchoolName']."</span>";
-		if ($row['edEnd'] == NULL)
-		{ $edEnd	= "Present"; }
-		else { $edEnd	= $row['edEnd'];}
-		echo "<span class='timeframe'>".$row['edStart']." &#8211; ".$edEnd."</span>";
-		echo "<span class='citystate'>".$row['edSchoolCity'].", ".$row['edSchoolState']."</span><br />";
-		echo "<span class='college'>".$row['edCollege']."</span><br />";
+		if ($row['edEnd'] == NULL) // Check to see if the final year of school for this edID is null.
+		{ $edEnd	= "Present"; } // Says "Present" if still in school
+		else { $edEnd	= $row['edEnd'];} // Last Year of school
+		echo "<span class='timeframe'>".$row['edStart']." &#8211; ".$edEnd."</span>"; // First Year of school
+		echo "<span class='citystate'>".$row['edSchoolCity'].", ".$row['edSchoolState']."</span><br />"; // City for edID
+		echo "<span class='college'>".$row['edCollege']."</span><br />"; // Sub-school for edID [University->College]
 		
 		$degreeSQL	= mysql_query("select edDID, edDegree from resume_dev.res_ed_degree where userID='".$userID."' and edID='".$edID."'");
 		while($line = mysql_fetch_array($degreeSQL))
 		{
-			$edDID	= $line['edDID'];
-			echo "<span class='degree'>".$line['edDegree']."</span><br />";
-			
-			$majorCount	= mysql_query("select count(edMID) as majorCount from resume_dev.res_ed_major where userID='".$userID."' and edID='".$edID."' and edDID='".$edDID."' and majorType='1' group by edDID");
-			while($majors = mysql_fetch_array($majorCount))
-			{ $majorQuant	= $majors['majorCount']; }
-			
-			if ($majorQuant == 3)
-			{
-				echo "<span class='edTitle'>Triple Major:  </span>";
-				majorStuff($userID, $edID, $edDID, $majorQuant);
-			}
-			else if ($majorQuant == 2)
-			{
-				echo "<span class='edTitle'>Double Major:  </span>";
-				majorStuff($userID, $edID, $edDID, $majorQuant);
-			}
-			else 
-			{ 
-				echo "<span class='edTitle'>Major:  </span>";
-				majorStuff($userID, $edID, $edDID, $majorQuant);
-			}
-			
-			$minorCount	= mysql_query("select count(edMID) as minorCount from resume_dev.res_ed_major where userID='".$userID."' and edID='".$edID."' and edDID='".$edDID."' and majorType='2' group by edDID");
-			while($minors = mysql_fetch_array($minorCount))
-			{ $minorQuant	= $minors['minorCount']; }
-			if ($minorQuant > 1)
-			{
-				echo "<span class='edTitle'>Minors:  </span>";
-				minorStuff($userID, $edID, $edDID, $minorQuant);
-			}
-			else if ($minorQuant == 1)
-			{
-				echo "<span class='edTitle'>Minor:  </span>";
-				minorStuff($userID, $edID, $edDID, $minorQuant); 
-			}
-			
+			$edDID	= $line['edDID']; // Get degreeID
+			echo "<span class='degree'>".$line['edDegree']."</span><br />"; // List individual degrees.
 		}
+		$majorCountSQL = mysql_query("select count(edMajor) as edMajorC from resume_dev.res_ed_major where userID='" . $userID . "' and edID='" . $edID . "'"); // Gets the total number of Majors for one person at one edID
+		$majorSQL = mysql_query("select edMajor from resume_dev.res_ed_major where userID='" . $userID . "' and edID='" . $edID . "' sort by edMajor"); // Lists all Majors for one person at once edID
+		while($mjCS = mysql_fetch_object($majorCountSQL)
+		{ $majorCount = $mjCS->edMajorC; }
+		if ($majorCount == 3) // For more than one major...
+		{ echo "<span class='major'>Triple Major:  "; }
+		elseif ($majorCount == 2)
+		{ echo "<span class='major'>Dual Major:  "; }
+		else // ...we count it down.
+		{ echo "<span class='major'>Major:  "; }
+		
+		$countUpMajor = 1;
+		while($mjS = mysql_fetch_array($majorSQL)
+		{
+			if ($majorCount > $countUpMajor)
+			{ echo $mjS['edMajor'] . ", "; }
+			if ($majorCount <= $countUpMajor)
+			{ echo $mjS['edMajor'] . "</span>"; }
+		}
+		
 	}
-}
-
-function majorStuff($userID, $edID, $edDID, $majorQuant)
-{
-	$mCount	= 1;
-	echo "<span class='major'>";
-	echo $majors['edMajor']; echo " ";	
-	echo "</span>";
 }
 
 function minorStuff($userID, $edID, $edDID, $minorQuant)
