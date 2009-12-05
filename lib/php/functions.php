@@ -321,7 +321,7 @@ function populateTEDetails($userID,$teType)
 	$BIGtechexpSQL = mysql_query("select teDesc from resume_dev.res_techexp where userID='".$userID."' and teType='".$teType."' order by teID");
 	while($row = mysql_fetch_array($BIGtechexpSQL))
 	{
-		echo "<li>" . $row['teDesc'] . "</li>";
+		echo "<li class='teDesc'>" . $row['teDesc'] . "</li>";
 	}
 }
 
