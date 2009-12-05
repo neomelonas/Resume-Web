@@ -52,7 +52,7 @@ nav li,.nav li{display:inline;padding:5px;}
 
 #tech {padding:0 0 10px 10px;}
 .teTitle{font-style:italic;float:left;padding-right:2%;}
-.techDetails li{display:inline;list-style:none;padding:0 3px;font-size:.95em;}
+.techDetails li{display:inline;list-style:none;padding:0px 5px;font-size:.95em;}
 .teDesc {text-align:right;}
 
 footer {text-align:center;margin-bottom:10px;}
