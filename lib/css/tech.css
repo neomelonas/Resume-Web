@@ -1,12 +1,7 @@
 header, nav, article, section, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
-<<<<<<< HEAD
-#wrapper {margin:auto;width:800px;line-height:1.1em;}
-body {font-family:arial;}
-=======
 #wrapper {margin:auto;width:850px;line-height:1.1em;}
 body {font-family:arial;font-size:1em;}
->>>>>>> f3548efa2e499d31261a1a2ed5068bd3bac5a42f
 h1{font-size:2.5em;line-height:1.15em;}
 h2{font-size:1.1em;line-height:1.1em;padding-bottom:5px;}
 h3{font-size:.8em;line-height:1.1em;}
