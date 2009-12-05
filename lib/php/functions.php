@@ -22,10 +22,15 @@ function getUserID($userTag)
 
 function getUserPrefs($userID)
 {
-	$prefSQL = mysql_query("select middleISnick, preferredPH, showGPA, defaultResumeType, from resume_dev.res_user_pref where userID='".$userID."'");
+	$prefSQL = mysql_query("select middleISnick, preferredPH, showGPA, defaultResumeType, preferredGPA from resume_dev.res_user_pref where userID='".$userID."'");
 	while($row = mysql_fetch_array($prefSQL))
 	{
 		$mISn 	= $row['middleISnick'];
+		$prefPH	= $row['preferredPH'];
+		$showGPA	= $row['showGPA'];
+		$resType	= $row['defaultResumeType'];
+		$prefGPA	= $row['preferredGPA'];
+	}
 }
 
 
