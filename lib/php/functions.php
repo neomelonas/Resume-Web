@@ -306,12 +306,15 @@ function populateTechExp($userID)
 
 function populateTechDetails($userID,$teCount)
 {
-	echo "<ul class='techDetails'>";
-	echo "<li><section class='techskills'><span class='teTitle'>Languages:\t\t</span>";populateTEDetails($userID,1);echo "</section></li>";
-	echo "<li><section class='techskills'><span class='teTitle'>Operating Systems:\t</span>";populateTEDetails($userID,2);echo "</section></li>";
-	echo "<li><section class='techskills'><span class='teTitle'>Programs:\t\t</span>";populateTEDetails($userID,3);echo "</section></li>";
-	echo "<li><section class='techskills'><span class='teTitle'>Other:\t\t</span>";populateTEDetails($userID,4);echo "</section></li>";
-	echo "</ul>";
+	echo "<ul class='techDetails'><li><section class='techskills'><span class='teTitle'>Languages:\t\t</span>";
+	populateTEDetails($userID,1);
+	echo "</section></li><li><section class='techskills'><span class='teTitle'>Operating Systems:\t</span>";
+	populateTEDetails($userID,2);
+	echo "</section></li><li><section class='techskills'><span class='teTitle'>Programs:\t\t</span>";
+	populateTEDetails($userID,3);
+	echo "</section></li><li><section class='techskills'><span class='teTitle'>Other:\t\t</span>";
+	populateTEDetails($userID,4);
+	echo "</section></li></ul>";
 }
 
 function populateTEDetails($userID,$teType)
