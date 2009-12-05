@@ -3,7 +3,7 @@
 		include 'lib/php/functions.php';
 		$userID = $_GET['user'];
 		if (!isset($userID))
-		{ $userID = 1; }
+		{ $userID = '1'; }
 		else
 		{ $userTag = $_GET['user']; }//Set userID to Neo for now, need to make $
 ?>

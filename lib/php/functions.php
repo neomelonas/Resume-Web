@@ -210,7 +210,7 @@ function populateEducation($userID)
 			echo "<span class='degree'>".$line['edDegree']."</span><br />"; // List individual degrees.
 		}
 		$majorCountSQL = mysql_query("select count(edMajor) as edMajorC from resume_dev.res_ed_major where userID='" . $userID . "' and edID='" . $edID . "'"); // Gets the total number of Majors for one person at one edID
-		$majorSQL = mysql_query("select edMajor from resume_dev.res_ed_major where userID='" . $userID . "' and edID='" . $edID . "' order by edMajor"); // Lists all Majors for one person at once edID
+		$majorSQL = mysql_query("select edMajor from resume_dev.res_ed_major where userID='" . $userID . "' and edID='" . $edID . "' order by edMajor asc"); // Lists all Majors for one person at once edID
 		while($mjCS = mysql_fetch_array($majorCountSQL))
 		{ $majorCount = $mjCS['edMajorC']; }
 		if ($majorCount == 3) // For more than one major...
