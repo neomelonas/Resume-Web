@@ -220,12 +220,12 @@ function populateEducation($userID)
 		else // ...we count it down.
 		{ echo "<span class='major'>Major:  "; }
 		
-		$countUpMajor = 2;
+		$countUpMajor = 1;
 		while($mjS = mysql_fetch_array($majorSQL))
 		{
-			if ($majorCount > $countUpMajor)
+			if ($majorCount >= $countUpMajor)
 			{ echo $mjS['edMajor'] . ", "; }
-			if ($majorCount <= $countUpMajor)
+			if ($majorCount < $countUpMajor)
 			{ echo $mjS['edMajor'] . "</span>"; }
 		}
 		
