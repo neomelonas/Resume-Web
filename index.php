@@ -1,7 +1,7 @@
 <?php
 		include 'lib/php/db.php';
 		include 'lib/php/functions.php';
-		if (!isset($_GET['user']))
+		if (isset($_GET['user']))
 		{ $userID = $_GET['user']; }
 		else
 		{ $userID = 1; }
