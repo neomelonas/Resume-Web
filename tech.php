@@ -1,11 +1,10 @@
 <?php
 		include 'lib/php/db.php';
 		include 'lib/php/functions.php';
-		$userID = $_GET['user'];
-		if (!isset($userID))
-		{ $userID = '1'; }
+		if (isset($_GET['user']))
+		{ $userID = $_GET['user']; }
 		else
-		{ $userTag = $_GET['user']; }//Set userID to Neo for now, need to make $
+		{ $userID = '1'; }
 ?>
 <!doctype html>
 <html>

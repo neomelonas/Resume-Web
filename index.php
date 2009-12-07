@@ -1,11 +1,10 @@
 <?php
 		include 'lib/php/db.php';
 		include 'lib/php/functions.php';
-		$userID = $_GET['user'];
-		if (!isset($userID))
-		{ $userID = 1; }
+		if (!isset($_GET['user']))
+		{ $userID = $_GET['user']; }
 		else
-		{ $userID = getUserID($userTag); }//Set userID to Neo for now, need to make $
+		{ $userID = 1; }
 ?>
 <!doctype html>
 <html>
@@ -71,7 +70,7 @@
 			<footer><div id="footer">
 				<hr />
 				<p>
-					Download As:  <a href="<? getPath($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<? getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<? getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<? getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF & DOCX & DOC R&eacute;sum&eacute;s)">ZIP</a>
+					Download As:  <a href="<? getPath($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<? getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<? getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<? getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF &amp; DOCX &amp; DOC R&eacute;sum&eacute;s)">ZIP</a>
 				</p>
 				<hr /></div>
 			</footer>
