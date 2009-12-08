@@ -323,12 +323,20 @@ function populateTechDetails($userID,$teCount)
 
 function populateTEDetails($userID,$teType)
 {
-	
-	
+	$techCountUp = 1;
+	$weeTECHEXPSQL = mysql_query("select count(teDesc) as anotherCounter from resume_dev.res_techexp where userID='".$userID."' and teType='".$teType."' order by teID");
+	while($row = mysql_fetch_array($weeTECHEXPSQL))
+	{ $techCounter = $row['anotherCounter']; }
 	$BIGtechexpSQL = mysql_query("select teDesc from resume_dev.res_techexp where userID='".$userID."' and teType='".$teType."' order by teID");
 	while($row = mysql_fetch_array($BIGtechexpSQL))
 	{
-		echo "<li class='teDesc'>" . $row['teDesc'] . "</li>";
+		if ($techCounter > $techCountUp)
+		{
+			echo "<li class='teDesc'>" . $row['teDesc'] . ", </li>";
+			$techCountUp++;
+		}
+		else
+		{ echo "<li class='teDesc'>" . $row['teDesc'] . "</li>"; }
 	}
 }
 
