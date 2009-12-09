@@ -5,7 +5,7 @@ $con = mysql_connect($host,$name,$pwd);
 $localAd	= false;
 $homeAd		= false;
 
-function getUserID($userTag)
+function dbConnectGO()
 {
 	if (!$con)
 		{
@@ -14,10 +14,27 @@ function getUserID($userTag)
 	else
 	{
 		mysql_select_db($db, $con);
-		$userTagSQL = mysql_query('select userID from resume_dev.res_user where userTag="' . $userTag . '"');
-		while($row = mysql_fetch_object($userTagSQL))
-		{ $userID = $row->userID; }
 	}
+}
+function getUserID($userTag)
+{
+	$userTagSQL = mysql_query('select userID from resume_dev.res_user where userTag="' . $userTag . '"');
+	while($row = mysql_fetch_object($userTagSQL))
+	{ $userID = $row->userID; }
+}
+
+function navigation($userID)
+{
+	echo "<nav class="nav"><h4>Click to Expand</h4><hr /><ul><li><a href='#' class='all'>All</a></li>";
+	$navSQL = mysql_query("select navClass, navDesc from resume_dev.res_user_pref_nav where userID='". $userID ."'");
+	while($row = mysql_fetch_array($navSQL))
+	{
+		$navClass	= $row['navClass'];
+		$navDesc	= $row['navDesc'];
+		echo "<li><a href='#' class='". $navClass ."'>". $navDesc ."</a></li>";
+	}
+		
+	echo "<li><a href='#' class='up noline'>&uarr;</a></li></ul><hr /></nav>";
 }
 
 function getUserPrefs($userID)

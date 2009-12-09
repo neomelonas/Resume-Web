@@ -25,20 +25,7 @@
 			<header>
 				<? populateHeader($userID); ?>
 			</header>
-			<nav class="nav">
-				<h4>Click to Expand</h4>
-				<hr />
-				<ul>
-					<li><a href="#" class="all">All</a></li>
-					<li><a href="#" class="ed">Education</a></li>
-					<li><a href="#" class="rc">Relevant Curriculum</a></li>
-					<li><a href="#" class="pe">Professional Experience</a></li>
-					<li><a href="#" class="ia">Interests &amp; Activities</a></li>
-					<li><a href="#" class="te">Technology Experience</a></li>
-					<li><a href="#" class="up noline">&uarr;</a></li>
-				</ul>
-				<hr />
-			</nav>
+			<?php navigation($userID); ?>
 			<div id="stuff">
 				<h2><a href="#" class="ed noslip">Education</a></h2>
 				<div id="education" class="slip">
