@@ -25,7 +25,7 @@ function getUserID($userTag)
 
 function navigation($userID)
 {
-	echo "<nav class="nav"><h4>Click to Expand</h4><hr /><ul><li><a href='#' class='all'>All</a></li>";
+	echo "<nav class='nav'><h4>Click to Expand</h4><hr /><ul><li><a href='#' class='all'>All</a></li>";
 	$navSQL = mysql_query("select navClass, navDesc from resume_dev.res_user_pref_nav where userID='". $userID ."'");
 	while($row = mysql_fetch_array($navSQL))
 	{
