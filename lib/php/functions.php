@@ -49,7 +49,7 @@ function getUserPrefs($userID)
 }
 
 
-function populateName($con, $userID)
+function populateName($userID)
 {
 	$nameSQL = mysql_query("select userFName, userMName, userLName from resume_dev.res_user where userID='".$userID."'");
 	while($row = mysql_fetch_array($nameSQL))
