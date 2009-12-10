@@ -1,11 +1,9 @@
 <?php
 
-$con = mysql_connect($host,$name,$pwd);
-
 $localAd	= false;
 $homeAd		= false;
 
-function dbConnectGO()
+function dbConnectGO($con)
 {
 	if (!$con)
 		{

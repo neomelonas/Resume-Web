@@ -12,7 +12,8 @@ include 'lib/php/functions.php';
 // [Tentative][real]
 // http://wvumisa.com/resume?u=UserName
 
-dbConnectGO();
+$con = mysql_connect($host,$name,$pwd);
+dbConnectGO($con);
 
 if (isset($_GET['user']))
 { $userTag = $_GET['user']; }
