@@ -356,7 +356,8 @@ function getPath($userID)
 	{ 
 		$userFName	= $row['userFName']; 
 		$userLName	= $row['userLName']; 
-		echo $uriName	= "./".getShortName($userID)."/".$userFName.".".$userLName.".Resume";
+		$uriName	= $uriPath.getShortName($userID)."/".$userFName.".".$userLName.".Resume";
+		echo $uriName;
 	}
 }
 ?>
