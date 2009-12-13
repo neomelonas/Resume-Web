@@ -355,7 +355,7 @@ function getPath($userID)
 	while($row = mysql_fetch_array($getsn))
 	{ 
 		$userFName	= $row['userFName']; 
-
+		$userLName	= $row['userLName']; 
 		echo $uriName	= "./".getShortName($userID)."/".$userFName.".".$userLName.".Resume";
 	}
 }
