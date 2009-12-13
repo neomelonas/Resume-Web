@@ -342,10 +342,10 @@ function populateTEDetails($userID,$teType)
 
 function getShortName($userID)
 {
-	$getsn = mysql_query("select shortname from resume_dev.res_user where userID='".$userID."'");
+	$getsn = mysql_query("select shortcode from resume_dev.res_user where userID='".$userID."'");
 	while($row = mysql_fetch_array($getsn))
 	{
-		$shortname	= $row['shortname']; 
+		$shortname	= $row['shortcode']; 
 		echo $shortname;
 	}
 }
