@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^resume/(\w+)/?$ resume.php?u=$1 [L]
