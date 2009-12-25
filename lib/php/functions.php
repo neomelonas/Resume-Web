@@ -45,9 +45,21 @@ function mostViewed()
 	}
 }
 
-function grabResumeData($userID) {}
+function grabResumeData($userID) {
+	include ('D:\Server\xampp\htdocs/ResumeBeta/lib/php/db.php');
+	db_connect($con);
+	echo $db;
+}
 
 function GetUserName($userID) {
-	
+	$sql = mysql_query("SELECT userFName, userMName, userLName, middleASnick from res_user where userID=" . $userID . " LIMIT 1");
+	while($row = mysql_fetch_object($sql)) {
+		if (isset ($row->userMName))
+		{ $umname = $row->userMName; }
+		if (($row->middleASnick) && (isset($umname)))
+		{ $umname = '"'.$umname.'"'; }
+		$ufname = $row->userFName;
+		$ulname = $row->userLName;
+	}
 }
 ?>
