@@ -1,2 +1,6 @@
+# Ignore everything in here apart from the .gitignore file
+lib/php/db.php
+extras
 *.ico
 lib/conf/settings.inc	
+
