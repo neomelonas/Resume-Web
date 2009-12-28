@@ -16,8 +16,8 @@ body a.noicon {
 
 /* Make sure the icons are not cut */
 a[href^="http:"], a[href^="mailto:"], a[href^="http:"]:visited, 
-a[href$=".pdf"], a[href$=".doc"], a[href$=".xls"], a[href$=".rss"], 
-a[href$=".rdf"], a[href^="aim:"] {
+a[href$=".pdf"], a[href$=".doc"], a[href$=".docx"], a[href$=".xls"],
+a[href$=".xlsx"], a[href$=".rss"], a[href$=".rdf"], a[href^="aim:"] {
   padding:2px 22px 2px 0;
   margin:-2px 0;
   background-repeat: no-repeat;
@@ -31,8 +31,8 @@ a[href^="http:"]:visited  { background-image: url(icons/visited.png); }
 
 /* Files */
 a[href$=".pdf"]   { background-image: url(icons/pdf.png); }  
-a[href$=".doc"]   { background-image: url(icons/doc.png); }  
-a[href$=".xls"]   { background-image: url(icons/xls.png); }  
+a[href$=".doc"],a[href$=".docx"]   { background-image: url(icons/doc.png); }  
+a[href$=".xls"] ,a[href$=".xlsx"] { background-image: url(icons/xls.png); }  
  
 /* Misc */
 a[href$=".rss"], 

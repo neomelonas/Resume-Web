@@ -5,8 +5,13 @@ include ('lib/conf/settings.inc');
 include ('lib/php/functions.php');
 db_connect($con);
 if (isset($userID)) {
+<<<<<<< HEAD
 	$userInfo = array();
 	AnotherPageView($userID);
+=======
+	AnotherPageView($userID);
+	$userInfo = array();
+>>>>>>> Signed-off-by: Neo Melonas <neo@neomelonas.com>
 	$userInfo['ID'] = $userID;
 	FillUserInfo($userInfo);
 }
@@ -17,6 +22,7 @@ else //{$userID=1;}
 <html>
 	<head>
 		<title><?php GetUserName($userID); ?> | R&eacute;sum&eacute;</title>
+<<<<<<< HEAD
 		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/print.css" type="text/css" media="print" />
@@ -26,11 +32,26 @@ else //{$userID=1;}
 		
 		
 		<link rel="stylesheet" type="text/css" href="<?php echo $uriPath; ?>lib/css/<?php //echo $restype; ?>res.css" />
+=======
+		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/print.css" type="text/css" media="print" />
+		<!--[if lt IE 8]>
+			<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/ie.css" type="text/css" media="screen, projection" />
+		<![endif]-->
+		
+		
+		<link rel="stylesheet" type="text/css" href="/<?php echo $uriPath; ?>lib/css/<?php //echo $restype; ?>res.css" />
+>>>>>>> Signed-off-by: Neo Melonas <neo@neomelonas.com>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="description" content="Resume" />
 	</head>
 	<body>
+<<<<<<< HEAD
 		<div class="container">
+=======
+		<div class="container showgrid">
+>>>>>>> Signed-off-by: Neo Melonas <neo@neomelonas.com>
 			<header class="span-24">
 			<div id="header">
 				<?php GetUserInfo($userInfo); ?>
@@ -40,8 +61,12 @@ else //{$userID=1;}
 				<?php GetUserEd($userInfo); ?>
 			</div>
 			<hr />
+<<<<<<< HEAD
 			<a href="<?php echo $uriPath; ?>resetcount.php?u=<?php echo $userInfo['ID']; ?>">REMOVE THIS 
 LINK</a>
+=======
+			<a href="/ResumeBeta/resetcount.php?u=<?php echo $userInfo['ID']; ?>">REMOVE THIS LINK</a>
+>>>>>>> Signed-off-by: Neo Melonas <neo@neomelonas.com>
 			
 			
 			<footer><div id="footer">

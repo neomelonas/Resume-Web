@@ -290,10 +290,10 @@ function FillUserInfo($userInfo) {
 	else
 	{ $uName = $ufname . " " . $ulname; }
 	$userInfo[name] = $uName;
-	 $GETsql = mysql_query('SELECT clickCount FROM resume_dev2.res_data_user WHERE userID="'. $userID .'" LIMIT 
+	$GETsql = mysql_query('SELECT clickCount FROM resume_dev2.res_data_user WHERE userID="'. $userID .'" LIMIT 
 1');
-        while($row = mysql_fetch_object($GETsql)) {
-                $userInfo[views] = $row->clickCount;
+	while($row = mysql_fetch_object($GETsql)) {
+		$userInfo[views] = $row->clickCount;
 	}
 	$sql = mysql_query("SELECT L.locID, locStreet, locStreet2, locCity ,locState, locZIP, homeLoc FROM resume_dev2.res_location L INNER JOIN res_user_loc UL ON L.locID=UL.locID WHERE userID='" . $userID . "'");
 	while($row = mysql_fetch_object($sql)) {
