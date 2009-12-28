@@ -67,7 +67,7 @@
 			<footer><div id="footer">
 				<hr />
 				<p>
-					Download As:  <a href="<?php getShortName($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<?php getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<?php getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<?php getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF & DOCX & DOC R&eacute;sum&eacute;s)">ZIP</a>
+					Download As:  <a href="<?php getShortName($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<?php getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<?php getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<?php getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF &amp; DOCX &amp; DOC R&eacute;sum&eacute;s)">ZIP</a>
 				</p>
 				<hr /></div>
 			</footer>
