@@ -1,10 +1,8 @@
 <?php  
-include ('lib/php/db.php');
 include ('lib/conf/settings.inc');
 include ('lib/php/functions.php');
 db_connect($con);
-if (isset($_GET['s'])) { $sString = $_GET['s']; echo $sString; }  // ECHO IS A TEST WOO.
-
+//if (isset($_GET['s'])) { $sString = $_GET['s']; echo $sString; }  // ECHO IS A TEST WOO.
 ?>
 <!doctype html>
 <html>
@@ -34,29 +32,18 @@ if (isset($_GET['s'])) { $sString = $_GET['s']; echo $sString; }  // ECHO IS A T
 			<hr />
 			<div id="content" class="span-24 ">
 				<article class="span-14 prepend-2 column">
-					<p>This is the search banana</p>
+					<p>This is the top banana</p>
 					<p>I strongly recommend using the "Advanced Search" Option.</p>
 					<p class="alt">Seeing as the regular search doesn't work...</p>
 				</article>
 				<aside class="column prepend-2 last">
-					<form method="get" action="results.php" id="simplesearch" name="simplesearch">
+					<form method="get" action="index.php" id="test" name="test">
 						<input type="text" class="search quiet removed" name="s" value="Search Disabled" disabled="disabled" /><br />
-						<a href="search.php" title="Advanced Search" class="noline small prepend-2">Advanced Search</a>
+						<a href="search.php" title="Advanced Search" class="noline small prepend-2 error">Advanced Search</a>
 					 </form>
 				</aside>
 				<hr class="space" />
-				<article class="span-20 prepend-2">
-					<form method="get" action="results.php" id="advancedsearch" name="advancedsearch">
-						<label for="search">Search for:&nbsp;</label><input type="text" class="text" name="s" id="search"/>
-						<input type="checkbox" name="ed" value="1" /><label for="ed">Education</label>
-						<input type="checkbox" name="pe" value="1" /><label for="pe">Experience</label>
-						<input type="checkbox" name="rc" value="1" /><label for="rc">Coursework</label>
-						
-					</form>
-				</article>
-				<hr class="space" />
 				<article class="span-22 prepend-1 clear">Like, I go toward the bottom?  But not at the bottom? Yea.</article>
-
 				<footer class="span-24"><?php include ('lib/includes/footer.inc'); ?></footer>
 			</div>
 		</div>
