@@ -1,5 +1,6 @@
 header, nav, article, section, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
+@media screen{html{background-color:#fffff3;color:#000000;}}
 #wrapper {margin:auto;width:850px;line-height:1.1em;}
 body {font-family:arial;font-size:1em;}
 h1{font-size:2.5em;line-height:1.15em;}

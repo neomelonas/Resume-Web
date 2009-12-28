@@ -28,14 +28,13 @@ if ((isset($userTag)) && !(isset($userID)))
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="lib/css/reset.css" />
-		<title><? populateName($userID); ?> < MIS  R&eacute;sum&eacute; Book | WVUMISA.com</title>
+		<title><?php populateName($userID); ?> &lt; MIS  R&eacute;sum&eacute; Book | WVUMISA.com</title>
 		<link rel="stylesheet" type="text/css" href="lib/css/res.css" />
 		<!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="lib/css/bad.css" />
 		<![end if]/-->
 		<noscript><link rel="stylesheet" type="text/css" href="lib/css/noscript.css" /></noscript>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<meta charset="UTF-8">
 		<!-- Eventually do other "meta" stuff /-->
 	</head>
 	<body>
@@ -44,4 +43,4 @@ if ((isset($userTag)) && !(isset($userID)))
 				<? populateHeader($userID); ?>
 			</header>
 			<?php navigation($userID); ?>
-			
+		</div>

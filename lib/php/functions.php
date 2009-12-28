@@ -24,12 +24,16 @@ function getUserID($userTag)
 function navigation($userID)
 {
 	echo "<nav class='nav'><h4>Click to Expand</h4><hr /><ul><li><a href='#' class='all'>All</a></li>";
-	$navSQL = mysql_query("select navClass, navDesc from resume_dev.res_user_nav where userID='". $userID ."'");
+	$navSQL = mysql_query("select navClass from resume_dev.res_nav");// where userID='". $userID ."'");
 	while($row = mysql_fetch_array($navSQL))
 	{
 		$navClass	= $row['navClass'];
-		$navDesc	= $row['navDesc'];
-		echo "<li><a href='#' class='". $navClass ."'>". $navDesc ."</a></li>";
+		$moreNavSQL = mysql_query("select navDesc from resume_dev.res_nav where navClass='". $navClass ."'");// where userID='". $userID ."' and 
+		while($line = mysql_fetch_array($moreNavSQL))
+		{
+			$navDesc	= $row['navDesc'];
+			echo "<li><a href='#' class='". $navClass ."'>". $navDesc ."</a></li>";
+		}
 	}
 		
 	echo "<li><a href='#' class='up noline'>&uarr;</a></li></ul><hr /></nav>";

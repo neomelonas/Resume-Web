@@ -17,7 +17,6 @@
 		<![end if]/-->
 		<noscript><link rel="stylesheet" type="text/css" href="lib/css/noscript.css" /></noscript>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<meta charset="UTF-8">
 		<!-- Eventually do other "meta" stuff /-->
 	</head>
 	<body>
