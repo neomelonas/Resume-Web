@@ -6,14 +6,14 @@ RewriteRule \.(css|jpe?g|gif|png|docx?|pdf|zip)$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^resume/(\d+)/?$ res-resume.php?u=$1 [L]
 
-
+##BROWSING
 #RewriteRule ^browse/? res-browse.php [C]
 RewriteRule ^browse/(\w+)/?$ res-browse.php?b=$1 [C]
 RewriteRule ^browse/(\w+)/([0-9]+)?/?$ res-browse.php?b=year&$1 [L]
 #RewriteRule ^(\w+)/([0-9]+)/?$ res-browse.php?b=$1&y=$2 [L]
 #RewriteRule ^browse/(\w+)/?$ res-browse.php?b=$1 [L]
 
-
+##TEMPLATE
 #RewriteRule ^([^/\.]+)/?$ /master.php?page=$1 [L]
 #RewriteRule ^([^/\.]+)/([^/\.]+)/?$ /master.php?section=$1&page=$2 [L]
 #RewriteRule ^([^/\.]+)/([^/\.]+)/([^/\.]+)/?$ /master.php?section=$1&subsection=$2&page=$3 [L]

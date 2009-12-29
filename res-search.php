@@ -11,14 +11,14 @@ if (isset($_GET['q'])) { $sString = $_GET['q']; echo $sString; }  // ECHO IS A T
 	<head>
 		<title>WVU MIS R&eacute;sum&eacute; Splash Page</title>
 		<!-- Using Blueprint-CSS /-->
-		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection">
-		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
-		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/plugins/link-icons/screen.css" type="text/css" media="screen, projection">
-		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection">
-		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/print.css" type="text/css" media="print">
-		<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blocksANDspecs.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/plugins/link-icons/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/print.css" type="text/css" media="print">
+		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blocksANDspecs.css" type="text/css" media="screen, projection">
 		<!--[if lt IE 8]>
-			<link rel="stylesheet" href="/<?php echo $uriPath; ?>lib/css/blueprint/ie.css" type="text/css" media="screen, projection">
+			<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/ie.css" type="text/css" media="screen, projection">
 		<![endif]-->
 		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 		<meta name="description" content="Search WVU MIS R&eacute;su&eacute; Book" />

@@ -1,7 +1,7 @@
 <?php
 // App Settings
-$uriPath	= "ResumeBeta/";
-$absPath	= "D:\Server\xampp\htdocs\ResumeBeta\\";
+$uriPath	= "MultiUserResume/";		// TRAILING SLASH...
+$absPath	= "/home/projects/MultiUserResume/";
 
 // Database Settings
 $host	= 'localhost';

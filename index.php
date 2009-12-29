@@ -9,6 +9,7 @@ db_connect($con);
 	<head>
 		<title>WVU MIS R&eacute;sum&eacute; Splash Page</title>
 		<!-- Using Blueprint-CSS /-->
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /><!-- Favicon /--> 
 		<link rel="stylesheet" href="lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="lib/css/blueprint/plugins/link-icons/screen.css" type="text/css" media="screen, projection" />
@@ -46,18 +47,18 @@ db_connect($con);
 				<article class="span-20 prepend-3" id="firstrow">
 					<section id="mostviewed" class="column list span-5">
 						<h3>Most Viewed R&eacute;sum&eacute;s:</h3>
-						<ul><?php mostViewed(); ?></ul>
+						<ul><?php mostViewed($uriPath); ?></ul>
 					</section>
 					<section id="featured" class="prepend-2 colborder column list span-5">
 						<h3>Featured R&eacute;sum&eacute;s:</h3>
 						<ul>
-							<?php featured(); ?>
+							<?php featured($uriPath); ?>
 						</ul>
 					</section>
 					<section id="recentlyadded" class="prepend-2 column list last">
 						 <h3>Recently Added R&eacute;sum&eacute;s:</h3>
 						<ul>
-							<?php recentAddition(); ?>
+							<?php recentAddition($uriPath); ?>
 						</ul>
 					</section>
 				</article>
@@ -65,13 +66,13 @@ db_connect($con);
 				<article class="span-20 prepend-3" id="secondrow">
 					<section id="recentlyupdated" class="column list span-5">
 						<h3>Recently Updated:</h3>
-						<ul><?php recentUpdate(); ?></ul>
+						<ul><?php recentUpdate($uriPath); ?></ul>
 					</section>
 
 					<section id="mostsearched" class="prepend-2 column list span-5">
 						<h3>Most Searched Terms:</h3>
 						<ul>
-							<?php //mostSearched(); ?>
+							<?php //mostSearched($uriPath); ?>
 							<li>LIST ONE</li>
 							<li>LIST TWO</li>
 							<li>LIST THREE</li>

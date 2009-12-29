@@ -13,8 +13,8 @@ else //{$userID=1;}
 <html>
 	<head>
 		<title><?php GetUserName($userID); ?> | R&eacute;sum&eacute;</title>
-		<link rel="stylesheet" type="text/css" href="/<?php echo $uriPath; ?>lib/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="/<?php echo $uriPath; ?>lib/css/<?php //echo $restype; ?>res.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $uriPath; ?>lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $uriPath; ?>lib/css/<?php //echo $restype; ?>res.css" />
 		<!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="lib/css/ie/<?php echo $restype; ?>.css" />
 		<![end if]/-->

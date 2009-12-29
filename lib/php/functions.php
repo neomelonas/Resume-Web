@@ -39,38 +39,40 @@ function AnotherPageView($userID) {
 	}
 	 echo "<!-- " . $clickCount . " /-->";
 }
-function featured() {
+function featured($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName, DU.clickCount FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID WHERE featured=1 ORDER BY DU.clickCount DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/'>" . $userName . "</a></li>";
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/'>" . $userName . "</a></li>";
 	}
 }
-function recentUpdate() {
+function recentUpdate($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.lastUpdate DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/'>" . $userName . "</a></li>";
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/'>" . $userName . "</a></li>";
 	}
 }
-function recentAddition() {
+function recentAddition($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.dateCreated DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/'>" . $userName . "</a></li>";
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/'>" . $userName . "</a></li>";
 	}
 }
-function mostViewed() {
+function mostViewed($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName, DU.clickCount FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.clickCount DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql))
 	{
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
 		$clicks = $row->clickCount;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/' title='". $clicks ." Views'>" . $userName . "</a>  <span class='canhide'>". $clicks ." Views</span></li>";//" . $uriPath . "
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/' title='". $clicks ." Views'>" . 
+$userName . "</a>  <span 
+class='canhide'>". $clicks ." Views</span></li>";//" . $uriPath . "
 	}
 }
 
@@ -167,7 +169,8 @@ function browsing($browse) {
 				$ufname = $row->userFName;
 				$ulname = $row->userLName;
 				$username = $ufname . " " . $ulname;
-				echo "<li><a href='/ResumeBeta/resume/". $userID . "/'>" . $username ."</a></li>";
+				echo "<li><a href=''" . $uriPath . "resume/". $userID . "/'>" . $username 
+."</a></li>";
 			}
 			$letter++;
 			echo "</ul>";
@@ -186,7 +189,8 @@ function browsing($browse) {
 				$ufname = $lines['userFName'];
 				$ulname = $lines['userLName'];
 				$username = $ufname . " " . $ulname;
-				echo "<li><a href='/ResumeBeta/resume/" . $userID . "/>" . $username . "</a></li>";
+				echo "<li><a href='" . $uriPath . "resume/" . $userID . "/>" . $username . 
+"</a></li>";
 			}
 			echo "</ul>";
 		}
@@ -203,7 +207,8 @@ function browsing($browse) {
 				$ufname = $row->userFName;
 				$ulname = $row->userLName;
 				$username = $ufname . " " . $ulname;
-				echo "<li><a href='/ResumeBeta/resume/" . $userID . "'>" . $username . "</a></li>";
+				echo "<li><a href='" . $uriPath . "resume/" . $userID . "'>" . $username . 
+"</a></li>";
 			}
 		}
 	}
