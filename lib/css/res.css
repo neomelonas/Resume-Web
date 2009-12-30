@@ -1,11 +1,16 @@
-header, nav, article, section, footer {display:block;}
+header, nav, article, section, aside, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
 #wrapper {margin:auto;width:850px;line-height:1.1em;}
 body {font-family:arial;font-size:1em;}
-h1{font-size:2.5em;line-height:1.15em;}
-h2{font-size:1.1em;line-height:1.1em;padding-bottom:5px;}
-h3{font-size:.8em;line-height:1.1em;}
-h4{font-size:.7em;line-height:1.1em;text-align:center;}
+h1{font-size:2.5em;}
+h2{font-size:1.1em;;padding-bottom:5px;}
+h3{font-size:.8em;}
+h4{font-size:.7em;text-align:center;}
+h1, h2, h3, h4 {margin:0;}
+h1,h2,h3,h4,hr{line-height:1em;}
+footer hr, footer p{margin:0;}
+h1,h4{text-transform: uppercase;}
+
 
 ul,ol{list-style-position:inside;}
 sup {font-size: 0.6em; line-height: 0.5em}
@@ -52,10 +57,11 @@ nav li,.nav li{display:inline;padding:5px;}
 
 #tech {padding:0 0 10px 10px;}
 	#tech li:first-child{padding-left:2px;}
-	span .teTitle{text-style:italic;}
+	span .teTitle{font-style:italic;}
 	
 .techDetails li{display:inline;list-style:none;padding:0;}
 
 footer {text-align:center;margin-bottom:10px;}
 
 .slip{display:none;}
+

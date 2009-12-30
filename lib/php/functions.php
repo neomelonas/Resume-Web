@@ -21,12 +21,6 @@ function mostSearched() {
 	}
 }
 
-
-
-function recentChanges() {
-	$datetime = date("y-m-d H:i:s",time());	
-}
-
 function AnotherPageView($userID) {
 	$GETsql = mysql_query('SELECT clickCount FROM resume_dev2.res_data_user WHERE userID="'. $userID .'" LIMIT 1');
 	while($row = mysql_fetch_object($GETsql)) {
@@ -39,38 +33,39 @@ function AnotherPageView($userID) {
 	}
 	 echo "<!-- " . $clickCount . " /-->";
 }
-function featured() {
+function featured($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName, DU.clickCount FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID WHERE featured=1 ORDER BY DU.clickCount DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/'>" . $userName . "</a></li>";
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/'>" . $userName . "</a></li>";
 	}
 }
-function recentUpdate() {
+function recentUpdate($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.lastUpdate DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/'>" . $userName . "</a></li>";
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/'>" . $userName . "</a></li>";
 	}
 }
-function recentAddition() {
+function recentAddition($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.dateCreated DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/'>" . $userName . "</a></li>";
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/'>" . $userName . "</a></li>";
 	}
 }
-function mostViewed() {
+function mostViewed($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName, DU.clickCount FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.clickCount DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql))
 	{
 		$userID = $row->userID;
 		$userName = $row->userFName . " " . $row->userLName;
 		$clicks = $row->clickCount;
-		echo "<li><a href='/ResumeBeta/resume/" . $userID . "/' title='". $clicks ." Views'>" . $userName . "</a>  <span class='canhide'>". $clicks ." Views</span></li>";//" . $uriPath . "
+		echo "<li><a href='" . $uriPath . "resume/" . $userID . "/' title='". $clicks ." Views'>" . $userName 
+. "</a>  <span class='canhide'>". $clicks ." Views</span></li>";//" . $uriPath . "
 	}
 }
 
@@ -162,7 +157,7 @@ function GetUserEmail($userInfo) {
 function GetUserEd($userInfo) {
 	$userID = $userInfor[ID];
 	
-	$edSQL = mysql_query("SELECT edID, edName, edCity, edState, edStart, edEnd FROM res_user_ed UE INNER JOIN res_education ED UE.edID=ED.edID WHERE userID='" . $userID . "'");
+	$edSQL = mysql_query("SELECT ed.edID, edName, edCity, edState, edStart, edEnd FROM res_user_ed ued INNER JOIN res_education ed on ued.edID=ed.edID WHERE  userID='" . $userID . "'");
 	while($row = mysql_fetch_object($edSQL)) {
 		$edID = $row->edID;
 		$edName = $row->edName;
@@ -295,7 +290,11 @@ function FillUserInfo($userInfo) {
 	else
 	{ $uName = $ufname . " " . $ulname; }
 	$userInfo[name] = $uName;
-	
+	 $GETsql = mysql_query('SELECT clickCount FROM resume_dev2.res_data_user WHERE userID="'. $userID .'" LIMIT 
+1');
+        while($row = mysql_fetch_object($GETsql)) {
+                $userInfo[views] = $row->clickCount;
+	}
 	$sql = mysql_query("SELECT L.locID, locStreet, locStreet2, locCity ,locState, locZIP, homeLoc FROM resume_dev2.res_location L INNER JOIN res_user_loc UL ON L.locID=UL.locID WHERE userID='" . $userID . "'");
 	while($row = mysql_fetch_object($sql)) {
 		$homeLoc = null;
