@@ -157,11 +157,7 @@ function GetUserEmail($userInfo) {
 function GetUserEd($userInfo) {
 	$userID = $userInfor[ID];
 	
-<<<<<<< HEAD
-	$edSQL = mysql_query("SELECT ed.edID, edName, edCity, edState, edStart, edEnd FROM res_user_ed ued INNER JOIN res_education ed on ued.edID=ed.edID WHERE  userID='" . $userID . "'");
-=======
-	$edSQL = mysql_query("SELECT edID, edName, edCity, edState, edStart, edEnd FROM res_user_ed UE INNER JOIN res_education ED UE.edID=ED.edID WHERE userID='" . $userID . "'");
->>>>>>> Signed-off-by: Neo Melonas <neo@neomelonas.com>
+	$edSQL = mysql_query("SELECT ed.edID, edName, edCity, edState, edStart, edEnd FROM res_user_ed ued INNER JOIN res_education ed on ued.edID=ed.edID WHERE userID='" . $userID . "'");
 	while($row = mysql_fetch_object($edSQL)) {
 		$edID = $row->edID;
 		$edName = $row->edName;
