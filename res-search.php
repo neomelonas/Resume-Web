@@ -1,5 +1,4 @@
 <?php  
-include ('lib/php/db.php');
 include ('lib/conf/settings.inc');
 include ('lib/php/functions.php');
 db_connect($con);
@@ -27,7 +26,7 @@ if (isset($_GET['q'])) { $sString = $_GET['q']; echo $sString; }  // ECHO IS A T
 		<div class="container">
 			<div id="header">
 			<header class="span-24 last prepend-top">
-				<h1 class="bottom"><a href="/<?php echo $uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
+				<h1 class="bottom"><a href="<?php echo $uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
 				<h2 class="alt top">We Really are Quite Incredibly Awesome</h2>
 			</header>
 			</div>

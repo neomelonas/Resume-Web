@@ -1,0 +1,14 @@
+resume
+|x	user = new user($userID);
+|x	location = new location();
+|	education = new education();
+ \		contains:
+			school
+			college
+			degree
+			major
+			minor
+			gpa
+|	
+|		
+\	

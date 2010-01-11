@@ -20,7 +20,6 @@ function mostSearched() {
 		
 	}
 }
-
 function AnotherPageView($userID) {
 	$GETsql = mysql_query('SELECT clickCount FROM resume_dev2.res_data_user WHERE userID="'. $userID .'" LIMIT 1');
 	while($row = mysql_fetch_object($GETsql)) {
@@ -153,42 +152,61 @@ function GetUserEmail($userInfo) {
 		echo "<span class='email'><a href='mailto:" . $userInfo[email] . "'>" . $userInfo[email] . "</a></span></h4>";
 	}
 }
-
-function GetUserEd($userInfo) {
-	$userID = $userInfor[ID];
-	
-	$edSQL = mysql_query("SELECT ed.edID, edName, edCity, edState, edStart, edEnd FROM res_user_ed ued INNER JOIN res_education ed on ued.edID=ed.edID WHERE userID='" . $userID . "'");
-	while($row = mysql_fetch_object($edSQL)) {
-		$edID = $row->edID;
-		$edName = $row->edName;
-		$edCity = $row->edCity;
-		$edState = $row->edState;
-		$edStart = $row->edStart;
-		if (!isset($row->edEnd))
-		{ $edEnd = "Present"; }
+function GetUserEducation($userInfo) {
+	$userID = $userInfo[ID];
+	$education = array();
+	$major = array();
+	$sql = mysql_query("SELECT ed.edID, col.colID, `edName`, `edCity`, `edState`, `edStart`, `edEnd`, `colName`, `gradMonth`, `gradYear`, `degreeName` FROM resume_dev2.res_education ed INNER JOIN res_user_col ucol on ed.edID=ucol.edID INNER JOIN res_ed_col col on ucol.colID=col.colID INNER JOIN res_ed_degree deg on ucol.degreeID=deg.degreeID WHERE userID='" . $userID . "'");
+	while($row = mysql_fetch_object($sql)) {
+		$education[ID] = $row->edID;
+		$education[edName] = $row->edName;
+		$education[city] = $row->edCity;
+		$education[state] = $row->edState;
+		$education[edStart] = $row->edStart;
+		if (isset($row->edEnd))
+		{ $education[edEnd] = $row->edEnd; }
 		else
-		{ $edEnd = $row->edEnd; }
-		$colSQL = mysql_query("SELECT C.colID, colName, gradMonth, gradYear from resume_dev2.res_user_col UC INNER JOIN resume_dev2.res_ed_col C on UC.colID=C.colID WHERE userID='" . $userID . "' AND C.edID='" . $edID . "'");
-		while($lines = mysql_fetch_object($colSQL)) {
-			$colID = $lines->colID;
-			$colName = $lines->colName;
-			if (isset($lines->gradMonth)) 
-			{ $gradMonth = $lines->gradMonth; }
-			$gradYear = $lines->gradYear;
-			$degSQL = mysql_query("SELECT D.degreeID, degreeName, gpa FROM resume_dev2.res_ed_degree D INNER JOIN  resume_dev2.res_user_deg UD on D.degreeID=UD.degreeID INNER JOIN resume_dev2.res_user_gpa UG on D.degreeID=UG.degreeID WHERE userID='" . $userID . "' and colID='" . $colID . "'");
-			while($paths = mysql_fetch_object($degSQL)) {
-				$degreeID = $paths->degreeID;
-				$degreeName = $paths->degreeName;
-				$gpa = $paths->gpa;
-				echo $gpa;
-			}
+		{ $education[edEnd] = 'Present'; }
+		$education[colID] = $row->colID;
+		$education[colName] = $row->colName;
+		if (isset($row->gradMonth))
+		{ $education[gradMonth] = $row->gradMonth; }
+		else
+		{ $education[gradMonth] = ''; }
+		$education[gradYear] = $row->gradYear;
+		$education[degree] = $row->degreeName;
+		
+		$edDisplay = "<section id='ed-" . $education[ID] . "'><section class='span-7 column'><ul><li class='school'>" . $education[edName] . "</li><li class='college col-" . $education[colID] . "'>" . $education[colName] . "</li><li class='degree'>" . $education[degree] . "</li>";
+		$sql2 = mysql_query("SELECT maj.majorID, maj.majorName, umaj.gpa FROM res_ed_col col INNER JOIN res_user_major umaj on col.colID=umaj.colID INNER JOIN res_ed_major maj on umaj.majorID=maj.majorID WHERE userID='" . $userID . "' AND colID='" . $education[colID] . "'");
+		//$major[count] = mysql_num_rows($sql2);
+		//if ($major[count] > '1')
+		//{ $edDisplay += "<ul class='" . $major[count] . "majors multimajor'>"; }
+		while($line = mysql_fetch_object($sql2)) {
+			$major[ID] = $line->majorID;
+			$major[name] = $line->majorName;
+			if (isset($line->gpa)) { $education[major] = $line->majorName; $education[gpa] = $line->gpa; }
+			
+			$edDisplay += "<li class='major ma-" . $major[ID] . "'>" . $major[name] . "</li>";
 		}
+		//if ($major[count] > '1') { $edDisplay += "</ul>"; }
+		GetUserMinor($userInfo);
+		$edDisplay += "</ul></section><section class='prepend-2 span-5 column'><ul><li class='location'>" . $education[city] . ", " . $education[state]. "</li></ul></section><section class='prepend-3 span-4 column last'><ul>	<li class='range'>" . $education[edStart] . " &ndash; " . $education[edEnd] . "</li><li class='grad'><span class='graduation'>Graduation: </span>" . $education[gradMonth] . " " . $education[gradYear] . "</li><li class='blank'></li><li class='gpa'>";
+		if (isset($education[major])) { $edDisplay += $education[major] . " "; }
+		if (isset($education[gpa])) 
+		{ $edDisplay += "GPA: " . $education[gpa]; }
+		$edDisplay += "</li></section></section>";
 	}
-
-		$majSQL = mysql_query("SELECT majorID from resume_dev2.res_user_major where userID='" . $userID . "' and colID='" . $colID . "'");
-}	
+}
 function GetUserMinor($userID) {
-	$minSQL = mysql_query("SELECT minorID from resume_dev2.res_user_minor where userID='" . $userID . "'");
+	$sql = mysql_query("SELECT min.minorID, `minorName` FROM res_ed_minor min INNER JOIN res_user_minor umin on min.minorID=umin.minorID WHERE userID='" . $userID . "'");
+	$minor[count] = mysql_num_rows($sql);
+	if ($minor[count] > '1')
+	{ $edDisplay += "<ul class='" . $minor[count] . "minors multiminor'>"; }
+	while($row = mysql_fetch_object($sql)) {
+		if (isset($row->minorName)) { $edDisplay += "<li class='minor minor-" . $row->minorID . ">" . $row->minorName . "</li>"; }
+	}
+	if ($minor[count] > '1')
+	{ $edDisplay += "</ul>";}
 }
 function GetUserTech($userID) {	
 	$techSQL = mysql_query("SELECT teID from resume_dev2.res_user_tech where userID='" . $userID . "'");
@@ -230,12 +248,11 @@ function browsing($browse) {
 			$majorID = $row->majorID;
 			$majorName = $row->majorName;
 			echo "<h4>" . $majorName .", ". $majorID . "</h4><ul>";
-			$moreSQL = ("SELECT `U.userID`, `U.userFName`, `U.userLName` FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_user_major UM on U.userID=UM.userID where UM.majorID=" . $row->majorID . "");
-			while($lines = mysql_fetch_array($moreSQL)) {
-				echo $row['majorName'];
-				$userID = $lines['userID'];
-				$ufname = $lines['userFName'];
-				$ulname = $lines['userLName'];
+			$moreSQL = ("SELECT U.userID, `userFName`, `userLName` FROM res_user U INNER JOIN res_user_major UM on U.userID=UM.userID where UM.majorID=" . $majorID . "");
+			while($lines = mysql_fetch_object($moreSQL)) {
+				$userID = $lines->userID;
+				$ufname = $lines->userFName;
+				$ulname = $lines->userLName;
 				$username = $ufname . " " . $ulname;
 				echo "<li><a href='/ResumeBeta/resume/" . $userID . "/>" . $username . "</a></li>";
 			}

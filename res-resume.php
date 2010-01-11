@@ -1,22 +1,37 @@
 <?php
 if (isset($_GET['u']))
 { $userID = $_GET['u']; }
-include ('lib/conf/settings.inc');
-include ('lib/php/functions.php');
-db_connect($con);
+include ('lib/conf/settings.php');
+function __autoload($class) { include_once ($uriPath."lib/class/class.{$class}.php"); }
+//include ('lib/php/functions.php');
+
+// user settings
+$restype = 1;
+$links = all;
+//
+
 if (isset($userID)) {
-	AnotherPageView($userID);
-	$userInfo = array();
-	$userInfo['ID'] = $userID;
-	FillUserInfo($userInfo);
+	//AnotherPageView($userID);
+	$resuser = new user($userID,$dbname,$dbcon);
+	$home = new location($dbname,1,$resuser->getUserID(),$dbcon);
+	$loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
+	$te = new technology($dbcon,$resuser->getUserID(),$restype);
+	$ia = new intact($dbcon,$resuser->getUserID());
+	$ed = new education($dbcon,$resuser->getUserID(),$row->ucID);
+	
+//$sql = $dbcon->query("SELECT ucID FROM res_user_ed WHERE userID='" . $resuser->getUserID() . "'");
+//while($row = $sql->fetch_object()) {
+//	$education[$counter] = new education($dbcon,$resuser->getUserID(),$row->ucID);
+//	$counter++;
+//}
+
 }
-else //{$userID=1;}
-{die ('SHIIIT'); }
+else {die ('SHIIIT'); }
 ?>
 <!doctype html>
 <html>
 	<head>
-		<title><?php GetUserName($userID); ?> | R&eacute;sum&eacute;</title>
+		<title><?php $resuser->userFullName('long'); ?> | R&eacute;sum&eacute;</title>
 		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/print.css" type="text/css" media="print" />
@@ -30,28 +45,58 @@ else //{$userID=1;}
 		<meta name="description" content="Resume" />
 	</head>
 	<body>
-		<div class="container showgrid">
+		<div class="container">
 			<header class="span-24">
 			<div id="header">
-				<?php GetUserInfo($userInfo); ?>
+				<h1><?php $resuser->userFullName('long'); ?></h1>
+				<h4><?php $home->locationDisplay(); ?></h4>
+				<?php if (!is_null($loc->getLocID())) { echo "<h4>"; $loc->locationDisplay(); echo "</h4>"; }; ?>
+				<h4><?php echo "<a href=\"mailto:{$resuser->getUserEmail()}\">{$resuser->getUserEmail()}</a>"; ?></h4>
 			</div>
 			</header>
 			<div id="next">
-				<?php GetUserEd($userInfo); ?>
+				<article id="edBlock">
+					<section class="title ed noslip">
+						<h2><a href="#" class="ed noslip">Education</a></h2>
+					</section>
+					<section id="education">
+					<?php
+						$ed->displayEd();
+					?>
+					</section>
+				</article>
+				<div class="clear"></div>
+				<article id="teBlock">
+					<section class="title te noslip">
+						<h2><a href="#" class="te noslip">Technology Skills</a></h2>
+					</section>
+					<section id="techGroups">
+						<?php $te->quickDisplay($restype); ?>
+					</section>
+				</article>
+				<div class="clear"></div>
+				<article id="iaBlock">
+					<section class="title ia noslip">
+						<h2><a href="#" class="te noslip">Interests &amp; Activities</a></h2>
+					</section>
+					<section id="intact">
+						<?php $ia->displayIA(); ?>
+					</section>
+				</article>
 			</div>
-			<hr />
-			<a href="<?php echo $uriPath; ?>resetcount.php?u=<?php echo $userInfo['ID']; ?>">REMOVE THIS 
+			<hr class="space" />
+			<a href="<?php echo $uriPath; ?>resetcount.php?u=<?php echo $resuser->getUserID(); ?>">REMOVE THIS 
 LINK</a>
 			<footer><div id="footer">
 				<hr />
 				<p>
-					Download As:  <a href="<?php //getPath($userID); ?>.pdf" class="noline" title="PDF R&eacute;sum&eacute;">PDF</a> &#8226; <a href="<?php //getShortName($userID); ?>.docx" class="noline" title="DOCX R&eacute;sum&eacute;">DOCX</a> &#8226; <a href="<?php //getShortName($userID); ?>.doc" class="noline" title="DOC R&eacute;sum&eacute;">DOC</a> &#8226; <a href="<?php //getShortName($userID); ?>.zip" class="noline" title="ZIP (PDF &amp; DOCX &amp; DOC R&eacute;sum&eacute;s)">ZIP</a>
+					Download As:  <?php $resuser->docFiller($links); ?>
 				</p>
 				<hr /></div>
 			</footer> 
 		</div>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/js/slide.min.js"></script>
+		<script type="text/javascript" src="<?php echo "http://".$_SERVER['HTTP_HOST'].$uriPath; ?>lib/js/slide.min.js"></script>
 	</body>
 </html>
 

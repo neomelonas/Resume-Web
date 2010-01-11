@@ -46,7 +46,7 @@ db_connect($con);
 				<hr class="space" />
 				<article class="span-20 prepend-3" id="firstrow">
 					<section id="mostviewed" class="column list span-5">
-						<h3>Most Viewed R&eacute;sum&eacute;s:</h3>
+						<h3 class='error'>Most Viewed R&eacute;sum&eacute;s:</h3>
 						<ul><?php mostViewed($uriPath); ?></ul>
 					</section>
 					<section id="featured" class="prepend-2 colborder column list span-5">
@@ -70,7 +70,7 @@ db_connect($con);
 					</section>
 
 					<section id="mostsearched" class="prepend-2 column list span-5">
-						<h3>Most Searched Terms:</h3>
+						<h3 class='error'>Most Searched Terms:</h3>
 						<ul>
 							<?php //mostSearched($uriPath); ?>
 							<li>LIST ONE</li>

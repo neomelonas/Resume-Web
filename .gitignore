@@ -2,5 +2,4 @@
 lib/php/db.php
 extras
 *.ico
-lib/conf/settings.inc	
-
+lib/conf/settings.inc

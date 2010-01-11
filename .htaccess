@@ -3,8 +3,11 @@ RewriteEngine On
 # Allows stylesheets, images, docs, & zips to pass through touched.
 RewriteRule \.(css|jpe?g|gif|png|docx?|pdf|zip)$ - [L]
 
+##RESUME
+#RewriteMap nameMap txt:lib\conf\mapfile.txt
+#RewriteRule ^resume/(.*)/? ${nameMap:$1} [C]
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^resume/(\d+)/?$ res-resume.php?u=$1 [L]
+RewriteRule ^resume/(\d+)/?$ res-resume.php?u=$1 [L] #{nameMap:$1} [L]
 
 ##BROWSING
 #RewriteRule ^browse/? res-browse.php [C]

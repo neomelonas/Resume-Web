@@ -26,7 +26,7 @@ else { $browse = $_GET['b']; }
 		<div class="container">
 			<div id="header">
 			<header class="span-24 last prepend-top">
-				<h1 class="bottom"><a href="/<?php echo $uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
+				<h1 class="bottom"><a href="<?php echo $uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
 				<h2 class="alt top">We Really are Quite Incredibly Awesome</h2>
 			</header>
 			</div>

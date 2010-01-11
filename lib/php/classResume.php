@@ -1,7 +1,7 @@
 <?php
-public class Resume
+class Resume
 {
-	
+	var $userInfo;
 }
 
 
