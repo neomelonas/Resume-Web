@@ -4,10 +4,11 @@ RewriteEngine On
 RewriteRule \.(css|jpe?g|gif|png|docx?|pdf|zip)$ - [L]
 
 ##RESUME
-#RewriteMap nameMap txt:lib\conf\mapfile.txt
-#RewriteRule ^resume/(.*)/? ${nameMap:$1} [C]
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^resume/(\d+)/?$ res-resume.php?u=$1 [L] #{nameMap:$1} [L]
+##RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteMap themap txt:\d\Server\xampp\htdocs\ResumeBeta\lib\conf\mapfile.txt
+#RewriteCond %{REQUEST_URI}% ^ResumeBeta/resume/
+#RewriteRule ^resume/(.*)/? ^resume/${nameMap:$1}/? [C]
+RewriteRule ^resume/(\d+)/?$ res-resume.php?u=$1 [L]
 
 ##BROWSING
 #RewriteRule ^browse/? res-browse.php [C]
@@ -21,7 +22,7 @@ RewriteRule ^browse/(\w+)/([0-9]+)?/?$ res-browse.php?b=year&$1 [L]
 #RewriteRule ^([^/\.]+)/([^/\.]+)/?$ /master.php?section=$1&page=$2 [L]
 #RewriteRule ^([^/\.]+)/([^/\.]+)/([^/\.]+)/?$ /master.php?section=$1&subsection=$2&page=$3 [L]
 
-#RewriteCond %{REQUEST_URI} %{SERVER_NAME}ResumeBeta/search/?q=$
+RewriteCond %{REQUEST_URI} %{SERVER_NAME}%/ResumeBeta/search/?q=$
 RewriteRule ^search/?$ res-search.php [C]
 RewriteRule ^search/\?q=(\[A-Za-z0-9-]+)?/?$ res-search.php?q=$1 [L]
 
@@ -29,7 +30,7 @@ RewriteRule ^search/\?q=(\[A-Za-z0-9-]+)?/?$ res-search.php?q=$1 [L]
 RewriteRule ^browse/gradyear/(\w+)/?$ res-browse.php?b=year&y=$1 [L]
 
 RewriteCond %{HTTP_HOST} ^localhost [NC]
-RewriteRule ^todo/?$ todo.php
+RewriteRule ^todo/?$ todo.php [L]
 
 #([^/]+)/([^/]+)
 

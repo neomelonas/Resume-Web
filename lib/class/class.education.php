@@ -90,16 +90,11 @@ class Education {
 			$counter++;
 		}
 		for($count=0;$count<=$this->getSqlCounter();$count++) {
-			$iter = $this->ed->offsetGet($count)->getIterator();
-			while($iter->valid()) {
-				$this->fillMajor($this->getEdID());
-				$iter->next();
-			}
+				$this->fillMajor($dbcon,$this->getEdID());
 		}
-		print_r($this->ed);
 	}
 	
-	private function fillMajor($edID) {
+	private function fillMajor($dbcon,$edID) {
 		$sql = $dbcon->query("
 			SELECT `majorName`, `gpa` 
 			from res_ed_major M 
@@ -107,21 +102,18 @@ class Education {
 			INNER JOIN res_user_ed UE ON UM.ecdID=UE.ucID 
 			WHERE ucID='" . $edID . "' ORDER BY M.majorID
 		");
-		$this->major = new ArrayObject();
+		$this->major = array();
 		while($row = $sql->fetch_object()) {
-			$this->major->append($row->majorName,$row->gpa);
+			$this->major[$row->majorName] = "{$row->gpa}";
 		}
-		print_r($major);
+		print_r($this->major);
 	}
 	
 	public function displayEd() {
-		//echo $this->getEdName();
-		echo $this->getSqlCounter();	
 		for($count=0;$count<=$this->getSqlCounter();$count++) {
 			$iter = $this->ed->offsetGet($count)->getIterator();
 			while($iter->valid()) {
 				echo "{$iter->key()} : {$iter->current()} <br />";
-				echo $this->getEdID();
 				$iter->next();
 			}
 			//	print_r($this->ed->offsetGet($count));
