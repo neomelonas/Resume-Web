@@ -1,7 +1,9 @@
 <?php
-class IntAct {
 /**
  *	@package multiuser-resume
+*/
+class IntAct {
+/**
  *	@author neomelonas
  *	@version v3.0.3
  */

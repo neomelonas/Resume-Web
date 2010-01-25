@@ -1,7 +1,9 @@
 <?php
-class Education {
 /**
  *	@package multiuser-resume
+*/
+class Education {
+/**
  *	@author neomelonas
  *	@version v3.0.3
  */

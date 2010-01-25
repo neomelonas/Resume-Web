@@ -1,7 +1,9 @@
 <?php
-class Technology {
 /**
  *	@package multiuser-resume
+*/
+class Technology {
+/**
  *	@author neomelonas
  *	@version v3.0.3
  */

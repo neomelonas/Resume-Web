@@ -1,7 +1,9 @@
 <?php
-class Location {
 /**
  *	@package multiuser-resume
+*/
+class Location {
+/**
  *	@author neomelonas
  *	@version v3.0.3
  */
