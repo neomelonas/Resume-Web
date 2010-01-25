@@ -1,7 +1,9 @@
 <?php
+/**
+ *	@multiuser-resume
+ */
 class User {
 /**
- *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
  */
