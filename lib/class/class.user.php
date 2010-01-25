@@ -90,7 +90,7 @@ class User {
 	}
 	
 	function populateUser($dbname,$dbcon) {
-		$sql = $dbcon->query("SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`, `userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate, DU.clickCount, DU.featured FROM res_user U INNER JOIN res_data_user DU on U.userID=DU.userID WHERE U.userID='". $this->getUserID() ."' LIMIT 1");
+		$sql = $dbcon->query("SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`, `userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate, DU.clickCount, DU.featured FROM ".$dbname.".res_user U INNER JOIN ".$dbname.".res_data_user DU on U.userID=DU.userID WHERE U.userID='". $this->getUserID() ."' LIMIT 1");
 		while ($row = $sql->fetch_object()) {
 			$this->setUserFName($row->userFName);
 			$this->setUserMName($row->userMName);
