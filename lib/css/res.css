@@ -1,7 +1,7 @@
 header, nav, article, section, aside, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
 #wrapper {margin:auto;width:850px;line-height:1.1em;}
-body {font-family:arial;font-size:1em;}
+body {font-family:arial;font-size:1em;height: 100%;margin: 0 0 1px;padding: 0;}
 h1{font-size:2.5em;}
 h2{font-size:1.1em;;padding-bottom:5px;}
 h3{font-size:.8em;}
@@ -36,7 +36,7 @@ nav li,.nav li{display:inline;padding:5px;}
 
 #stuff a{color:#000000;text-decoration:none;}
 
-#education {padding-bottom:20px;}
+#edblock {padding-bottom:20px;}
 #education .school {font-weight:bold;}
 #education .colName, #education .degree {font-style:italic;}
 #education .degree {}

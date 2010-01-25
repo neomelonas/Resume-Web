@@ -1,28 +1,33 @@
 <?php
 /*
- *	Project:	Resume-Web
- *	Branch:		multiuser
- *	Version:	v3.0.2
- *
+ *	@project:	Resume-Web
+ *	@branch:		multiuser
+ *	@version:	v3.0.3
+ *	@package multiuser-resume
  *	class.user.php
  */
 //include 'settings.php';
 class User {
 	private $userID;
-	public $userFName;
-	public $userMName;
-	public $userLName;
-	//public $userName
+	private $userFName;
+	private $userMName;
+	private $userLName;
 	private $MaN;
+	
 	private $userEmail;
 	private $password;
 	private $userName;
 	private $userSlug;
+	
 	// Don't forget data_user
 	private $dataDateCreated;
 	private $dataLastUpdate;
 	private $dataClickCount;
 	private $dataFeatured;
+	
+	// Phone Info
+	private $phone;
+	
 	
 	function __construct($userID, $dbname, $dbcon) { 
 		$this->userID = $userID;
@@ -31,6 +36,7 @@ class User {
 	}
 	function __destruct() {}
 	
+	// Gets
 	public function getUserID() { return $this->userID; }
 	public function getUserFName() { return $this->userFName; }
 	public function getUserMName() { return $this->userMName; }
@@ -44,7 +50,9 @@ class User {
 	public function getViews() { return $this->dataClickCount; }
 	public function getFeatured() { return $this->dataFeatured; }
 	public function getSlug() { return $this->userSlug; }
+	public function getPhone() { return $this->phone; }
 	
+	// Sets
 	private function setUserID($userID) { $this->userID = $userID; }
 	public function setUserFName($EXTuserFName) { $this->userFName = $EXTuserFName; }
 	public function setUserMName($EXTuserMName) { $this->userMName = $EXTuserMName; }
@@ -58,6 +66,7 @@ class User {
 	public function setViews($EXTclickCount) { $this->dataClickCount = $EXTclickCount; }
 	public function setFeatured($EXTfeatured) { $this->dataFeatured = $EXTfeatured; }
 	private function setSlug($EXTslug) { $this->userSlug = $EXTslug; }
+	public function setphone($EXTphone) { $this->phone = $EXTphone; }
 	
 	public function userFullName($case) { // creates a name, for the header
 		switch ($case){
@@ -81,7 +90,7 @@ class User {
 	}
 	
 	function populateUser($dbname,$dbcon) {
-		$sql = $dbcon->query("SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate, DU.clickCount, DU.featured FROM ".$dbname.".res_user U INNER JOIN ".$dbname.".res_data_user DU on U.userID=DU.userID WHERE U.userID='". $this->getUserID() ."' LIMIT 1");
+		$sql = $dbcon->query("SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`, `userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate, DU.clickCount, DU.featured FROM res_user U INNER JOIN res_data_user DU on U.userID=DU.userID WHERE U.userID='". $this->getUserID() ."' LIMIT 1");
 		while ($row = $sql->fetch_object()) {
 			$this->setUserFName($row->userFName);
 			$this->setUserMName($row->userMName);
@@ -94,7 +103,20 @@ class User {
 			$this->setViews($row->clickCount);
 			$this->setFeatured(ord($row->featured));
 			$this->setSlug($row->userSlug);
+			$this->setPhone($row->phonenum);
 		}
+	}
+	public function phoneNumber() {
+		$exPhone = explode("-",$this->getPhone());
+		echo "(";
+		echo $exPhone[0];
+		echo ") ";
+		echo $exPhone[1];
+		echo "&ndash;";
+		echo $exPhone[2];
+		//$phone = "(" . $this->getArea() . ") " . $this->getZone() . "-" . $this->getLocal();
+		//echo $phone;
+		
 	}
 	
 	public function docFiller($which) {
@@ -112,7 +134,6 @@ class User {
 			echo ".zip\" class=\"noline\" title=\"ZIP (PDF &amp; DOCX &amp; DOC R&eacute;sum&eacute;s\">ZIP</a> &bull; ";
 		}
 	}
-	
 	public function userListItem($uriPath, $view) {
 		switch ($view) {
 			case '1':

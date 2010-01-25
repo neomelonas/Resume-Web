@@ -1,9 +1,9 @@
 <?php
 /*
- *	Project:	Resume-Web
- *	Branch:		multiuser
- *	Version:	v3.0.2
- *
+ *	@project:	Resume-Web
+ *	@branch:		multiuser
+ *	@version:	v3.0.3
+ *	@package multiuser-resume
  *	class.education.php
  */
 class Education {
@@ -68,7 +68,6 @@ class Education {
 			INNER JOIN res_ed_degree D on UD.degreeID=D.degreeID 
 			WHERE UE.userID='".$userID."' ORDER BY `ucID` DESC
 		";
-		
 		$counter = 0;
 		$sql = $dbcon->query($sqlSQL);
 		$this->setSqlCounter(mysqli_num_rows($sql)-1);
@@ -85,30 +84,19 @@ class Education {
 			$this->ed->offsetGet($counter)->offsetSet('gradYear',$row->gradYear);
 			$this->ed->offsetGet($counter)->offsetSet('college',$row->colName);
 			$this->ed->offsetGet($counter)->offsetSet('degree',$row->degreeName);
-			
 
+			$majSQL = $dbcon->query("SELECT majorName, gpa FROM res_ed_major M INNER JOIN res_user_major UM ON M.majorID=UM.majorID INNER JOIN res_user_ed UE ON UM.ecdID=UE.ucID 
+			WHERE ucID='".$this->ed->offsetGet($counter)->offsetGet(ID)."'
+			");
+			while($row = $majSQL->fetch_object()) {
+				if (isset($row->gpa)) { $gpa = $row->gpa; } else { $gpa = 0; }
+				$this->major->offsetSet($row->majorName,$row->gpa);
+			}
+//			print_r($this->major);
 			$counter++;
 		}
-		for($count=0;$count<=$this->getSqlCounter();$count++) {
-				$this->fillMajor($dbcon,$this->getEdID());
-		}
 	}
-	
-	private function fillMajor($dbcon,$edID) {
-		$sql = $dbcon->query("
-			SELECT `majorName`, `gpa` 
-			from res_ed_major M 
-			INNER JOIN res_user_major UM ON M.majorID=UM.majorID 
-			INNER JOIN res_user_ed UE ON UM.ecdID=UE.ucID 
-			WHERE ucID='" . $edID . "' ORDER BY M.majorID
-		");
-		$this->major = array();
-		while($row = $sql->fetch_object()) {
-			$this->major[$row->majorName] = "{$row->gpa}";
-		}
-		print_r($this->major);
-	}
-	
+		
 	public function displayEd() {
 		for($count=0;$count<=$this->getSqlCounter();$count++) {
 			$iter = $this->ed->offsetGet($count)->getIterator();
@@ -116,7 +104,6 @@ class Education {
 				echo "{$iter->key()} : {$iter->current()} <br />";
 				$iter->next();
 			}
-			//	print_r($this->ed->offsetGet($count));
 		}
 	}
 }

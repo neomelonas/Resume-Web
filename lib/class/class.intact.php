@@ -1,9 +1,9 @@
 <?php
 /*
- *	Project:	Resume-Web
- *	Branch:		multiuser
- *	Version:	v3.0.2
- *
+ *	@project:	Resume-Web
+ *	@branch:		multiuser
+ *	@version:	v3.0.3
+ *	@package multiuser-resume
  *	class.intact.php
  */
 class IntAct {

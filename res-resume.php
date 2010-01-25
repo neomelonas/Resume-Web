@@ -1,32 +1,22 @@
 <?php
-if (isset($_GET['u']))
-{ $userID = $_GET['u']; }
 include ('lib/conf/settings.php');
 function __autoload($class) { include_once ($uriPath."lib/class/class.{$class}.php"); }
-//include ('lib/php/functions.php');
+include ('lib/conf/usersettings.php');
 
-// user settings
-$restype = 1;
-$links = all;
-//
-
+if (isset($_GET['u']))
+{ $userID = $_GET['u']; }//AnotherPageView code here.}
+echo "<pre>";
 if (isset($userID)) {
-	//AnotherPageView($userID);
 	$resuser = new user($userID,$dbname,$dbcon);
+	$phone = new phone($dbcon,$userID,1);
 	$home = new location($dbname,1,$resuser->getUserID(),$dbcon);
 	$loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
 	$te = new technology($dbcon,$resuser->getUserID(),$restype);
 	$ia = new intact($dbcon,$resuser->getUserID());
 	$ed = new education($dbcon,$resuser->getUserID(),$row->ucID);
-	
-//$sql = $dbcon->query("SELECT ucID FROM res_user_ed WHERE userID='" . $resuser->getUserID() . "'");
-//while($row = $sql->fetch_object()) {
-//	$education[$counter] = new education($dbcon,$resuser->getUserID(),$row->ucID);
-//	$counter++;
-//}
-
 }
 else {die ('SHIIIT'); }
+echo "</pre>";
 ?>
 <!doctype html>
 <html>
@@ -51,12 +41,12 @@ else {die ('SHIIIT'); }
 				<h1><?php $resuser->userFullName('long'); ?></h1>
 				<h4><?php $home->locationDisplay(); ?></h4>
 				<?php if (!is_null($loc->getLocID())) { echo "<h4>"; $loc->locationDisplay(); echo "</h4>"; }; ?>
-				<h4><?php echo "<a href=\"mailto:{$resuser->getUserEmail()}\">{$resuser->getUserEmail()}</a>"; ?></h4>
+				<h4><?php echo $resuser->phoneNumber(); ?> &bull; <?php echo "<a href=\"mailto:{$resuser->getUserEmail()}\">{$resuser->getUserEmail()}</a>"; ?></h4>
 			</div>
 			</header>
 			<div id="next">
 				<article id="edBlock">
-					<section class="title ed noslip">
+					<section class="title noslip">
 						<h2><a href="#" class="ed noslip">Education</a></h2>
 					</section>
 					<section id="education">
@@ -67,7 +57,7 @@ else {die ('SHIIIT'); }
 				</article>
 				<div class="clear"></div>
 				<article id="teBlock">
-					<section class="title te noslip">
+					<section class="title noslip">
 						<h2><a href="#" class="te noslip">Technology Skills</a></h2>
 					</section>
 					<section id="techGroups">
@@ -76,8 +66,8 @@ else {die ('SHIIIT'); }
 				</article>
 				<div class="clear"></div>
 				<article id="iaBlock">
-					<section class="title ia noslip">
-						<h2><a href="#" class="te noslip">Interests &amp; Activities</a></h2>
+					<section class="title noslip">
+						<h2><a href="#" class="ia noslip">Interests &amp; Activities</a></h2>
 					</section>
 					<section id="intact">
 						<?php $ia->displayIA(); ?>
@@ -96,7 +86,7 @@ LINK</a>
 			</footer> 
 		</div>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-		<script type="text/javascript" src="<?php echo "http://".$_SERVER['HTTP_HOST'].$uriPath; ?>lib/js/slide.min.js"></script>
+		<script type="text/javascript" src="<?php echo "http://".$_SERVER['HTTP_HOST'].$uriPath; ?>lib/js/slide.js"></script>
 	</body>
 </html>
 
