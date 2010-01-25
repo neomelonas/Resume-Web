@@ -1,13 +1,10 @@
 <?php
+class Location {
 /**
- *	@project Resume-Web
- *	@branch multiuser
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	@filename class.location.php
  */
-class Location {
 	private $locationID;
 	private $street1;
 	private $street2 = null;

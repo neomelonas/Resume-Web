@@ -1,14 +1,11 @@
 <?php
+class User {
 /**
- *	@project Resume-Web
- *	@branch multiuser
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	@filename class.user.php
  */
 //include 'settings.php';
-class User {
 	private $userID;
 	private $userFName;
 	private $userMName;

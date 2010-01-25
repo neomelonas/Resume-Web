@@ -1,13 +1,10 @@
 <?php
+class Technology {
 /**
- *	@project Resume-Web
- *	@branch multiuser
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	@filename class.technology.php
  */
-class Technology {
 	private $teCount;
 	private $languages = array();
 	private $systems = array();

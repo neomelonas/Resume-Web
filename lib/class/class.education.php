@@ -1,13 +1,10 @@
 <?php
+class Education {
 /**
- *	@project Resume-Web
- *	@branch multiuser
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	@filename class.education.php
  */
-class Education {
 	protected $ed;
 	private $ecdID;
 	private $edName;
