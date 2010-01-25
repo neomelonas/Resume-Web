@@ -1,12 +1,17 @@
 <?php
 /**
- *	@package multiuser-resume
-*/
-class Location {
-/**
- *	@author neomelonas
- *	@version v3.0.3
+ * @package multiuser-resume
  */
+
+/**
+ * The Location class provides support for users to be located somewhere.
+ *
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.4
+ * @since v3.0.0
+ * @@copyright 2009-2010 Neo Melonas
+ */
+class Location {
 	private $locationID;
 	private $street1;
 	private $street2 = null;

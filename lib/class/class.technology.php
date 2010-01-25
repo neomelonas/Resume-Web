@@ -1,12 +1,18 @@
 <?php
 /**
- *	@package multiuser-resume
-*/
-class Technology {
-/**
- *	@author neomelonas
- *	@version v3.0.3
+ * @package multiuser-resume
  */
+
+/**
+ * The Technology class provides users multiple styles
+ * of lists of their technology backgrounds.
+ *
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.4
+ * @since v3.0.3
+ * @@copyright 2009-2010 Neo Melonas
+ */
+class Technology {
 	private $teCount;
 	private $languages = array();
 	private $systems = array();

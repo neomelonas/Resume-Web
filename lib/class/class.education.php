@@ -1,12 +1,16 @@
 <?php
 /**
- *	@package multiuser-resume
+ * @package multiuser-resume
 */
-class Education {
 /**
- *	@author neomelonas
- *	@version v3.0.3
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.3
+ * @since v3.0.0
+ * @@copyright 2009-2010 Neo Melonas
+ *
  */
+class Education {
+
 	protected $ed;
 	private $ecdID;
 	private $edName;

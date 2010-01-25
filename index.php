@@ -1,4 +1,13 @@
-<?php  
+<?php
+/**
+ * @package multiuser-resume
+ */
+ /**
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.1
+ * @since v2.9.9
+ * @@copyright 2009-2010 Neo Melonas
+  */
 include ('lib/conf/settings.php');
 include ('lib/conf/settings.inc');
 include ('lib/php/functions.php');

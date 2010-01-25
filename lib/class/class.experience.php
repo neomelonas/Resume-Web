@@ -7,9 +7,10 @@
  * The Experience class logics out the info for
  * Professional Experience
  *
- * @author neomelonas
- * @version v3.0.3
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.4
  * @since v3.0.3
+ * @@copyright 2009-2010 Neo Melonas
  */
 class Experience {
     protected $exp;

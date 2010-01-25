@@ -6,9 +6,10 @@
  * The Focus class extends the Education class, and enables the
  * user to have majors and minors.  Eventually.
  *
- * @author neomelonas
+ * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.3
  * @since v3.0.3
+ * @@copyright 2009-2010 Neo Melonas
  *
  * @todo MAKE THINGS WORK x_x
  */

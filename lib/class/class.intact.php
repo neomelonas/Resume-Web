@@ -1,12 +1,17 @@
 <?php
 /**
- *	@package multiuser-resume
-*/
-class IntAct {
-/**
- *	@author neomelonas
- *	@version v3.0.3
+ * @package multiuser-resume
  */
+
+/**
+ * The IntAct class creates a list of users' interests and activites.
+ *
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.4
+ * @since v3.0.2
+ * @@copyright 2009-2010 Neo Melonas
+ */
+class IntAct {
 	private $ia;
 	private $inputID;
 	

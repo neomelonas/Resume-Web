@@ -1,13 +1,18 @@
 <?php
 /**
- *	@package multiuser-resume
+ * @package multiuser-resume
+ */
+
+/**
+ * User is the class that allows users to exist.
+ *
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.4
+ * @since v3.0.0
+ * @@copyright 2009-2010 Neo Melonas
  */
 class User {
-/**
- *	@author neomelonas
- *	@version v3.0.3
- */
-//include 'settings.php';
+
 	private $userID;
 	private $userFName;
 	private $userMName;
