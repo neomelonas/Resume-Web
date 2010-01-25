@@ -1,13 +1,16 @@
 <?php
 /**
- *	@package multiuser-resume
+ * @package multiuser-resume
+ */
+/**
+ * The Focus class extends the Education class, and enables the
+ * user to have majors and minors.  Eventually.
+ *
+ * @author neomelonas
+ * @version v3.0.3
+ * @since v3.0.3
  */
 class  Focus extends Education {
-/**
- *	@author neomelonas
- *	@version v3.0.3
- *      @since v3.0.3
- */
 
     function __construct($dbcon,$userID) {$this->fillMajors($dbcon, $userID);}
 

@@ -1,13 +1,16 @@
 <?php
 /**
- *	@package multiuser-resume
+ * @package multiuser-resume
+ */
+/**
+ * The Education class provides support for education instances.
+ *
+ * @author neomelonas
+ * @version v3.0.3
+ * @since v3.0.1
  */
 class Education {
-/**
- *	@author neomelonas
- *	@version v3.0.3
- *      @since v3.0.1
- */
+
     protected $ed;
     private $ecdID;
     private $edName;
