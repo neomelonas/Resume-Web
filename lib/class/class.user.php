@@ -1,6 +1,6 @@
 <?php
 /**
- *	@multiuser-resume
+ *	@package multiuser-resume
  */
 class User {
 /**
