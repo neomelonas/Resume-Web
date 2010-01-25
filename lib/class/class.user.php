@@ -1,9 +1,10 @@
 <?php
-/*
- *	@project:	Resume-Web
- *	@branch:		multiuser
- *	@version:	v3.0.3
+/**
+ *	@project Resume-Web
+ *	@branch multiuser
  *	@package multiuser-resume
+ *	@author neomelonas
+ *	@version v3.0.3
  *	class.user.php
  */
 //include 'settings.php';
