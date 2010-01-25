@@ -5,7 +5,7 @@
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	class.education.php
+ *	@filename class.education.php
  */
 class Education {
 	protected $ed;

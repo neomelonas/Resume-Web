@@ -5,7 +5,7 @@
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	class.user.php
+ *	@filename class.user.php
  */
 //include 'settings.php';
 class User {

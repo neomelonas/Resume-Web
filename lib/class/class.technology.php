@@ -5,7 +5,7 @@
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	class.technology.php
+ *	@filename class.technology.php
  */
 class Technology {
 	private $teCount;

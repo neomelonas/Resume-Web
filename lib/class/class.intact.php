@@ -5,7 +5,7 @@
  *	@package multiuser-resume
  *	@author neomelonas
  *	@version v3.0.3
- *	class.intact.php
+ *	@filename class.intact.php
  */
 class IntAct {
 	private $ia;
