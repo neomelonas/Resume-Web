@@ -37,10 +37,11 @@ nav li,.nav li{display:inline;padding:5px;}
 #stuff a{color:#000000;text-decoration:none;}
 
 #edblock {padding-bottom:20px;}
+#education {margin:10px 1.5em;}
 #education .school {font-weight:bold;}
 #education .colName, #education .degree {font-style:italic;}
 #education .degree {}
-#education p span .majors {overflow:inline;}
+#education .timeframe {float:right;}
 #curriculum {padding-bottom:20px;}
 	#curriculum li {padding-left:20px;}
 
@@ -55,7 +56,7 @@ nav li,.nav li{display:inline;padding:5px;}
 	#intact li {padding-left:20px;}
 
 #tech{}
-	#tech li:nth-child(2){padding-left:2px;}
+	#tech li/*:nth-child(2)*/{padding-left:2px;}
 	.teTitle{font-style:italic;}
 #techGroups{padding-top:10px;}
 #techGroups,#techGroups ul {padding-bottom:0;margin-bottom:0;}

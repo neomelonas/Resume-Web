@@ -12,7 +12,8 @@ if (isset($userID)) {
 	$loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
 	$te = new technology($dbcon,$resuser->getUserID(),$restype);
 	$ia = new intact($dbcon,$resuser->getUserID());
-	$ed = new education($dbcon,$resuser->getUserID(),$row->ucID);
+	$ed = new focus($dbcon,$resuser->getUserID());
+	$exp = new expdetail($dbcon,$resuser->getUserID());
 }
 else {die ('SHIIIT'); }
 echo "</pre>";
@@ -50,7 +51,7 @@ echo "</pre>";
 					</section>
 					<section id="education">
 					<?php
-						$ed->displayEd();
+						$ed->showEd();
 					?>
 					</section>
 				</article>
