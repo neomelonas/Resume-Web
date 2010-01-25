@@ -8,7 +8,6 @@ if (isset($_GET['u']))
 echo "<pre>";
 if (isset($userID)) {
 	$resuser = new user($userID,$dbname,$dbcon);
-	$phone = new phone($dbcon,$userID,1);
 	$home = new location($dbname,1,$resuser->getUserID(),$dbcon);
 	$loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
 	$te = new technology($dbcon,$resuser->getUserID(),$restype);
