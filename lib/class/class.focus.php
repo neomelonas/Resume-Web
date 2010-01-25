@@ -9,6 +9,8 @@
  * @author neomelonas
  * @version v3.0.3
  * @since v3.0.3
+ *
+ * @todo MAKE THINGS WORK x_x
  */
 class  Focus extends Education {
 

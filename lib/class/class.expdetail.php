@@ -27,7 +27,11 @@ class ExpDetail extends Experience {
 	while($row = $sql->fetch_object()){
 	    $this->exp->offsetGet($row->expPosID)->offsetGet('details')->append($row->detailDesc);
 	}
-	print_r($this->exp);
+//	print_r($this->exp);
     }
+    public function showExperience(){
+        
+    }
+
 }
 ?>
