@@ -23,7 +23,7 @@ class Technology {
 		}
 		elseif($groups==0)
 		{ $this->fillTechNoGroup($dbcon,$userID); }
-		else { die('Pick a Resume Type, please.') };
+		else  die('Pick a Resume Type, please.') ;
 	}
 	
 	public function getTeCount() { return $this->teCount; }
@@ -82,7 +82,7 @@ class Technology {
 		}
 		elseif($groups==0)
 		{ $this->displayNoGroup(); }
-		else { die('Pick a Resume Type, please.') };
+		else  die('Pick a Resume Type, please.');
 	}
 	public function displayLang() {
 		$iterator = $this->languages->getIterator();
