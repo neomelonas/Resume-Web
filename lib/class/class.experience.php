@@ -10,7 +10,7 @@
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.3
- * @@copyright 2009-2010 Neo Melonas
+ * @copyright 2009-2010 Neo Melonas
  */
 class Experience {
     protected $exp;
@@ -24,6 +24,14 @@ class Experience {
     protected $expEndMonth;
     protected $expEndYear;
 
+    /**
+     * Class constructor
+     *
+     * Constructs the class.
+     *
+     * @param object $dbcon The database connection object.
+     * @param int $userID The user whose resume is being displayed.
+     */
     function __construct($dbcon,$userID) { $this->fillProExp($dbcon,$userID); }
 
     // Gets
@@ -48,6 +56,14 @@ class Experience {
     protected function setExpEndMonth ($EXTexpEndMonth) { $this->expEndMonth = $EXTexpEndMonth; }
     protected function setExpEndYear ($EXTexpEndYear) { $this->expEndYear = $EXTexpEndYear; }
 
+
+    /**
+     * This method fills the Experience class with juicy data.
+     *
+     *
+     * @param object $dbcon The database connection object.
+     * @param int $userID The user whose resume is being displayed.
+     */
     protected function fillProExp($dbcon, $userID){
 	$this->exp = new ArrayObject();
 	$sql = $dbcon->query("SELECT PE.expID, `expName`,`expCity`,`expState`,`expPosition`,`expStartMonth`,`expStartYear`,`expEndMonth`,`expEndYear` FROM res_proexp PE INNER JOIN res_user_exp UE on PE.expID=UE.expID WHERE userID='" . $userID . "' ORDER BY expStartYear DESC");
@@ -77,6 +93,9 @@ class Experience {
 	}
     }
 
+    /**
+     * This method shows off what the time frame of employment is.
+     */
     protected function showExpDate(){
 	$dateRange = null;
 	echo "<span class=\"timeframe\">";

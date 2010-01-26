@@ -1,5 +1,19 @@
 <?php 
-// settings.php
+/**
+ * @package multiuser-resume
+ */
+/**
+ * The IntAct class creates a list of users' interests and activites.
+ *
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.0.4
+ * @since v3.0.0
+ * @copyright 2009-2010 Neo Melonas
+ *
+ * @example ../settings.default.php Example Settings
+ */
+
+
 $uriPath	= "/ResumeBeta/";		// TRAILING SLASH...
 $absPath	= "D:/Server/xampp/htdocs/ResumeBeta/";
 

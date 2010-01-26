@@ -2,18 +2,22 @@
 /**
  * @package multiuser-resume
  */
- /**
+/**
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.0
- * @@copyright 2009-2010 Neo Melonas
-  */
+ * @copyright 2009-2010 Neo Melonas
+ */
 include ('lib/conf/settings.php');
 function __autoload($class) { include_once ($uriPath."lib/class/class.{$class}.php"); }
 include ('lib/conf/usersettings.php');
 
 if (isset($_GET['u']))
 { $userID = $_GET['u']; }//AnotherPageView code here.}
+/**
+ * The following &lt;pre&gt; blocks will be pulled when Unit Tests are working.
+ * @todo Make unit tests.
+ */
 echo "<pre>";
 if (isset($userID)) {
 	$resuser = new user($userID,$dbname,$dbcon);

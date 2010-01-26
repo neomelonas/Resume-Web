@@ -9,7 +9,7 @@
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.3
  * @since v3.0.3
- * @@copyright 2009-2010 Neo Melonas
+ * @copyright 2009-2010 Neo Melonas
  *
  * @todo MAKE THINGS WORK x_x
  */

@@ -9,7 +9,7 @@
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.0
- * @@copyright 2009-2010 Neo Melonas
+ * @copyright 2009-2010 Neo Melonas
  */
 class Location {
 	private $locationID;
@@ -20,9 +20,17 @@ class Location {
 	private $ZIP;
 	private $locStatus;
 	private $loc;
-	
-	// function __construct($locID, $locStreet, $locCity, $locState, $locZIP, $homeLoc) {$this->locationID = $locID; $this->street1 = $locStreet; $this->city = $locCity; $this->state = $locState; $this->ZIP = $locZIP; $this->locStatus = $homeLoc; }
-	
+
+	/**
+	 * This is the Class Constructor.
+	 *
+	 * It constructs the class.
+	 *
+	 * @param string $dbname
+	 * @param bool $locStatus
+	 * @param int $userID
+	 * @param object $dbcon
+	 */
 	function __construct($dbname, $locStatus, $userID, $dbcon)
 	{
 		$this->locStatus = $locStatus;
@@ -46,14 +54,24 @@ class Location {
 	public function setLocZIP($extLocZIP) { $this->ZIP = $extLocZIP; }
 	public function setLocStatus($extHomeLoc) { $this->locStatus = ord($extHomeLoc); $this->locStatus(); }
 	private function setLoc($extLoc) { $this->loc = $extLoc; }
-	
+
+	/**
+	 * Set the location status (Home vs. Local)
+	 */
 	public function locStatus() {
 		$locStatus = $this->getLocStatus();
 		if ($locStatus == 1) { $this->setLoc("Home: "); }
 		else
 		{ $this->setLoc("Local: "); }
 	}
-	
+
+	/**
+	 * Get the data for the Location class.
+	 *
+	 * @param string $dbname
+	 * @param int $userID
+	 * @param object $dbcon
+	 */
 	public function populateLocation($dbname, $userID, $dbcon) {
 		$sql = $dbcon->query("SELECT L.locID, `locStreet`, `locStreet2`, `locCity`, `locState`, `locZIP` FROM ".$dbname.".res_location L INNER JOIN ".$dbname.".res_user_loc UL on L.locID=UL.locID WHERE userID='" . $userID . "' AND homeLoc='".$this->getLocStatus()."'");
 		if (!$sql) {echo "Bad SQL: "; echo "class.location " . $userID;}
@@ -67,7 +85,9 @@ class Location {
 		}
 	}
 	
-	
+	/**
+	 * Show the location.
+	 */
 	public function locationDisplay() {
 		if (!is_null($this->getLocID())){
 			echo $this->getLoc() . "<span class='street'>" . $this->getStreet() . "</span> &bull; "; 
@@ -75,6 +95,14 @@ class Location {
 			echo "<span class='city'>" . $this->getCity() . "</span>, <span class='state'>" . $this->getState() . "</span> <span class='zip'>" . $this->getZIP() . "</span>";
 		}
 	}
-	public function aSecondStreet() { if ($this->getStreet2()) { echo "<span class='street'>" . $this->getStreet2() . "</span> &bull; "; } }
+
+	/**
+	 * If there is a second street, like an apartment, it gets shown by this.
+	 */
+	public function aSecondStreet() {
+	    if ($this->getStreet2()) {
+		echo "<span class='street'>" . $this->getStreet2() . "</span> &bull; ";
+	    }
+	}
 }
 ?>

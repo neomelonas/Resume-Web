@@ -6,7 +6,7 @@
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.3
  * @since v3.0.0
- * @@copyright 2009-2010 Neo Melonas
+ * @copyright 2009-2010 Neo Melonas
  *
  */
 class Education {
@@ -28,24 +28,73 @@ class Education {
 	protected $minor = array();
 	protected $gpa;
 
-	function __construct($dbcon,$userID,$ecdID) { $this->setDBCON($dbcon);$this->ed = new ArrayObject();$this->major = new ArrayObject();$this->minor = new ArrayObject();$this->minor = new ArrayObject();$this->fillDegree($dbcon,$userID);}//$this->educationDisplay();}
+	/**
+	 * Class constructor
+	 *
+	 * Constructs the class.
+	 *
+	 * @param object $dbcon The database connection object.
+	 * @param int $userID The user whose resume is being displayed.
+	 * @param int $ecdID This is probably getting ganked out.
+	 */
+	function __construct($dbcon,$userID,$ecdID) { $this->ed = new ArrayObject();$this->major = new ArrayObject();$this->minor = new ArrayObject();$this->minor = new ArrayObject();$this->fillDegree($dbcon,$userID);}//$this->educationDisplay();}
 
-	public function getEdInstance () { return $this->ed->getIterator()->key(); }
-	public function getEdID () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(ID); }
-	public function getEdName () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(name); }
-	public function getEdCity () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(city); }
-	public function getEdState () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(state); }
-	public function getDegree () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(degree); }
-	public function getEdStart () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(start); }
-	public function getEdEnd () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(end); }
-	public function getGradMonth () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(gradMonth); }
-	public function getGradYear () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(gradYear); }
-	public function getCollege () { return $this->ed->offsetGet($this->getEdInstance())->offsetGet(college); }
-	public function getSqlCounter() { return $this->sqlCounter; }
+	/**
+	 *
+	 * @return int  Returns the specific instance of the Education class.
+	 */
+	public function getEdInstance(){
+	    return $this->ed->getIterator()->key();
+	}
 
-	//
-	public function setDBCON($DBCONZ) { $this->dbcon = $DBCONZ; }
-	//
+	/**
+	 *
+	 * @return int Returns the edID for this instance of Education.
+	 */
+	public function getEdID() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(ID);
+	}
+
+	public function getEdName() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(name);
+	}
+
+	public function getEdCity() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(city);
+	}
+
+	public function getEdState() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(state);
+	}
+
+	public function getDegree() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(degree);
+	}
+
+	public function getEdStart() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(start);
+	}
+
+	public function getEdEnd() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(end);
+	}
+
+	public function getGradMonth() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(gradMonth);
+	}
+
+	public function getGradYear() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(gradYear);
+	}
+
+	public function getCollege() {
+	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(college);
+	}
+
+	public function getSqlCounter() { 
+	    return $this->sqlCounter;
+	}
+
 
 	public function setEd ($offset,$EXTed) { $this->ed->offsetSet($offset,$EXTed); }
 	public function setEdID ($counter,$EXTecdID) { $this->ecdID = $EXTecdID; $this->ed->offsetGet($counter)->offsetSet('ID',$EXTecID);}
@@ -61,6 +110,13 @@ class Education {
 	public function setCollege ($offset,$EXTcollege) { $this->college->offsetSet($offset,$EXTcollege); }
 	private function setSqlCounter($sqlCount) { $this->sqlCounter = $sqlCount; }
 
+
+	/**
+	 * This function fills the Education Object with tasty data.
+	 *
+	 * @param object $dbcon The database connection object.
+	 * @param int $userID The user whose resume is being displayed.
+	 */
 	private function fillDegree($dbcon, $userID) {
 		$sqlSQL = "
 			SELECT `ucID`, `edName`, `edCity`, `edState`, `colName` , `degreeName`, `edStart`, `edEnd`, `gradYear`, `gradMonth`
