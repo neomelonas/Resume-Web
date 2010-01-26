@@ -35,9 +35,8 @@ class Education {
 	 *
 	 * @param object $dbcon The database connection object.
 	 * @param int $userID The user whose resume is being displayed.
-	 * @param int $ecdID This is probably getting ganked out.
 	 */
-	function __construct($dbcon,$userID,$ecdID) { $this->ed = new ArrayObject();$this->major = new ArrayObject();$this->minor = new ArrayObject();$this->minor = new ArrayObject();$this->fillDegree($dbcon,$userID);}//$this->educationDisplay();}
+	function __construct($dbcon,$userID) { $this->ed = new ArrayObject();$this->major = new ArrayObject();$this->minor = new ArrayObject();$this->minor = new ArrayObject();$this->fillDegree($dbcon,$userID);}//$this->educationDisplay();}
 
 	/**
 	 *
