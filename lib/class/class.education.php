@@ -12,18 +12,18 @@
 class Education {
 
 	protected $ed;
-	private $ecdID;
-	private $edName;
-	private $edCity;
-	private $edState;
-	private $edStart;
-	private $edEnd;
-	private $gradMonth;
-	private $gradYear;
+	protected $ecdID;
+	protected $edName;
+	protected $edCity;
+	protected $edState;
+	protected $edStart;
+	protected $edEnd;
+	protected $gradMonth;
+	protected $gradYear;
 	protected $degreeID;
 	protected $degreeName;
 	protected $college;
-	private $sqlCounter;
+	protected $sqlCounter;
 	protected $major = array();
 	protected $minor = array();
 	protected $gpa;
