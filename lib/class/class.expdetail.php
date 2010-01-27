@@ -2,7 +2,6 @@
 /**
  * @package multiuser-resume
  */
-
 /**
  * ExpDetail extends Experience
  * It allows users to list different attributes of their

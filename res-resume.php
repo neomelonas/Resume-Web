@@ -26,7 +26,7 @@ if (isset($userID)) {
 	$te = new technology($dbcon,$resuser->getUserID(),$restype);
 	$ia = new intact($dbcon,$resuser->getUserID());
 	$ed = new education($dbcon,$resuser->getUserID());
-	$exp = new experience($dbcon,$resuser->getUserID());
+	//$exp = new experience($dbcon,$resuser->getUserID());
 	$exp = new expdetail($dbcon,$resuser->getUserID());
 }
 else {die ('SHIIIT'); }
