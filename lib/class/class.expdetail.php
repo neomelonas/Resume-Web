@@ -19,35 +19,61 @@ class ExpDetail extends Experience {
      *
      * It constructs the class.
      *
-     * Hurf Durf.
-     * 
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
      */
-    function __construct($dbcon,$userID) { $this->fillProExp($dbcon,$userID);$this->fillExpDetail($dbcon,$userID); }
+    function __construct($dbcon,$userID) { 
+	$this->fillProExp($dbcon,$userID);$this->fillExpDetail($dbcon,$userID);
+    }
 
-    // Gets
-    //public function getExpDetail() { return $this->detail; }
-
-    // Sets
-    //private function setExpDetail($EXTdetail) { $this->detail = $EXTdetail; }
+    /**
+     *
+     * @param int $offset The identifier for the object.
+     * @param string $EXTdetail The input string for experience details
+     */
+    private function setExpDetail($offset,$EXTdetail) {
+	$this->exp->offsetGet($offset)->offsetGet('details')->append($EXTdetail);
+    }
 
     /**
      * This method fills the Detail subclass with tasty data.
-     *
-     *
+     * 
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
      */
     protected function fillExpDetail($dbcon,$userID){
 	$sql = $dbcon->query("SELECT `expPosID`,`detailID`, `detailDesc` FROM res_exp_detail D INNER JOIN res_user_exp UE on D.posID=UE.expPosID WHERE userID='" . $userID . "'");
 	while($row = $sql->fetch_object()){
-	    $this->exp->offsetGet($row->expPosID)->offsetGet('details')->append($row->detailDesc);
+	    $this->setExpDetail($row->expPosID,$row->detailDesc);
 	}
-//	print_r($this->exp);
     }
+
     public function showExperience(){
-        
+	if ($this->howManyRows != 0) {
+	    for ($counter = 1;$counter <= $this->howManyRows;$counter++) {
+		echo "<article id=\"exp-" . $this->getExpInfo($counter,'ID') . ".\">";
+		echo "<section class=\"span-10 column\">";
+		echo "<span class=\"workname\">" . $this->getExpInfo($counter, 'name') . "</span><br />";
+		echo "<span class=\"position\">" . $this->getExpInfo($counter, 'position') . "</span>";
+		echo "</section>";
+		echo "<section class=\"span-6 column\">";
+		echo "<span class=\"citystate\">" . $this->expLocation($counter) . "</span>";
+		echo "</section>";
+		echo "<section class=\"span-6 column last\">";
+		echo "<span class=\"citystate\">" . $this->showExpDate($counter) . "</span>";
+		echo "</section>";
+		echo "<section>";
+		echo "<ul>";
+		$iter = $this->getExpInfo($counter,'details')->getIterator();
+		while($iter->valid()) {
+		    echo "<li class=\"detail-" . $this->getExpInfo($counter, 'ID') ."\">{$iter->current()}</li>";
+		    $iter->next();
+		}
+		echo "</ul>";
+		echo "</section>";
+		echo "</article>";
+	    }
+	}
     }
 
 }

@@ -24,6 +24,20 @@ class Experience {
     protected $exp;
     
     /**
+     * The expID
+     * 
+     * @var int Placeholder for the ID of the instance. 
+     */
+    protected $expID;
+
+    /**
+     * A count of howManyRows there are.
+     *
+     * @var int How many Experiences there are.
+     */
+    protected $howManyRows;
+
+    /**
      * Class constructor
      *
      * Constructs the class.
@@ -45,111 +59,18 @@ class Experience {
     }
 
     /**
-     * getExpName
-     * 
-     * Gets the expName for the instance of the class Experience.
-     * 
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expName
+     * getExpInfo
+     *
+     * getExpInfo gets any and all of the information relating to an instance of Experience,
+     * except for the details, which are done in the expdetail class.
+     *
+     * @since v3.0.5
+     * @param int $offset The offset is the expID for this instance.
+     * @param string $expThing One of the following:  name, city, state, postition, startMonth, startYear, endMonth, endYear
+     * @return string|int Returns the information requested about the experience instance.
      */
-    public function getExpName($offset) { 
-	return $this->exp->offsetGet($offset)->offsetGet('expName');
-    }
-
-    /**
-     * getExpCity
-     *
-     * Gets the expCity for the instance of the class Experience.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expCity.
-     */
-    public function getExpCity($offset) { 
-	return $this->exp->offsetGet($offset)->offsetGet('expCity');
-    }
-
-    /**
-     * getExpState
-     *
-     * Gets the expState for the instance of the class Experience.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expState.
-     */
-    public function getExpState($offset) { 
-	return $this->exp->offsetGet($offset)->offsetGet('expState');
-    }
-
-    /**
-     * getExpPosition
-     *
-     * Gets the expPosition for the instance of the class Experience.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expPosition.
-     */
-    public function getExpPosition($offset) { 
-	return $this->exp->offsetGet($offset)->offsetGet('expPosition');
-    }
-
-    /**
-     * getExpStartMonth
-     *
-     * Gets the expStartMonth for the instance of the class Experience.
-     *
-     * It shows what month the users started his or her Professional Experience.
-     * When combined with getExpStartYear, creates the start date for the
-     * aforementioned ProExp.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expStartMonth.
-     */
-    public function getExpStartMonth($offset) {
-	return $this->exp->offsetGet($offset)->offsetGet('expStartMonth');
-    }
-
-    /**
-     * getExpStartYear
-     *
-     * Gets the expStartYear for the instance of the class Experience.
-     *
-     * It shows what year the users started his or her Professional Experience.
-     * When combined with getExpStartMonth, creates the start date for the
-     * aforementioned ProExp.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return int Returns the instance's expStartYear
-     */
-    public function getExpStartYear($offset) { 
-	return $this->exp->offsetGet($offset)->offsetGet('expStartYear');
-    }
-
-    /**
-     * getExpEndMonth
-     *
-     * Gets the expEndMonth for the instance of the class Experience.
-     *
-     * If an endMonth exisits, it shows when the ProExp from the specified
-     * offset ends.  It works much better with getExpEndYear than alone.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expEndMonth.
-     */
-    public function getExpEndMonth($offset) { return $this->exp->offsetGet($offset)->offsetGet('expEndMonth'); }
-
-    /**
-     * getExpEndYear
-     * 
-     * Gets the expEndYear for the instance of the class Experience.
-     * 
-     * If an endYear exisits, it shows when the ProExp from the specified 
-     * offset ends.  It works much better with getExpEndMonth than alone.
-     * 
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @return string Returns the instance's expEndYear.
-     */
-    public function getExpEndYear($offset) {
-	return $this->exp->offsetGet($offset)->offsetGet('expEndYear');
+    public function getExpInfo($offset,$expThing) {
+	return $this->exp->offsetGet($offset)->offsetGet($expThing);
     }
 
     /**
@@ -171,92 +92,8 @@ class Experience {
      * @param int $offset The offset, secretly the expID for this instance.
      * @param string $EXTexpName The input expName string.
      */
-    protected function setExpName ($offset,$EXTexpName) { 
-	$this->exp->offsetGet($offset)->offsetSet('name',$EXTexpName);
-    }
-
-    /**
-     * setExpCity
-     *
-     * Method to set expCity.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpCity The input to set expCity.
-     */
-    protected function setExpCity ($offset,$EXTexpCity) {
-	$this->exp->offsetGet($offset)->offsetSet('city',$EXTexpCity);
-    }
-
-    /**
-     * setExpState
-     * 
-     * Method to set expState.
-     * 
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpState The input to set expState.
-     */
-    protected function setExpState ($offset,$EXTexpState) {
-	$this->exp->offsetGet($offset)->offsetSet('state',$EXTexpState);
-    }
-
-    /**
-     * setExpPosition
-     *
-     * Method to set expPosition.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpPosition The input to set expPosition.
-     */
-    protected function setExpPosition ($offset,$EXTexpPosition) {
-	$this->exp->offsetGet($offset)->offsetSet('position',$EXTexpPostion);
-    }
-
-    /**
-     * setExpStartMonth
-     *
-     * Method to set expStartMonth.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpStartMonth The input to set expStartMonth.
-     */
-    protected function setExpStartMonth ($offset,$EXTexpStartMonth) {
-	$this->exp->offsetGet($offset)->offsetSet('startMonth',$EXTexpStartMonth);
-    }
-
-    /**
-     * setExpStartYear
-     *
-     * Method to set expStartYear.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpStartYear The input to set expStartYear
-     */
-    protected function setExpStartYear ($offset,$EXTexpStartYear) {
-	$this->exp->offsetGet($offset)->offsetSet('stateYear',$EXTexpStartYear);
-    }
-
-    /**
-     * setExpEndMonth
-     *
-     * Method to set expEndMonth.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpEndMonth The input to set expEndMonth.
-     */
-    protected function setExpEndMonth ($offset,$EXTexpEndMonth) {
-	$this->exp->offsetGet($offset)->offsetSet('endMonth',$EXTexpEndMonth);
-    }
-
-    /**
-     * setExpEndYear
-     *
-     * Method to set expEndYear.
-     *
-     * @param int $offset The offset, secretly the expID for this instance.
-     * @param string $EXTexpEndYear The input to set expEndYear
-     */
-    protected function setExpEndYear ($offset,$EXTexpEndYear) {
-	$this->exp->offsetGet($offset)->offsetSet('endYear',$EXTexpEndYear);
+    protected function setExpThing ($offset,$thing,$EXTexpName) {
+	$this->exp->offsetGet($offset)->offsetSet($thing,$EXTexpName);
     }
 
     /**
@@ -272,43 +109,60 @@ class Experience {
     protected function fillProExp($dbcon, $userID){
 	$this->exp = new ArrayObject();
 	$sql = $dbcon->query("SELECT PE.expID, `expName`,`expCity`,`expState`,`expPosition`,`expStartMonth`,`expStartYear`,`expEndMonth`,`expEndYear` FROM res_proexp PE INNER JOIN res_user_exp UE on PE.expID=UE.expID WHERE userID='" . $userID . "' ORDER BY expStartYear DESC");
-	while($row = $sql->fetch_object()){
-	    $this->setExpID($row->expID);
-	    $this->exp->offsetSet($row->expID,new ArrayObject());
-	    $this->setExpName($row->expID,$row->expName);
-	    $this->setExpCity($row->expID,$row->expCity);
-	    $this->setExpState($row->expID,$row->expState);
-	    $this->setExpPosition($row->expID,$row->expPosition);
-	    $this->setExpStartMonth($row->expID,$row->expStartMonth);
-	    $this->setExpStartYear($row->expID,$row->expStartYear);
-	    $this->setExpEndMonth($row->expID,$row->expEndMonth);
-	    $this->setExpEndYear($row->expID,$row->expEndYear);
-	    $this->exp->offsetGet($row->expID)->offsetSet('details',new ArrayObject());
+	$this->howManyRows = $sql->num_rows;
+	$quickCount = 1;
+	if ($this->howManyRows != 0) {
+	    while($row = $sql->fetch_object()){
+		$this->setExpID($quickCount);
+		$this->exp->offsetSet($this->getExpID(),new ArrayObject());
+		$this->setExpThing($this->getExpID(),'ID',$row->expID);
+		$this->setExpThing($this->getExpID(),'name',$row->expName);
+		$this->setExpThing($this->getExpID(),'city',$row->expCity);
+		$this->setExpThing($this->getExpID(),'state',$row->expState);
+		$this->setExpThing($this->getExpID(),'position',$row->expPosition);
+		$this->setExpThing($this->getExpID(),'startMonth',$row->expStartMonth);
+		$this->setExpThing($this->getExpID(),'startYear',$row->expStartYear);
+		$this->setExpThing($this->getExpID(),'endMonth',$row->expEndMonth);
+		$this->setExpThing($this->getExpID(),'endYear',$row->expEndYear);
+		$this->setExpThing($this->getExpID(),'details',new ArrayObject());
+		$quickCount++;
+	    }
 	}
     }
 
     /**
-     * This method shows off what the time frame of employment is.
+     * The Location of the Professional Experience
      *
-     * It takes no parameters.
+     * This method exists to make life easier by combining city and state,
+     * before it gets thought about by the expdetail class.
+     *
+     * @param int $offset The offset, secretly the expID for this instance.
+     * @return string Returns the City, State for the Professional Experience
      */
-    protected function showExpDate(){
-	$dateRange = null;
-	echo "<span class=\"timeframe\">";
-	$dateRange = $this->getExpStartMonth(). " " . $this->getExpStartYear();
-	if ((($this->getExpEndMonth()) == $this->getExpStartMonth()) && (($this->getExpEndYear()) == $this->getExpStartYear())){
-	    echo "<span>";
+    protected function expLocation($offset) {
+	$city = $this->getExpInfo($offset, 'city');
+	$state = $this->getExpInfo($offset, 'state');
+	$location = $city . ", " . $state;
+	return $location;
+    }
+
+    protected function showExpDate($offset){
+	$smonth = $this->getExpInfo($offset,'startMonth');
+	$syear = $this->getExpInfo($offset,'startYear');
+	$emonth = $this->getExpInfo($offset,'endMonth');
+	$eyear = $this->getExpInfo($offset,'endYear');
+	
+
+	if (($smonth == $emonth) && ($eyear == $eyear))  {
+	    $daterange = $smonth . " " . $syear;
 	}
-	else{
-	    if ((!is_null($this->getExpEndMonth())) && (!is_null($this->getExpEndYear()))) {
-		$dateRange +=  " &ndash; " . $this->getExpEndMonth() . " " . $this->expEndYear();
-		echo "<span>";
-	    }
-	    else {
-		$dateRange +=  " &ndash; Present";
-		echo "<span>";
-	    }
+	elseif (($emonth == null) || ($eyear == null)) {
+	    $daterange = $smonth . " " . $syear . " &ndash; Present";
 	}
+	else {
+	    $daterange = $smonth . " " . $syear . " &ndash; " . $emonth . " " . $eyear;
+	}
+	return $daterange;
     }
 }
 ?>

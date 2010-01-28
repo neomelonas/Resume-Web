@@ -11,159 +11,153 @@
  */
 class Education {
 
-	protected $ed;
-	protected $ecdID;
-	protected $edName;
-	protected $edCity;
-	protected $edState;
-	protected $edStart;
-	protected $edEnd;
-	protected $gradMonth;
-	protected $gradYear;
-	protected $degreeID;
-	protected $degreeName;
-	protected $college;
-	protected $sqlCounter;
-	protected $major = array();
-	protected $minor = array();
-	protected $gpa;
+    /**
+     *
+     * @var object Object of the Education class.
+     */
+    protected $ed;
+    protected $sqlCounter;
+    protected $major = array();
+    protected $minor = array();
+    protected $gpa;
+    /**
+     * A count of howManyRows there are.
+     *
+     * @var int How many Experiences there are.
+     */
+    protected $howManyRows;
 
-	/**
-	 * Class constructor
-	 *
-	 * Constructs the class.
-	 *
-	 * @param object $dbcon The database connection object.
-	 * @param int $userID The user whose resume is being displayed.
-	 */
-	function __construct($dbcon,$userID) { $this->ed = new ArrayObject();$this->major = new ArrayObject();$this->minor = new ArrayObject();$this->minor = new ArrayObject();$this->fillDegree($dbcon,$userID);}//$this->educationDisplay();}
 
-	/**
-	 *
-	 * @return int  Returns the specific instance of the Education class.
-	 */
-	public function getEdInstance(){
-	    return $this->ed->getIterator()->key();
+    /**
+     * Class constructor
+     *
+     * Constructs the class.
+     * 
+     * @since v3.0.0
+     * @param object $dbcon The database connection object.
+     * @param int $userID The user whose resume is being displayed.
+     */
+    function __construct($dbcon,$userID) { $this->ed = new ArrayObject();$this->major = new ArrayObject();$this->minor = new ArrayObject();$this->minor = new ArrayObject();$this->fillDegree($dbcon,$userID);}//$this->educationDisplay();}
+
+    /**
+     * @since v3.0.1
+     * @return int  Returns the specific instance of the Education class.
+     */
+    public function getEdInstance(){
+	return $this->ed->getIterator()->key();
+    }
+
+    /**
+     * 
+     * @since v3.0.4
+     * @param int $offset What instance of education from where we want to get something.
+     * @param string $thingToGet What thing from education we want to get.
+     * @return int|string Returns the education information.
+     */
+    public function getEdInfo($offset,$thingToGet){
+	return $this->ed->offsetGet($offset)->offsetGet($thingToGet);
+    }
+
+    public function getSqlCounter() {
+	return $this->sqlCounter;
+    }
+
+    public function setEdInfo ($counter,$thing,$EXTecdID) { 
+	$this->ed->offsetGet($counter)->offsetSet($thing,$EXTecID);
+    }
+
+    public function setCollege ($offset,$EXTcollege) { $this->college->offsetSet($offset,$EXTcollege); }
+
+    private function setSqlCounter($sqlCount) { $this->sqlCounter = $sqlCount; }
+
+
+    /**
+     * This function fills the Education Object with tasty data.
+     *
+     * @since v3.0.1
+     * @param object $dbcon The database connection object.
+     * @param int $userID The user whose resume is being displayed.
+     */
+    private function fillDegree($dbcon, $userID) {
+	$sqlSQL = "
+	    SELECT `ucID`, `edName`, `edCity`, `edState`, `colName` ,
+		`degreeName`, `edStart`, `edEnd`, `gradYear`, `gradMonth`
+	    FROM res_education E
+	    INNER JOIN res_user_ed UE on E.edID=UE.edID
+	    INNER JOIN res_user_college UC on UE.ucID=UC.ecdID
+	    INNER JOIN res_ed_col C on UC.colID=C.colID
+	    INNER JOIN res_user_degree UD on UE.ucID=UD.ecdID
+	    INNER JOIN res_ed_degree D on UD.degreeID=D.degreeID
+	    WHERE UE.userID='".$userID."' ORDER BY `ucID` DESC
+	";
+	$counter = 0;
+	$sql = $dbcon->query($sqlSQL);
+	$this->setSqlCounter(mysqli_num_rows($sql)-1);
+	$this->howManyRows = $sql->num_rows;
+	$this->major = new ArrayObject();
+	while($row = $sql->fetch_object()) {
+	    $this->ed->offsetSet($counter,new ArrayObject());
+	    $this->setEdInfo($counter, 'ID', $row->ucID);
+	    $this->setEdInfo($counter, 'name', $row->edName);
+	    $this->setEdInfo($counter, 'city', $row->edCity);
+	    $this->setEdInfo($counter, 'state', $row->edState);
+	    $this->setEdInfo($counter, 'start', $row->edStart);
+	    $this->setEdInfo($counter, 'end', $row->edEnd);
+	    $this->setEdInfo($counter, 'gradMonth', $row->gradMonth);
+	    $this->setEdInfo($counter, 'gradYear', $row->gradYear);
+	    $this->setEdInfo($counter, 'college', $row->colName);
+	    $this->setEdInfo($counter, 'degree', $row->degreeName);
+	    $this->setEdInfo($counter, 'major', new ArrayObject());
+	    $this->setEdInfo($counter, 'minor', new ArrayObject());
+	    print_r($this->ed);
 	}
+    }
 
-	/**
-	 *
-	 * @return int Returns the edID for this instance of Education.
-	 */
-	public function getEdID() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(ID);
+    /**
+     *
+     * @since v3.0.4
+     * @param int $offset What instance of education from which to graduate.
+     * @return string Returns $graduation, the month and year of graduation.
+     */
+    public function graduation($offset) {
+	$gmonth = $this->getEdInfo($offset, 'gradMonth');
+	$gyear = $this->getEdInfo($offset, 'gradYear');
+
+	$graduation = $gmonth . " " . $gyear;
+	return $graduation;
+    }
+
+    /**
+     *
+     * @since v3.0.4
+     * @param int $offset What instance of education from where we want to get something.
+     * @return string Returns $schoolYears, which is the range of time for this instance of education.
+     */
+    public function schoolYears($offset){
+	$start = $this->getEdInfo($offset, 'start');
+	$end = $this->getEdInfo($offset, 'end');
+
+	if (isset($end)){
+	    $schoolYears = $start . " &ndash; " . $end;
 	}
-
-	public function getEdName() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(name);
+	else {
+	    $schoolYears = $end;
 	}
+	return $schoolYears;
+    }
 
-	public function getEdCity() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(city);
-	}
+    /**
+     *
+     * @since v3.0.4
+     * @param int $offset What instance of education from where we want to get something.
+     * @return string Returns $schoolLocation, the location of this instance of education.
+     */
+    public function schoolLocation($offset){
+	$schoolCity = $this->getEdInfo($offset, 'city');
+	$schoolState = $this->getEdInfo($offset, 'state');
 
-	public function getEdState() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(state);
-	}
-
-	public function getDegree() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(degree);
-	}
-
-	public function getEdStart() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(start);
-	}
-
-	public function getEdEnd() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(end);
-	}
-
-	public function getGradMonth() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(gradMonth);
-	}
-
-	public function getGradYear() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(gradYear);
-	}
-
-	public function getCollege() {
-	    return $this->ed->offsetGet($this->getEdInstance())->offsetGet(college);
-	}
-
-	public function getSqlCounter() { 
-	    return $this->sqlCounter;
-	}
-
-
-	public function setEd ($offset,$EXTed) { $this->ed->offsetSet($offset,$EXTed); }
-	public function setEdID ($counter,$EXTecdID) { $this->ecdID = $EXTecdID; $this->ed->offsetGet($counter)->offsetSet('ID',$EXTecID);}
-	public function setEdName ($extEdName) { $this->edName = $extEdName; }
-	public function setEdCity ($extEdCity) { $this->edCity = $extEdCity; }
-	public function setEdState ($extEdState) { $this->edState = $extEdState;}
-	public function setDegreeID ($extDegreeID) { $this->degreeID = $extDegreeID; }
-	public function setDegree ($extDegreeName) { $this->degree = $extDegreeName; }
-	public function setEdStart ($extEdStart) { $this->edStart = $extEdStart; }
-	public function setEdEnd ($extEdEnd) { $this->edEnd = $extEdEnd; }
-	public function setGradMonth ($extGradMonth) { $this->gradMonth = $extGradMonth; }
-	public function setGradYear ($extGradYear) { $this->gradYear = $extGradYear; }
-	public function setCollege ($offset,$EXTcollege) { $this->college->offsetSet($offset,$EXTcollege); }
-	private function setSqlCounter($sqlCount) { $this->sqlCounter = $sqlCount; }
-
-
-	/**
-	 * This function fills the Education Object with tasty data.
-	 *
-	 * @param object $dbcon The database connection object.
-	 * @param int $userID The user whose resume is being displayed.
-	 */
-	private function fillDegree($dbcon, $userID) {
-		$sqlSQL = "
-			SELECT `ucID`, `edName`, `edCity`, `edState`, `colName` , `degreeName`, `edStart`, `edEnd`, `gradYear`, `gradMonth`
-			FROM res_education E
-			INNER JOIN res_user_ed UE on E.edID=UE.edID
-			INNER JOIN res_user_college UC on UE.ucID=UC.ecdID
-			INNER JOIN res_ed_col C on UC.colID=C.colID
-			INNER JOIN res_user_degree UD on UE.ucID=UD.ecdID
-			INNER JOIN res_ed_degree D on UD.degreeID=D.degreeID
-			WHERE UE.userID='".$userID."' ORDER BY `ucID` DESC
-		";
-		$counter = 0;
-		$sql = $dbcon->query($sqlSQL);
-		$this->setSqlCounter(mysqli_num_rows($sql)-1);
-		$this->major = new ArrayObject();
-		while($row = $sql->fetch_object()) {
-			$this->setEd($counter,new ArrayObject());
-			$this->ed->offsetGet($counter)->offsetSet('ID',$row->ucID);
-			$this->ed->offsetGet($counter)->offsetSet('name',$row->edName);
-			$this->ed->offsetGet($counter)->offsetSet('city',$row->edCity);
-			$this->ed->offsetGet($counter)->offsetSet('state',$row->edState);
-			$this->ed->offsetGet($counter)->offsetSet('start',$row->edStart);
-			$this->ed->offsetGet($counter)->offsetSet('end',$row->edEnd);
-			$this->ed->offsetGet($counter)->offsetSet('gradMonth',$row->gradMonth);
-			$this->ed->offsetGet($counter)->offsetSet('gradYear',$row->gradYear);
-			$this->ed->offsetGet($counter)->offsetSet('college',$row->colName);
-			$this->ed->offsetGet($counter)->offsetSet('degree',$row->degreeName);
-
-			$majSQL = $dbcon->query("SELECT majorName, gpa FROM res_ed_major M INNER JOIN res_user_major UM ON M.majorID=UM.majorID INNER JOIN res_user_ed UE ON UM.ecdID=UE.ucID
-			WHERE ucID='".$this->ed->offsetGet($counter)->offsetGet(ID)."'
-			");
-			while($row = $majSQL->fetch_object()) {
-				if (isset($row->gpa)) { $gpa = $row->gpa; } else { $gpa = 0; }
-				$this->major->offsetSet($row->majorName,$row->gpa);
-			}
-//			print_r($this->major);
-			$counter++;
-		}
-	}
-
-	public function displayEd() {
-		for($count=0;$count<=$this->getSqlCounter();$count++) {
-			$iter = $this->ed->offsetGet($count)->getIterator();
-			while($iter->valid()) {
-				echo "{$iter->key()} : {$iter->current()} <br />";
-				$iter->next();
-			}
-		}
-	}
+	$schoolLocation = $schoolCity . ", " . $schoolState;
+	return $schoolLocation;
+    }
 }
 ?>
