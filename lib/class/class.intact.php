@@ -1,11 +1,12 @@
 <?php
 /**
- * @package multiuser-resume
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
-
+ 
 /**
  * The IntAct class creates a list of users' interests and activites.
- *
+ * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.2
@@ -56,7 +57,7 @@ class IntAct {
     }
 
     public function setIa($offset,$EXTiaDesc) { $this->ia->offsetSet($offset,$EXTiaDesc); }
-    private function setIaWeight($EXTiaWeight) { $this->iaWeight->append($EXTiaWeight); }
+    public function setIaWeight($EXTiaWeight) { $this->iaWeight->append($EXTiaWeight); }
     private function setIaInputID($EXTiaInuputID) { $this->inputID = $EXTiaInputID; }
 
     /**
@@ -78,7 +79,7 @@ class IntAct {
     /**
      * This method shows off the user's interests & activities.
      */
-    public function displayIA() {
+    public function display() {
 	$iter = $this->ia->getIterator();
 	echo "<ul>";
 	while($iter->valid()) {

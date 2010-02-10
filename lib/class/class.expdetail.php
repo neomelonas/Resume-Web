@@ -1,18 +1,20 @@
 <?php
 /**
- * @package multiuser-resume
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
+ 
 /**
  * ExpDetail extends Experience
  * It allows users to list different attributes of their
  * professional experience.
- *
+ * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
-class ExpDetail extends Experience {
+class ExpDetail extends Experience implements Info {
 
     /**
      * This is the Class Constructor.
@@ -22,8 +24,13 @@ class ExpDetail extends Experience {
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
      */
-    function __construct($dbcon,$userID) { 
+    function __construct($dbcon,$userID) {
+	parent::__construct($dbcon, $userID);
 	$this->fillProExp($dbcon,$userID);$this->fillExpDetail($dbcon,$userID);
+    }
+
+    public function getInfo($offset, $thing){
+	parent::getExpInfo($offset, $expThing);
     }
 
     /**
@@ -48,7 +55,7 @@ class ExpDetail extends Experience {
 	}
     }
 
-    public function showExperience(){
+    public function display() {
 	if ($this->howManyRows != 0) {
 	    for ($counter = 1;$counter <= $this->howManyRows;$counter++) {
 		echo "<article id=\"exp-" . $this->getExpInfo($counter,'ID') . ".\">";
@@ -61,7 +68,7 @@ class ExpDetail extends Experience {
 		echo "</section>";
 		echo "<section class=\"span-6 column last\">";
 		echo "<span class=\"citystate\">" . $this->showExpDate($counter) . "</span>";
-		echo "</section>";
+		echo "</section><div class=\"clear\"></div>";
 		echo "<section>";
 		echo "<ul>";
 		$iter = $this->getExpInfo($counter,'details')->getIterator();

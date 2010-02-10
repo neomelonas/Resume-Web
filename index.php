@@ -1,17 +1,34 @@
 <?php
 /**
- * @package multiuser-resume
+ * This is the splash page.
+ *
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
+ 
 /**
- * @author neomelonas <neo@neomelonas.com>
+ * @author Neo Melonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
-include ('lib/conf/settings.php');
-include ('lib/conf/settings.inc');
+
+/** Loads the settings, currently for db connections. */
+include ('conf/settings.php');
+
+/** Stupid thing.  Needs to be killed.
+ * @deprecated
+ */
+include ('conf/settings.inc');
+
+/** Does some procedural stuff that really does not need done in OOP. */
 include ('lib/php/functions.php');
+
 /**
+ * Database connection
+ *
+ * Uses mysql, not mysqli.
+ *
  * @deprecated
  */
 db_connect($con);
@@ -58,7 +75,7 @@ db_connect($con);
                 <hr class="space" />
                 <article class="span-20 prepend-3" id="firstrow">
                     <section id="mostviewed" class="column list span-5">
-                        <h3 class='error'>Most Viewed R&eacute;sum&eacute;s:</h3>
+                        <h3>Most Viewed R&eacute;sum&eacute;s:</h3>
                         <ul><?php mostViewed($uriPath); ?></ul>
                     </section>
                     <section id="featured" class="prepend-2 colborder column list span-5">
@@ -119,7 +136,7 @@ db_connect($con);
                     ?>
 
                 </article>
-                <footer class="span-24"><?php include ('lib/includes/footer.inc'); ?></footer>
+                <footer class="span-24"><?php include ('lib/inc/footer.inc'); ?></footer>
             </div>
         </div>
     </body>

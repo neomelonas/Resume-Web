@@ -1,10 +1,12 @@
-<?php  
-include ('lib/php/db.php');
-include ('lib/conf/settings.inc');
-include ('lib/php/functions.php');
-db_connect($con);
-if (isset($_GET['s'])) { $sString = $_GET['s']; echo $sString; }  // ECHO IS A TEST WOO.
+<?php
+/**
+ * @package resume-web
+ * @subpackage multiuser-resume
+ */
 
+/**
+ * This page doesn't do anything.
+ */
 ?>
 <!doctype html>
 <html>

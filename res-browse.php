@@ -1,6 +1,19 @@
-<?php  
+<?php
+/**
+ * @package resume-web
+ * @subpackage multiuser-resume
+ */
+
+/**
+ * Loads the settings, currently for db connections.
+ * @deprecated
+ */
 include ('lib/conf/settings.inc');
+
+/**  Loads the procedural functions. */
 include ('lib/php/functions.php');
+
+/** @deprecated */
 db_connect($con);
 if (!isset($_GET['b'])) { $browse = "name"; }
 else { $browse = $_GET['b']; }

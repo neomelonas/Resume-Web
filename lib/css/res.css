@@ -42,21 +42,25 @@ nav li,.nav li{display:inline;padding:5px;}
 #education .colName, #education .degree {font-style:italic;}
 #education .degree {}
 #education .timeframe {float:right;}
-#curriculum {padding-bottom:20px;}
-	#curriculum li {padding-left:20px;}
 
-
-#iaBlock{padding:20px 0;}
+#iaBlock{padding-bottom:20px;}
 #intact ul {padding-top:10px;}
 #intact li {padding-left:20px;}
 
 #tech{}
-#tech li/*:nth-child(2)*/{padding-left:2px;}
-.teTitle{font-style:italic;}
+#tech li{padding-left:2px;}
+.teTitle{font-style:italic;text-align:left;}
 #techGroups{padding-top:10px;}
-#techGroups,#techGroups ul {padding-bottom:0;margin-bottom:0;}
-	
-.techDetails li{display:inline;list-style:none;padding:0;}
+#techGroups,#techGroups ul {padding-bottom:0;margin-bottom:0;/*text-align:right;*/}
+
+.techDetails li{list-style:none;padding:0;text-align:right;display:inline;width:100%;}
+.techDetails li:first-child{text-align:left;}
+
+#rcBlock{padding:20px 0;}
+#courses ul {padding-top:10px;}
+#courses li {padding-left:20px;}
+
+
 
 #proexp{padding:10px 0 0 0;}
 #proexp article{margin:10px 1.5em;}
@@ -69,4 +73,4 @@ footer {text-align:center;margin-bottom:10px;}
 
 .last{text-align:right;}
 p+p{text-indent:0;}
-#education,#techGroups,#intact,#proexp{border-top:1px #000 solid;}
+#education,#techGroups,#intact,#proexp,#courses{border-top:1px #000 solid;}

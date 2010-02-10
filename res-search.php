@@ -1,5 +1,13 @@
-<?php  
+<?php
+/**
+ * @package resume-web
+ * @subpackage multiuser-resume
+ */
+
+/**  Loads the settings, currently for db connections. */
 include ('lib/conf/settings.inc');
+
+/**  Loads the procedural functions.  Like the search. */
 include ('lib/php/functions.php');
 db_connect($con);
 if (isset($_GET['q'])) { $sString = $_GET['q']; echo $sString; }  // ECHO IS A TEST WOO.

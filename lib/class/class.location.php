@@ -1,24 +1,25 @@
 <?php
 /**
- * @package multiuser-resume
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
-
+ 
 /**
  * The Location class provides support for users to be located somewhere.
- *
+ * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
-class Location {
+class Location implements Info, Display {
     /**
      * The location ID
      *
      * The unique identifier for a location.
      *
      * @var int Again, it is a unique ID for an instance of location.
-     * @sincs v3.0.0
+     * @since v3.0.0
      */
     private $locationID;
 
@@ -102,6 +103,7 @@ class Location {
 	    $this->populateLocation($dbname,$userID,$dbcon);
     }
 
+    public function getInfo($offset, $thing) {}
     public function getLocID() { return $this->locationID; }
     public function getStreet() { return $this->street1; }
     public function getStreet2() { return $this->street2; }
@@ -117,21 +119,20 @@ class Location {
     public function setLocCity($extLocCity) { $this->city = $extLocCity; }
     public function setLocState($extLocState) { $this->state = $extLocState; }
     public function setLocZIP($extLocZIP) { $this->ZIP = $extLocZIP; }
-    public function setLocStatus($extHomeLoc) { $this->locStatus = ($extHomeLoc); $this->locStatus(); }
-    private function setLoc($extLoc) { $this->loc = $extLoc; }
 
     /**
      * Set the location status (Home vs. Local)
      */
-    public function locStatus() {
+    public function place() {
 	switch ($this->getLocStatus()) {
 	    case 0;
-		$this->setLoc("Local: ");
+		$place = "Local: ";
 	        break;
 	    case 1;
-		$this->setLoc("Home: "); 
+		$place = "Home: ";
 		break;
 	}
+	return $place;
     }
 
     /**
@@ -157,9 +158,9 @@ class Location {
     /**
      * Show the location.
      */
-    public function locationDisplay() {
+    public function display() {
 	    if (!is_null($this->getLocID())){
-		    echo $this->getLocStatus() . "<span class='street'>" . $this->getStreet() . "</span> &bull; ";
+		    echo $this->place() . "<span class='street'>" . $this->getStreet() . "</span> &bull; ";
 		    echo $this->aSecondStreet() ;
 		    echo "<span class='city'>" . $this->getCity() . "</span>, <span class='state'>" . $this->getState() . "</span> <span class='zip'>" . $this->getZIP() . "</span>";
 	    }

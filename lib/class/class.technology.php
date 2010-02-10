@@ -1,12 +1,13 @@
 <?php
 /**
- * @package multiuser-resume
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
-
+ 
 /**
  * The Technology class provides users multiple styles
  * of lists of their technology backgrounds.
- *
+ * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.3
@@ -26,7 +27,6 @@ class Technology {
     /**
      * Holds all of the Operating System tech items.
      * @var array
-     * @
      */
     private $systems = array();
     /**
@@ -79,7 +79,7 @@ class Technology {
 
     /**
      *
-     * @return <type> Returns the instance's Programming Language Array
+     * @return object Returns the instance's Programming Language Array
      */
     public function getLanguages() {
 	return $this->languages;
@@ -243,7 +243,7 @@ class Technology {
     /**
      * This function quickly displays all of the tech items.
      *
-     * @@deprecated Since v3.0.3 was finished.
+     * @deprecated Since v3.0.3 was finished.
      * @param bool $groups
      */
     public function quickDisplay($groups) {

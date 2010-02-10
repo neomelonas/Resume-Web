@@ -1,22 +1,45 @@
 <?php
 /**
- * @package multiuser-resume
+ * This page displays resumes!  WHICH IS AWESOME, promise.
+ *
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
+ 
 /**
+ * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.4
+ * @version v3.0.5
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
-include ('lib/conf/settings.php');
-function __autoload($class) { include_once ($uriPath."lib/class/class.{$class}.php"); }
-include ('lib/conf/usersettings.php');
+
+/**  Loads the settings, currently for db connections. */
+include ('conf/settings.php');
+
+/**
+ * Auto-loads all of the class files.
+ * @param string $loadable guesses the name of the class files.
+ */
+function __autoload($loadable) {
+    include_once ($uriPath."lib/class/class.{$loadable}.php");
+}
+
+include_once ("lib/interface/interface.info.php");
+include_once ("lib/interface/interface.display.php");
+/**
+ *  Loads usersettings.
+ * Will probably come from a db or something, later.
+ * @deprecated
+ */
+include ('conf/usersettings.php');
 
 if (isset($_GET['u']))
 { $userID = $_GET['u']; }//AnotherPageView code here.}
 /**
  * The following &lt;pre&gt; blocks will be pulled when Unit Tests are working.
  * @todo Make unit tests.
+ * @todo Remove pre tags.
  */
 echo "<pre>";
 if (isset($userID)) {
@@ -25,9 +48,9 @@ if (isset($userID)) {
     $loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
     $te = new technology($dbcon,$resuser->getUserID(),$restype);
     $ia = new intact($dbcon,$resuser->getUserID());
-    $ed = new education($dbcon,$resuser->getUserID());
-    //$exp = new experience($dbcon,$resuser->getUserID());
+    $ed = new focus($dbcon,$resuser->getUserID());
     $exp = new expdetail($dbcon,$resuser->getUserID());
+    $course = new Course($dbcon, $resuser->getUserID());
 }
 else {die ('SHIIIT'); }
 echo "</pre>";
@@ -35,7 +58,7 @@ echo "</pre>";
 <!doctype html>
 <html>
     <head>
-	<title><?php $resuser->userFullName('long'); ?> | R&eacute;sum&eacute;</title>
+	<title><?php echo $resuser->userFullName('long'); ?> | R&eacute;sum&eacute;</title>
 	<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
 	<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection" />
 	<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/print.css" type="text/css" media="print" />
@@ -47,59 +70,68 @@ echo "</pre>";
 	<meta name="description" content="Resume" />
     </head>
 	<body>
+	    <a href="<?php echo $uriPath; ?>resetcount.php?u=<?php echo $resuser->getUserInfo('ID'); ?>">Pull this Link</a>
 	    <div class="container">
 		<header class="span-24">
 		<div id="header">
-		    <h1><?php $resuser->userFullName('long'); ?></h1>
-		    <h4><?php $home->locationDisplay(); ?></h4>
-		    <?php if (!is_null($loc->getLocID())) { echo "<h4>"; $loc->locationDisplay(); echo "</h4>"; }; ?>
-		    <h4><?php echo $resuser->phoneNumber(); ?> &bull; <?php echo "<a href=\"mailto:{$resuser->getUserEmail()}\">{$resuser->getUserEmail()}</a>"; ?></h4>
+		    <h1><?php echo $resuser->userFullName('long'); ?></h1>
+		    <h4><?php $home->display(); ?></h4>
+		    <?php if (!is_null($loc->getLocID())) { echo "<h4>"; $loc->display(); echo "</h4>"; }; ?>
+		    <h4><?php echo $resuser->phoneNumber(); ?> &bull; <?php echo "<a href=\"mailto:{$resuser->getUserInfo('email')}\">{$resuser->getUserInfo('email')}</a>"; ?></h4>
 		</div>
 		</header>
 		<div id="next">
-		    <article id="edBlock">
+		    <div id="edBlock">
 			<section class="title noslip">
 			    <h2><a href="#" class="ed noslip">Education</a></h2>
 			</section>
 			<section id="education">
-			    <?php $ed->displayEd(); ?>
+			    <?php $ed->display(); ?>
 			</section>
-		    </article>
-		    <div class="clear"></div>
-		    <article id="teBlock">
+		    </div>
+		    <div class="clear"></div><!-- End of Ed /-->
+		    <div id="teBlock">
 			<section class="title noslip">
 			    <h2><a href="#" class="te noslip">Technology Skills</a></h2>
 			</section>
 			<section id="techGroups">
 			    <?php $te->quickDisplay($restype); ?>
 			</section>
-		    </article>
-		    <div class="clear"></div>
-		    <article id="iaBlock">
+		    </div>
+		    <div class="clear"></div><!-- End of Tech Skills /-->
+		     <div id="rcBlock">
+			<section class="title noslip">
+			    <h2><a href="#" class="rc noslip">Coursework</a></h2>
+			</section>
+			<section id="courses">
+			    <?php $course->display(); ?>
+			</section>
+		    </div>
+		    <div class="clear"></div><!-- End of Courses /-->
+		    <div id="iaBlock">
 			<section class="title noslip">
 			    <h2><a href="#" class="ia noslip">Interests &amp; Activities</a></h2>
 			</section>
 			<section id="intact">
-			    <?php $ia->displayIA(); ?>
+			    <?php $ia->display(); ?>
 			</section>
-		    </article>
-		    <div class="clear"></div>
-		    <article id="expBlock">
+		    </div>
+		    <div class="clear"></div><!-- End of IntAct /-->
+		    <div id="expBlock">
 			<section class="title noslip">
 			    <h2><a href="#" class="pe noslip">Professional Experience</a></h2>
 			</section>
 			<section id="proexp">
-			    <?php $exp->showExperience(); ?>
+			    <?php $exp->display(); ?>
 			</section>
-		    </article>
+		    </div>
+		    <div class="clear"></div><!-- End of ProExp /-->
 		</div>
 		<hr class="space" />
-		<a href="<?php echo $uriPath; ?>resetcount.php?u=<?php echo $resuser->getUserID(); ?>">REMOVE THIS
-LINK</a>
 		<footer><div id="footer">
 		    <hr />
-		    <p>Download As:  <?php $resuser->docFiller($links); ?></p>
-		    <hr />
+		    <p>Download As:  <?php //$resuser->docFiller($links); ?></p>
+		    <hr /   >
 		</div></footer>
 	</div>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>

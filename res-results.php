@@ -1,4 +1,9 @@
 <?php
+/**
+ * @package resume-web
+ * @subpackage multiuser-resume
+ */
+
 if (isset($_GET['s']))
 { echo $_GET['s']; }
 if (isset($_GET['ed']))

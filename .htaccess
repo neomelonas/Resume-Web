@@ -4,10 +4,11 @@ RewriteEngine On
 RewriteRule \.(css|jpe?g|gif|png|docx?|pdf|zip)$ - [L]
 
 ##RESUME
-##RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteMap themap txt:\d\Server\xampp\htdocs\ResumeBeta\lib\conf\mapfile.txt
-#RewriteCond %{REQUEST_URI}% ^ResumeBeta/resume/
+#RewriteCond %{REQUEST_URI} ^ResumeBeta/resume/
 #RewriteRule ^resume/(.*)/? ^resume/${nameMap:$1}/? [C]
+RewriteCond %{REQUEST_URI} !^/docs/*?/?
 RewriteRule ^resume/(\d+)/?$ res-resume.php?u=$1 [L]
 
 ##BROWSING

@@ -1,11 +1,13 @@
 <?php
 /**
- * @package multiuser-resume
+ * @package resume-web
+ * @subpackage multiuser-resume
  */
+ 
 /**
  * The Experience class logics out the info for
  * Professional Experience
- *
+ * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.3

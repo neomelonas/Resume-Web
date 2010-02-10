@@ -1,4 +1,15 @@
 <?php
+/**
+ * @package resume-web
+ * @subpackage multiuser-resume
+ */
+ /**
+  * This entire file is
+  * @deprecated
+  */
+
+
+
 $userPrefs = array();
 function db_connect($con) {
 	if (!$con)

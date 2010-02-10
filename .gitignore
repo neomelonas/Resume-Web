@@ -2,4 +2,8 @@
 lib/php/db.php
 extras
 *.ico
-lib/conf/settings.inc
+conf/settings.*
+!conf/settings.default.php
+docs/*
+!docs
+lib/test
