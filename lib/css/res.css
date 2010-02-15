@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 header, nav, article, section, aside, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
 #wrapper {margin:auto;width:850px;line-height:1.1em;}
@@ -11,6 +12,16 @@ h1,h2,h3,h4,hr{line-height:1em;}
 footer hr, footer p{margin:0;}
 h1,h4{text-transform: uppercase;}
 
+=======
+header, nav, article, section, footer {display:block;}
+@media print{html{background-color:#ffffff;color:#000000;}}
+#wrapper {margin:auto;width:850px;line-height:1.1em;}
+body {font-family:arial;font-size:1em;}
+h1{font-size:2.5em;line-height:1.15em;}
+h2{font-size:1.1em;line-height:1.1em;padding-bottom:5px;}
+h3{font-size:.8em;line-height:1.1em;}
+h4{font-size:.7em;line-height:1.1em;text-align:center;}
+>>>>>>> cce638a96bbdf0cfe02d97b6685f4200ab6004d6
 
 ul,ol{list-style-position:inside;}
 sup {font-size: 0.6em; line-height: 0.5em}
@@ -27,8 +38,13 @@ a.noline{text-decoration:none;}
 header {margin:10px 0 0 0;text-align:center;}
 header h3 {text-align:center;text-transform:uppercase;}
 
+<<<<<<< HEAD
 .citystate {text-align:left;}
 .timeframe {text-align:right;}
+=======
+.citystate {float:right;margin:auto;position:relative;text-align:left;width:200px;}
+.timeframe {float:right;text-align:right;width:200px;}
+>>>>>>> cce638a96bbdf0cfe02d97b6685f4200ab6004d6
 
 nav,.nav{margin:10px 0 5px;padding:5px 0;}
 nav ul,.nav ul{list-style:none;text-align:center;}
@@ -36,6 +52,7 @@ nav li,.nav li{display:inline;padding:5px;}
 
 #stuff a{color:#000000;text-decoration:none;}
 
+<<<<<<< HEAD
 #edblock {padding-bottom:20px;}
 #education {margin:10px 1.5em;}
 #education .school {font-weight:bold;}
@@ -74,3 +91,33 @@ footer {text-align:center;margin-bottom:10px;}
 .last{text-align:right;}
 p+p{text-indent:0;}
 #education,#techGroups,#intact,#proexp,#courses{border-top:1px #000 solid;}
+=======
+#education {padding-bottom:20px;}
+	#education span {padding-left:10px;}
+	#education .school {float:left;}
+	#education .college, #education .degree {font-style:italic;}
+	#education .degree {}
+	#education .major {}
+
+#curriculum {padding-bottom:20px;}
+	#curriculum li {padding-left:20px;}
+
+#experience {padding-bottom:10px;}
+	#experience article {padding:5px 0 15px 10px;}
+	.workname {width:350px;}
+	#experience li {padding-left:20px;}
+	#experience .position {font-style:italic;}
+	
+#intact {padding-bottom:20px;}
+	#intact li {padding-left:20px;}
+
+#tech {padding:0 0 10px 10px;}
+	#tech li:first-child{padding-left:2px;}
+	span .teTitle{text-style:italic;}
+	
+.techDetails li{display:inline;list-style:none;padding:0;}
+
+footer {text-align:center;margin-bottom:10px;}
+
+.slip{display:none;}
+>>>>>>> cce638a96bbdf0cfe02d97b6685f4200ab6004d6

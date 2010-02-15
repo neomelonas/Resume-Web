@@ -1,0 +1,4 @@
+*
+!.gitignore
+!*.vsd
+!create_tables.sql
