@@ -12,7 +12,7 @@
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
-class Location implements Info, Display {
+class Location {
     /**
      * The location ID
      *
@@ -103,7 +103,6 @@ class Location implements Info, Display {
 	    $this->populateLocation($dbname,$userID,$dbcon);
     }
 
-    public function getInfo($offset, $thing) {}
     public function getLocID() { return $this->locationID; }
     public function getStreet() { return $this->street1; }
     public function getStreet2() { return $this->street2; }
@@ -143,8 +142,12 @@ class Location implements Info, Display {
      * @param object $dbcon
      */
     public function populateLocation($dbname, $userID, $dbcon) {
-	    $sql = $dbcon->query("SELECT L.locID, `locStreet`, `locStreet2`, `locCity`, `locState`, `locZIP` FROM ".$dbname.".res_location L INNER JOIN ".$dbname.".res_user_loc UL on L.locID=UL.locID WHERE userID='" . $userID . "' AND homeLoc='".$this->getLocStatus()."'");
-	    if (!$sql) {echo "Bad SQL: "; echo "class.location " . $userID;}
+	    $sql = $dbcon->query("
+		SELECT L.locID, `locStreet`, `locStreet2`, `locCity`, `locState`, `locZIP`
+		FROM res_location L
+		INNER JOIN res_user_loc UL on L.locID=UL.locID
+		WHERE userID='".$userID."' AND homeLoc='".$this->getLocStatus()."'");
+	    if (!$sql) {echo "Bad SQL: "; echo "class.location " . $userID . "\nLocID: " . $this->getLocStatus() . "\n";}
 	    while ($row = $sql->fetch_object()) {
 		    $this->setLocID($row->locID);
 		    $this->setLocStreet($row->locStreet);

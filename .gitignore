@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Ignore everything in here apart from the .gitignore file
 lib/php/db.php
 extras
@@ -9,6 +8,3 @@ docs/*
 !docs
 lib/test
 !doc
-=======
-!.gitignore*.itProject
->>>>>>> cce638a96bbdf0cfe02d97b6685f4200ab6004d6
