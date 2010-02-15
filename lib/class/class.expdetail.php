@@ -3,7 +3,7 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
+
 /**
  * ExpDetail extends Experience
  * It allows users to list different attributes of their
@@ -14,7 +14,7 @@
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
-class ExpDetail extends Experience {
+class ExpDetail extends Experience implements Info {
 
     /**
      * This is the Class Constructor.
@@ -44,17 +44,12 @@ class ExpDetail extends Experience {
 
     /**
      * This method fills the Detail subclass with tasty data.
-     * 
+     *
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
      */
     protected function fillExpDetail($dbcon,$userID){
-	$sql = $dbcon->query("
-	    SELECT `expPosID`,`detailID`, `detailDesc`
-	    FROM res_exp_detail D
-	    INNER JOIN res_user_exp UE on D.posID=UE.expPosID
-	    WHERE userID='" . $userID . "'
-	");
+	$sql = $dbcon->query("SELECT `expPosID`,`detailID`, `detailDesc` FROM res_exp_detail D INNER JOIN res_user_exp UE on D.posID=UE.expPosID WHERE userID='" . $userID . "'");
 	while($row = $sql->fetch_object()){
 	    $this->setExpDetail($row->expPosID,$row->detailDesc);
 	}

@@ -12,12 +12,12 @@
  * @since 3.0.6
  * @copyright 2010 Neo Melonas
  */
-class Course {
+class Course implements Info {
     /**
      *
      * @var object
      */
-    public $courses;
+    private $courses;
 
     /**
      *
@@ -65,14 +65,9 @@ class Course {
 	echo "<ul>";
 	while($iter->valid()){
 	    $offset = $iter->key();
-	    echo "<li>" . $this->getInfo($offset, 'name');
-		if ($this->getInfo($offset, 'num') == ''){
-		    echo ": ";
-		}
-		else {
-		    echo " " . $this->getInfo($offset, 'num') . ": ";
-		}
-		echo $this->getInfo($offset, 'desc');echo "</li>";
+	    echo "<li>" . $this->getInfo($offset, 'name') .  
+		" " . $this->getInfo($offset, 'num') . ": " .
+		$this->getInfo($offset, 'desc');echo "</li>";
 	    $iter->next();
 	}
 	echo "</ul>";

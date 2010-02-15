@@ -35,13 +35,13 @@ if (isset($_GET['u']))
  * @todo Make unit tests.
  */
 if (isset($userID)) {
-    $resuser = new user($userID,$dbname,$dbcon);
-    $home = new location($dbname,1,$resuser->getUserID(),$dbcon);
-    $loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
-    $te = new technology($dbcon,$resuser->getUserID(),$restype);
-    $ia = new intact($dbcon,$resuser->getUserID());
-    $ed = new education($dbcon,$resuser->getUserID());
-    $exp = new expdetail($dbcon,$resuser->getUserID());
+    $resuser = new User($userID,$dbname,$dbcon);
+    $home = new Location($dbname,1,$resuser->getUserID(),$dbcon);
+    $loc = new Location($dbname,0,$resuser->getUserID(),$dbcon);
+    $te = new Technology($dbcon,$resuser->getUserID(),$restype);
+    $ia = new IntAct($dbcon,$resuser->getUserID());
+    $ed = new Education($dbcon,$resuser->getUserID());
+    $exp = new ExpDetail($dbcon,$resuser->getUserID());
     $course = new Course($dbcon, $resuser->getUserID());
 }
 else {die ('User ID not specified.'); }
