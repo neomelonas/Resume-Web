@@ -19,6 +19,5 @@ interface Info {
      * @param string $thing
      */
     public function getInfo($offset, $thing);
-    //public function fill($dbcon, $userID);
 }
 ?>

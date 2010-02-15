@@ -7,3 +7,4 @@ conf/settings.*
 docs/*
 !docs
 lib/test
+!doc

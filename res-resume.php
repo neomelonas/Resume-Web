@@ -24,14 +24,8 @@ include ('conf/settings.php');
 function __autoload($loadable) {
     include_once ($uriPath."lib/class/class.{$loadable}.php");
 }
-
 include_once ("lib/interface/interface.info.php");
 include_once ("lib/interface/interface.display.php");
-/**
- *  Loads usersettings.
- * Will probably come from a db or something, later.
- * @deprecated
- */
 include ('conf/usersettings.php');
 
 if (isset($_GET['u']))
@@ -39,21 +33,24 @@ if (isset($_GET['u']))
 /**
  * The following &lt;pre&gt; blocks will be pulled when Unit Tests are working.
  * @todo Make unit tests.
- * @todo Remove pre tags.
  */
-echo "<pre>";
 if (isset($userID)) {
     $resuser = new user($userID,$dbname,$dbcon);
     $home = new location($dbname,1,$resuser->getUserID(),$dbcon);
     $loc = new location($dbname,0,$resuser->getUserID(),$dbcon);
     $te = new technology($dbcon,$resuser->getUserID(),$restype);
     $ia = new intact($dbcon,$resuser->getUserID());
-    $ed = new focus($dbcon,$resuser->getUserID());
+    $ed = new education($dbcon,$resuser->getUserID());
     $exp = new expdetail($dbcon,$resuser->getUserID());
     $course = new Course($dbcon, $resuser->getUserID());
 }
-else {die ('SHIIIT'); }
-echo "</pre>";
+else {die ('User ID not specified.'); }
+
+if ($resuser->getUserInfo('theme') != 0){
+    include ($uriPath . "lib/theme/" . $resuser->getUserInfo('theme') . ".php");
+}
+else
+{
 ?>
 <!doctype html>
 <html>
@@ -108,15 +105,6 @@ echo "</pre>";
 			</section>
 		    </div>
 		    <div class="clear"></div><!-- End of Courses /-->
-		    <div id="iaBlock">
-			<section class="title noslip">
-			    <h2><a href="#" class="ia noslip">Interests &amp; Activities</a></h2>
-			</section>
-			<section id="intact">
-			    <?php $ia->display(); ?>
-			</section>
-		    </div>
-		    <div class="clear"></div><!-- End of IntAct /-->
 		    <div id="expBlock">
 			<section class="title noslip">
 			    <h2><a href="#" class="pe noslip">Professional Experience</a></h2>
@@ -126,16 +114,25 @@ echo "</pre>";
 			</section>
 		    </div>
 		    <div class="clear"></div><!-- End of ProExp /-->
+		    <div id="iaBlock">
+			<section class="title noslip">
+			    <h2><a href="#" class="ia noslip">Interests &amp; Activities</a></h2>
+			</section>
+			<section id="intact">
+			    <?php $ia->display(); ?>
+			</section>
+		    </div>
+		    <div class="clear"></div><!-- End of IntAct /-->
 		</div>
 		<hr class="space" />
 		<footer><div id="footer">
 		    <hr />
-		    <p>Download As:  <?php //$resuser->docFiller($links); ?></p>
-		    <hr /   >
+		    <p>Download As:  <?php echo $resuser->docLinks($links); ?></p>
+		    <hr />
 		</div></footer>
 	</div>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo "http://".$_SERVER['HTTP_HOST'].$uriPath; ?>lib/js/slide.js"></script>
     </body>
 </html>
-
+<?php } ?>

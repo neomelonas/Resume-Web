@@ -170,7 +170,13 @@ class Technology {
      */
     private function fillTechLang($dbcon,$userID) {
 	    $this->languages = new ArrayObject(array());
-	    $sql = $dbcon->query("SELECT TE.teID, `teDesc` FROM res_techexp TE INNER JOIN res_user_tech UT on TE.teID=UT.teID WHERE userID='" . $userID . "' AND teType='language'");
+	    $sql = $dbcon->query("
+		SELECT `teDesc`
+		FROM res_techexp TE
+		INNER JOIN res_user_tech UT on TE.teID=UT.teID
+		WHERE userID='" . $userID . "' and teType='language'
+	    ");
+//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->languages->append($row->teDesc);
 	    }
@@ -186,7 +192,13 @@ class Technology {
      */
     private function fillTechSys($dbcon,$userID) {
 	    $this->systems = new ArrayObject();
-	    $sql = $dbcon->query("SELECT `teDesc` FROM res_techexp TE INNER JOIN res_user_tech UT on TE.teID=UT.teID WHERE userID='" . $userID . "' AND teType='OS'");
+	    $sql = $dbcon->query("
+		SELECT `teDesc`
+		FROM res_techexp TE
+		INNER JOIN res_user_tech UT on TE.teID=UT.teID
+		WHERE userID='" . $userID . "' and teType='OS'
+	    ");
+//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->systems->append($row->teDesc);
 	    }
@@ -202,7 +214,13 @@ class Technology {
      */
     private function fillTechProg($dbcon,$userID) {
 	    $this->programs = new ArrayObject();
-	    $sql = $dbcon->query("SELECT `teDesc` FROM res_techexp TE INNER JOIN res_user_tech UT on TE.teID=UT.teID WHERE userID='" . $userID . "' AND teType='program'");
+	    $sql = $dbcon->query("
+		SELECT `teDesc`
+		FROM res_techexp TE
+		INNER JOIN res_user_tech UT on TE.teID=UT.teID
+		WHERE userID='" . $userID . "' and teType='program'
+	    ");
+//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->programs->append($row->teDesc);
 	    }
@@ -218,7 +236,13 @@ class Technology {
      */
     private function fillTechOther($dbcon,$userID) {
 	    $this->other = new ArrayObject();
-	    $sql = $dbcon->query("SELECT `teDesc` FROM res_techexp TE INNER JOIN res_user_tech UT on TE.teID=UT.teID WHERE userID='" . $userID . "' AND teType='other'");
+	    $sql = $dbcon->query("
+		SELECT `teDesc`
+		FROM res_techexp TE
+		INNER JOIN res_user_tech UT on TE.teID=UT.teID
+		WHERE userID='" . $userID . "' and teType='other'
+	    ");
+//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->other->append($row->teDesc);
 	    }
@@ -234,7 +258,7 @@ class Technology {
      */
     private function fillTechNoGroup($dbcon,$userID) {
 	    $this->noGroup = new ArrayObject();
-	    $sql = $dbcon->query("SELECT `teDesc` FROM res_techexp TE INNER JOIN res_user_tech UT on TE.teID=UT.teID WHERE userID='" . $userID . "' AND teType='nogroup'");
+	    $sql = $dbcon->query('CALL procGetTechList(1,"nogroup")');
 	    while($row = $sql->fetch_object()) {
 		    $this->noGroup->append($row->teDesc);
 	    }

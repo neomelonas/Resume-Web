@@ -16,5 +16,10 @@
  * @deprecated
  */
 $restype = 1;
-$links = all;
+$links = array(
+    'pdf',
+    'doc',
+    'docx',
+    'zip'
+);
 ?>
