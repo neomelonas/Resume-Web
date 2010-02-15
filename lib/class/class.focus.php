@@ -15,7 +15,7 @@
  *
  * @todo MAKE THINGS WORK x_x
  */
-class Focus extends Education {
+class Focus extends Education implements Info, Display {
 
     /**
      * This is the Education Constructor.

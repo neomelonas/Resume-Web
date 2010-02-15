@@ -12,7 +12,7 @@
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
-class User{
+class User {
     /**
      * The user.
      * @since v3.0.5
@@ -117,7 +117,7 @@ class User{
 	$sql = $dbcon->query("
 	    SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`,
 		`userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate,
-		DU.clickCount, DU.featured, theme
+		DU.clickCount, DU.featured
 	    FROM ".$dbname.".res_user U
 	    INNER JOIN ".$dbname.".res_data_user DU on U.userID=DU.userID
 	    WHERE U.userID='". $this->getUserID() ."' LIMIT 1
@@ -136,7 +136,6 @@ class User{
 	    $this->setUserInfo('featured', ord($row->featured));
 	    $this->setUserInfo('slug', $row->userSlug);
 	    $this->setUserInfo('phone', $row->phonenum);
-	    $this->setUserInfo('theme', $row->theme);
 	}
     }
 
@@ -154,75 +153,29 @@ class User{
      * 
      * @param int $which In what way do you want the documentList.  A User Specified Value, eventually.
      */
-    public function docLinks($list) {
-	$pile = "";
-	if (is_array($list)){
-	    $c = count($list);
-	    $counter = 0;
-	    foreach ($list as $case){
-		$counter ++;
-		switch ($case){
-		    case 'pdf':
-			$plop = "<a href=\"/doc/". $this->userFullName('link').
-			".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
-			break;
-		    case 'doc':
-			$plop = "<a href=\"/doc/" . $this->userFullName('link') .
-			".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
-			break;
-		    case 'docx':
-			$plop = "<a href=\"/doc/" . $this->userFullName('link') .
-			".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
-			break;
-		    case 'zip':
-			$plop = "<a href=\"/doc/" . $this->userFullName('link') .
-			".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
-			break;
-		    default:
-			$arr = array('pdf','doc','docx','zip');
-			$this->docFiller($arr);
-			break;
-		}
-		$pile = $pile . $plop;
-		if ($counter != $c){
-		     $pile = $pile . " &bull; ";
-		}
-	    }
+    public function docFiller($case) {
+	switch ($case){
+	    case 'pdf':
+		return "<a href=\"/doc/";
+		$this->userFullName('link');
+		return ".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
+		break;
 	}
-	else {
-	    switch ($case){
-		case 'pdf':
-		    return "<a href=\"/doc/". $this->userFullName('link').
-		    ".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
-		    break;
-		case 'doc':
-		    return "<a href=\"/doc/" . $this->userFullName('link') .
-		    ".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
-		    break;
-		case 'docx':
-		    return "<a href=\"/doc/" . $this->userFullName('link') .
-		    ".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
-		    break;
-		case 'zip':
-		    return "<a href=\"/doc/" . $this->userFullName('link') .
-		    ".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
-		    break;
-		default:
-		    return "<a href=\"/doc/". $this->userFullName('link').
-		    "Resume.pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a> &bull;
-		    <a href=\"/doc/" . $this->userFullName('link') .
-		    "Resume.doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a> &bull;
-		    <a href=\"/doc/" . $this->userFullName('link') .
-		    "Resume.docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a> &bull;
-		    <a href=\"/doc/" . $this->userFullName('link') .
-		    "Resume.zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
-		    break;
 
-	    }
-	}
-	return $pile;
+
+
+
+
+//	"<a href=\"/doc/" .
+//	$this->userFullName('link') .
+//	".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a> &bull; <a href=\"/doc/" .
+//	$this->userFullName('link') .
+//	".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a> &bull; <a href=\"/doc/" .
+//	$this->userFullName('link') .
+//	".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a> &bull; <a href=\"/doc/" .
+//	$this->userFullName('link') .
+//	".zip\" class=\"noline\" title=\"ZIP (PDF &amp; DOCX &amp; DOC R&eacute;sum&eacute;s\">ZIP</a> &bull; ";
     }
-
 
     /**
      * Shows link to user resume with and without a count of the views.
