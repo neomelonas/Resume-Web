@@ -1,0 +1,17 @@
+header, article, section, aside, footer{display:block;}
+#login {text-align:center;font-size:2em;}
+#message p {
+    background-color:#c5ea9b;
+    border:1px #d7dfc7 solid;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
+    margin:0 25%;
+    padding:20px 5px;
+    text-align:center;
+    width:50%;
+}
+#loginform{position:absolute;top:45%;left:40%;width:30px;}
+#loginform  .input {font-family:serif;}
+
+.bad {color:#aa140d;}

@@ -80,7 +80,7 @@
 		<hr class="space" />
 		<footer><div id="footer">
 		    <hr />
-		    <p>Download As:  <?php echo $resuser->docLinks($links); ?></p>
+		    <p>Download As:  <?php echo $resuser->docLinks($resuser->getUserInfo('links')); ?></p>
 		    <hr />
 		    <p>Page views: <?php echo $resuser->getUserInfo('views'); ?></p>
 		</div></footer>

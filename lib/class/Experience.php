@@ -3,13 +3,12 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
 /**
  * The Experience class logics out the info for
  * Professional Experience
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.4
+ * @version v3.1.0
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
@@ -47,7 +46,9 @@ class Experience {
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
      */
-    function __construct($dbcon,$userID) { $this->fillProExp($dbcon,$userID); }
+    function __construct($dbcon,$userID) { 
+	$this->fillProExp($dbcon,$userID);
+    }
 
     /**
      * getExpID

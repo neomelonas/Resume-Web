@@ -3,12 +3,11 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
 /**
  * The IntAct class creates a list of users' interests and activites.
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.4
+ * @version v3.1.0
  * @since v3.0.2
  * @copyright 2009-2010 Neo Melonas
  */

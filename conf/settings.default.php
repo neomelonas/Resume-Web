@@ -58,13 +58,6 @@ $dbname		= 'resumeDB';
 
 
 /*	    !!STOP EDITING NOW!!	     */
-
-/** Include the ADOdb database abstraction stuff. */
-include ('lib/inc/adodb/adodb.inc.php');
-
-$dbcon = ADONewConnection($dbtype);
-$dbcon->PConnect($dbhost, $dbuser, $dbpass, $dbname);
-
-//$dbcon	    = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
-//if (mysqli_connect_errno()) { echo ("OH NO!  Here's what happened: ".mysqli_connect_error()); exit(); }
+$dbcon	    = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
+if (mysqli_connect_errno()) { echo ("OH NO!  Here's what happened: ".mysqli_connect_error()); exit(); }
 ?>

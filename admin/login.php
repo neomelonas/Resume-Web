@@ -1,36 +1,37 @@
 <?php
 include ("../conf/settings.php");
-if (isset($_SESSION['ID'])){
-    header( "Location: ".$uriPath."admin/index.php" );
+if (isset($_SESSION['user'])){
+    header( "Location: ".$uriPath."admin/index.php?u=".$slug );
 }
-if (isset($_GET['uname'])){
-    if (!isset($_GET['pwrd'])){
-	$message = "Please enter a password.";
-    }
-    else {
-	$uname = $_GET['uname'];
-	$sql = $dbcon->query("SELECT password FROM res_user WHERE username LIKE '". $dbcon->real_escape_string(strip_tags(stripslashes($uname))) ."'");
-	if ($sql) { $message = "Username or password was incorrect, please try again."; }
-	while($row = $sql->fetch_object()){
-	    if (sha1($_GET[pwrd]) != $row->password){
-		$message = "Username or password was incorrect, please try again.";
-	    }
-	    else {
-		session_start();
-		$ID = substr(md5($uname),0,6);
-		$_SESSION['ID'] = $ID;
-		header( "Location: ".$uriPath."admin/index.php" );
-	    }
-	}
-    }
+//$message = "Username or password was <span class=\"bad\">incorrect</span>, please try again.";
+$error = 0;
+if (isset($_GET['e'])){
+    $error = $_GET['e'];
+}
+switch ($error){
+    case 1:
+        $message = "Please enter a <span class=\"bad\">username</span>!";
+	break;
+    case 2:
+	$message = $message . "Please enter a <span class=\"bad\">password</span>!";
+	break;
+    case 3:
+	$message = "Bad <span class=\"bad\">username</span> or <span class=\"bad\">password</span>!";
+	break;
+    default:
+	break;
 }
 ?>
 <!doctype html>
 <html>
     <head>
         <title>Login | R&eacute;sum&eacute; Admin</title>
-    </head>
-    <body>
+	<link rel="stylesheet" href="../lib/css/admin.css" type="text/css" media="screen" />
+      </head>
+      <body>
+	  <header id="login">
+	      <h1>R&eacute;sum&eacute; Admin Login</h1>
+	  </header>
 	<div id="message">
 	    <?php
 	    echo $_SESSION['ID'];
@@ -40,12 +41,13 @@ if (isset($_GET['uname'])){
 	    ?>
 	</div>
 	<div id="loginform">
-	    <form name="whereinwelogin" action="login.php" method="GET">
+	    <form name="whereinwelogin" action="index.php" method="post">
 		<label for="uname">Username</label>
 		<input type="text" name="uname" value="" size="25" />
 		<label for="pwrd">Password</label>
 		<input type="password" name="pwrd" value="" size="25" />
-		<input type="submit" value="Log In" name="" />
+		<input type="hidden" value="1" name="junk" />
+		<input type="submit" value="Log In" name="login" />
 	    </form>
 	</div>
     </body>

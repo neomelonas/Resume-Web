@@ -5,11 +5,10 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
-/**
+ /**
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.5
+ * @version v3.1.0
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
@@ -31,14 +30,14 @@ if (isset($_GET['u']))
 { $userID = $_GET['u']; }
 
 if (isset($userID)) {
-    $resuser = new user($userID,$dbname,$dbcon);
-    $home = new location($dbname,1,$resuser->getUserID(),$dbcon);
-    $local = new location($dbname,0,$resuser->getUserID(),$dbcon);
-    $tech = new technology($dbcon,$resuser->getUserID(),1);
-    $intact = new IntAct($dbcon,$resuser->getUserID());
+    $resuser = new User($userID,$dbname,$dbcon);
+    $home = new Location($dbname,1,$resuser->getUserID(),$dbcon);
+    $local = new Location($dbname,0,$resuser->getUserID(),$dbcon);
     $education = new Education($dbcon,$resuser->getUserID());
-    $experience = new expdetail($dbcon,$resuser->getUserID());
+    $tech = new Technology($dbcon,$resuser->getUserID(),$resuser->getUserInfo('techType'));
     $course = new Course($dbcon, $resuser->getUserID());
+    $experience = new ExpDetail($dbcon,$resuser->getUserID());
+    $intact = new IntAct($dbcon,$resuser->getUserID());
 }
 else {die ('User ID not specified.'); }
 

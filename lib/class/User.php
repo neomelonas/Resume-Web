@@ -7,7 +7,7 @@
  * User is the class that allows users to exist.
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.5
+ * @version v3.1.0
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
@@ -52,7 +52,7 @@ class User{
 
     /**
      * @since v3.0.0
-     * @deprecated
+     * @deprecated Preferred method is <code>$thing->getInfo('ID');</code>
      * @return int Returns the userID.
      */
     public function getUserID() { return $this->getUserInfo('ID'); }
@@ -140,11 +140,11 @@ class User{
 	    $this->setUserInfo('theme', $row->resTheme);
 	    $this->setUserInfo('statement', $row->pstate);
 	    $quicklink = explode(',',$row->links);
-	    $this->setUserInfo('techType', $row->techType);
-	    foreach($quicklink as $key=>$val){
-		array_push($links,$val);
+	    foreach($quicklink as $key){
+		array_push($links,$key);
 	    }
 	    $this->setUserInfo('links', $links);
+	    $this->setUserInfo('techType', $row->techType);
 	}
     }
 
@@ -158,74 +158,41 @@ class User{
     }
 
     /**
-     * Determines in which downloadable formats the user's resume is available.
-     * 
-     * @param int $which In what way do you want the documentList.  A User Specified Value, eventually.
+     *
+     * @param array $list A list of what types of documents to return.  Allowed types are doc, docx, pdf, & zip.
+     * @return string $pile This returns a list of the documents stored on the server that the user wants accessible.
      */
     public function docLinks($list) {
 	$pile = "";
-	if (is_array($list)){
-	    $c = count($list);
-	    $counter = 0;
-	    foreach ($list as $case){
-		$counter ++;
-		switch ($case){
-		    case 'pdf':
-			$plop = "<a href=\"/doc/". $this->userFullName('link').
-			".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
-			break;
-		    case 'doc':
-			$plop = "<a href=\"/doc/" . $this->userFullName('link') .
-			".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
-			break;
-		    case 'docx':
-			$plop = "<a href=\"/doc/" . $this->userFullName('link') .
-			".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
-			break;
-		    case 'zip':
-			$plop = "<a href=\"/doc/" . $this->userFullName('link') .
-			".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
-			break;
-		    default:
-			$arr = array('pdf','doc','docx','zip');
-			$this->docFiller($arr);
-			break;
-		}
-		$pile = $pile . $plop;
-		if ($counter != $c){
-		     $pile = $pile . " &bull; ";
-		}
-	    }
-	}
-	else {
+	$c = count($list);
+	$counter = 0;
+	foreach ($list as $case){
+	    $counter ++;
 	    switch ($case){
 		case 'pdf':
-		    return "<a href=\"/doc/". $this->userFullName('link').
+		    $plop = "<a href=\"/doc/". $this->userFullName('link').
 		    ".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
 		    break;
 		case 'doc':
-		    return "<a href=\"/doc/" . $this->userFullName('link') .
+		    $plop = "<a href=\"/doc/" . $this->userFullName('link') .
 		    ".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
 		    break;
 		case 'docx':
-		    return "<a href=\"/doc/" . $this->userFullName('link') .
+		    $plop = "<a href=\"/doc/" . $this->userFullName('link') .
 		    ".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
 		    break;
 		case 'zip':
-		    return "<a href=\"/doc/" . $this->userFullName('link') .
+		    $plop = "<a href=\"/doc/" . $this->userFullName('link') .
 		    ".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
 		    break;
 		default:
-		    return "<a href=\"/doc/". $this->userFullName('link').
-		    "Resume.pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a> &bull;
-		    <a href=\"/doc/" . $this->userFullName('link') .
-		    "Resume.doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a> &bull;
-		    <a href=\"/doc/" . $this->userFullName('link') .
-		    "Resume.docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a> &bull;
-		    <a href=\"/doc/" . $this->userFullName('link') .
-		    "Resume.zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
+		    $arr = array('pdf','doc','docx','zip');
+		    $this->docFiller($arr);
 		    break;
-
+	    }
+	    $pile = $pile . $plop;
+	    if ($counter != $c){
+		 $pile = $pile . " &bull; ";
 	    }
 	}
 	return $pile;
@@ -253,7 +220,11 @@ class User{
 	}
     }
 
-    function getEmail(){
+    /**
+     *
+     * @return string $email Returns the user's email address, formatted as a link.
+     */
+    public function getEmail(){
 	$email = "<a href=\"mailto:";
 	$email = $email . $this->getUserInfo('email');
 	$email = $email . "\">";

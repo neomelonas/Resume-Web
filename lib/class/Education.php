@@ -7,7 +7,7 @@
 /**
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.5
+ * @version v3.1.0
  * @since v3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
@@ -27,6 +27,7 @@ class Education {
 	return $this->ed->offsetGet($offset)->getIterator();
     }
 
+    
     public function getInfo ($offset,$thing){
 	if ($this->ed->offsetExists($offset)){
 	    $abitch = $this->ed->offsetGet($offset);

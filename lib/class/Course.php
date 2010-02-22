@@ -3,12 +3,11 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
-
 /**
  * Course lists the different relevant coursework attributed to the user.
  * @package resume-web
  * @author Neo Melonas
- * @version 3.0.6
+ * @version 3.1.0
  * @since 3.0.6
  * @copyright 2010 Neo Melonas
  */
@@ -65,14 +64,19 @@ class Course {
 	echo "<ul>";
 	while($iter->valid()){
 	    $offset = $iter->key();
-	    echo "<li>" . $this->getInfo($offset, 'name');
-		if ($this->getInfo($offset, 'num') == ''){
+	    echo "<li>";
+	    if ($this->getInfo($offset, 'name') != ""){
+		echo $this->getInfo($offset, 'name');
+	    }
+	    if ($this->getInfo($offset, 'num') == ""){
+		if ($this->getInfo($offset, 'name') != ""){
 		    echo ": ";
 		}
-		else {
-		    echo " " . $this->getInfo($offset, 'num') . ": ";
-		}
-		echo $this->getInfo($offset, 'desc');echo "</li>";
+	    }
+	    else {
+		echo " " . $this->getInfo($offset, 'num') . ": ";
+	    }
+	    echo $this->getInfo($offset, 'desc');echo "</li>";
 	    $iter->next();
 	}
 	echo "</ul>";

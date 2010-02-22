@@ -3,13 +3,12 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
 /**
  * The Technology class provides users multiple styles
  * of lists of their technology backgrounds.
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.4
+ * @version v3.1.0
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
@@ -54,19 +53,19 @@ class Technology implements Display {
      *
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
-     * @param bool $groups Switch for determining whether or not to show the Tech data in groups or in an OL.
+     * @param bool $techType Switch for determining whether or not to show the Tech data in groups or in an OL.
      */
-    function __construct($dbcon,$userID, $groups) {
-	$this->teType = $groups;
-	    if($groups == 1) {
-		    $this->fillTechLang($dbcon,$userID);
-		    $this->fillTechSys($dbcon,$userID);
-		    $this->fillTechProg($dbcon,$userID);
-		    $this->fillTechOther($dbcon,$userID);
-	    }
-	    else {
-		$this->fillTechNoGroup($dbcon,$userID);
-	    }
+    function __construct($dbcon,$userID, $techType) {
+	$this->teType = $techType;
+	if($this->teType == 1) {
+	    $this->fillTechLang($dbcon,$userID);
+	    $this->fillTechSys($dbcon,$userID);
+	    $this->fillTechProg($dbcon,$userID);
+	    $this->fillTechOther($dbcon,$userID);
+	}
+	else {
+	    $this->fillTechNoGroup($dbcon,$userID);
+	}
 	    
     }
 
@@ -99,72 +98,6 @@ class Technology implements Display {
     }
 
     /**
-     * setTeCount
-     *
-     * Method to set teCount.
-     *
-     * @param int $EXTteCount The input to set teCount.
-     */
-    public function setTeCount($EXTteCount) {
-	$this->teCount = $EXTteCount;
-    }
-
-    /**
-     * setLanguages
-     *
-     * Method to fill the Languages array.
-     *
-     * @param string $EXTlanguages Comes from the DB res_techexp.teDesc for languages.
-     */
-    public function setLanguages($EXTlanguages) {
-	$this->languages->append($EXTlanguages);
-    }
-
-    /**
-     * setSystmes
-     *
-     * Method to fill the Systems array.
-     *
-     * @param string $EXTsystems Comes from the DB res_techexp.teDesc for systems.
-     */
-    public function setSystems($EXTsystems) {
-	$this->systems->append($EXTsystems);
-    }
-
-    /**
-     * setPrograms
-     *
-     * Method to fill the Programs array.
-     *
-     * @param string $EXTprograms Comes from the DB res_techexp.teDesc for programs.
-     */
-    public function setPrograms($EXTprograms) {
-	$this->programs->append($EXTprograms);
-    }
-
-    /**
-     * setOther
-     *
-     * Method to fill the Other array.
-     *
-     * @param string $EXTother Comes from the DB res_techexp.teDesc for other.
-     */
-    public function setOther($EXTother) {
-	$this->other->append($EXTother);
-    }
-    
-    /**
-     * setNoGroup
-     * 
-     * Method to fill the noGroup array.
-     * 
-     * @param string $EXTnoGroup Comes from the DB res_techexp.teDesc for no group.
-     */
-    public function setNoGroup($EXTnoGroup) {
-	$this->noGroup->append($EXTnoGroup);
-    }
-
-    /**
      * This method fills the Programming Languages block with data.
      * It gets called when $groups is some kind of tech resume.
      *
@@ -180,7 +113,6 @@ class Technology implements Display {
 		INNER JOIN res_user_tech UT on TE.teID=UT.teID
 		WHERE userID='" . $userID . "' and teType='language'
 	    ");
-//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->languages->append($row->teDesc);
 	    }
@@ -202,7 +134,6 @@ class Technology implements Display {
 		INNER JOIN res_user_tech UT on TE.teID=UT.teID
 		WHERE userID='" . $userID . "' and teType='OS'
 	    ");
-//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->systems->append($row->teDesc);
 	    }
@@ -224,7 +155,6 @@ class Technology implements Display {
 		INNER JOIN res_user_tech UT on TE.teID=UT.teID
 		WHERE userID='" . $userID . "' and teType='program'
 	    ");
-//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->programs->append($row->teDesc);
 	    }
@@ -246,7 +176,6 @@ class Technology implements Display {
 		INNER JOIN res_user_tech UT on TE.teID=UT.teID
 		WHERE userID='" . $userID . "' and teType='other'
 	    ");
-//	    if ($sql){echo "good\n";}else{echo "omgwtfbbq\n";}
 	    while($row = $sql->fetch_object()) {
 		    $this->other->append($row->teDesc);
 	    }
@@ -262,7 +191,12 @@ class Technology implements Display {
      */
     private function fillTechNoGroup($dbcon,$userID) {
 	    $this->noGroup = new ArrayObject();
-	    $sql = $dbcon->query('CALL procGetTechList(1,"nogroup")');
+	    $sql = $dbcon->query("
+		SELECT `teDesc`
+		FROM res_techexp TE
+		INNER JOIN res_user_tech UT on TE.teID=UT.teID
+		WHERE userID='" . $userID . "' and teType='nogroup'
+	    ");
 	    while($row = $sql->fetch_object()) {
 		    $this->noGroup->append($row->teDesc);
 	    }
@@ -285,6 +219,7 @@ class Technology implements Display {
 	    { $this->displayNoGroup(); }
 	    else  die('Pick a Resume Type, please.');
     }
+
     /**
      * This method formats and displays the Programming Language data.
      */
@@ -297,6 +232,7 @@ class Technology implements Display {
 	    }
 	    echo "</ul>";
     }
+
     /**
      * This method formats and displays the Operating Systems data.
      */
@@ -309,6 +245,7 @@ class Technology implements Display {
 	    }
 	    echo "</ul>";
     }
+
     /**
      * This method formats and displays the Programs data.
      */
@@ -321,6 +258,7 @@ class Technology implements Display {
 	    }
 	    echo "</ul>";
     }
+
     /**
      * This method formats and displays the Other data.
      */
@@ -333,12 +271,13 @@ class Technology implements Display {
 	    }
 	    echo "</ul>";
     }
+
     /**
      * This method formats and displays the tech data, not in group format.
      */
     public function displayNoGroup() {
 	    $iterator = $this->noGroup->getIterator();
-	    echo "<ul class=\"techDetails\">";
+	    echo "<ul class=\"techDetails ngrp\">";
 	    while($iterator->valid()) {
 		    echo "<li>{$iterator->current()};  \n</li>";
 		    $iterator->next();

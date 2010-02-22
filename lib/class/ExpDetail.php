@@ -3,14 +3,13 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
-/**
+ /**
  * ExpDetail extends Experience
  * It allows users to list different attributes of their
  * professional experience.
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.0.4
+ * @version v3.1.0
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
@@ -26,7 +25,7 @@ class ExpDetail extends Experience {
      */
     function __construct($dbcon,$userID) {
 	parent::__construct($dbcon, $userID);
-	$this->fillProExp($dbcon,$userID);$this->fillExpDetail($dbcon,$userID);
+	$this->fillExpDetail($dbcon,$userID);
     }
 
     public function getInfo($offset, $thing){
@@ -48,15 +47,19 @@ class ExpDetail extends Experience {
      * @param object $dbcon The database connection object.
      * @param int $userID The user whose resume is being displayed.
      */
-    protected function fillExpDetail($dbcon,$userID){
-	$sql = $dbcon->query("
-	    SELECT `expPosID`,`detailID`, `detailDesc`
-	    FROM res_exp_detail D
-	    INNER JOIN res_user_exp UE on D.posID=UE.expPosID
-	    WHERE userID='" . $userID . "'
-	");
-	while($row = $sql->fetch_object()){
-	    $this->setExpDetail($row->expPosID,$row->detailDesc);
+    private function fillExpDetail($dbcon,$userID){
+	$iter = $this->exp->getIterator();
+	while($iter->valid()){
+	    $sql = $dbcon->query("
+		SELECT `expPosID`, `detailDesc`
+		FROM res_exp_detail D
+		INNER JOIN res_user_exp UE on D.posID=UE.expPosID
+		WHERE userID='" . $userID . "' AND UE.expID='". $this->exp->offsetGet($iter->key())->offsetGet('ID') ."'
+	    ");
+	    while($row = $sql->fetch_object()){
+		$this->setExpDetail($iter->key(), $row->detailDesc);
+	    }
+	    $iter->next();
 	}
     }
 
