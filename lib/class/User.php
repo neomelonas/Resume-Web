@@ -3,7 +3,6 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
-
 /**
  * User is the class that allows users to exist.
  * @package resume-web
@@ -117,12 +116,15 @@ class User{
 	$sql = $dbcon->query("
 	    SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`,
 		`userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate,
-		DU.clickCount, DU.featured, theme
+		DU.clickCount, DU.featured, pstate, resTheme, techType, links
 	    FROM ".$dbname.".res_user U
 	    INNER JOIN ".$dbname.".res_data_user DU on U.userID=DU.userID
+	    INNER JOIN res_user_options o ON U.userID=o.userID
 	    WHERE U.userID='". $this->getUserID() ."' LIMIT 1
 	");
 	while ($row = $sql->fetch_object()) {
+	    $links = array();
+	    $views = $row->clickCount + 1;
 	    $this->setUserInfo('fName', $row->userFName);
 	    $this->setUserInfo('mName', $row->userMName);
 	    $this->setUserInfo('lName', $row->userLName);
@@ -131,12 +133,18 @@ class User{
 	    $this->setUserInfo('password',$row->password);
 	    $this->setUserInfo('dateCreated', $row->dateCreated);
 	    $this->setUserInfo('lastUpdate', $row->lastUpdate);
-	    $views = $row->clickCount + 1;
 	    $this->setUserInfo('views' , $views);
 	    $this->setUserInfo('featured', ord($row->featured));
 	    $this->setUserInfo('slug', $row->userSlug);
 	    $this->setUserInfo('phone', $row->phonenum);
-	    $this->setUserInfo('theme', $row->theme);
+	    $this->setUserInfo('theme', $row->resTheme);
+	    $this->setUserInfo('statement', $row->pstate);
+	    $quicklink = explode(',',$row->links);
+	    $this->setUserInfo('techType', $row->techType);
+	    foreach($quicklink as $key=>$val){
+		array_push($links,$val);
+	    }
+	    $this->setUserInfo('links', $links);
 	}
     }
 
@@ -244,6 +252,16 @@ class User{
 		break;
 	}
     }
+
+    function getEmail(){
+	$email = "<a href=\"mailto:";
+	$email = $email . $this->getUserInfo('email');
+	$email = $email . "\">";
+	$email = $email . $this->getUserInfo('email');
+	$email = $email . ".</a>";
+	return $email;
+    }
+
 
     /**
      * Increments the user's pageviews.

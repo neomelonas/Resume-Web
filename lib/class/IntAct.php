@@ -70,11 +70,12 @@ class IntAct {
 	$this->ia = new ArrayObject();
 	$this->iaWeight = new ArrayObject();
 	$sql = $dbcon->query("SELECT I.iaID, `iaDesc`, `inputingUserID` FROM res_intact I INNER JOIN res_user_ia UIA on I.iaID=UIA.iaID WHERE userID='". $userID ."' ORDER BY `iaWeight` DESC");
+	if ($sql){
 	while($row = $sql->fetch_object()) {
 	    $this->setIa($row->iaID,$row->iaDesc);
 	    $this->setIaInputID($row->inputingUserID);
 	}
-    }
+    }}
 
     /**
      * This method shows off the user's interests & activities.

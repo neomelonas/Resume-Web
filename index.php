@@ -53,6 +53,7 @@ db_connect($con);
     </head>
     <body>
         <div class="container">
+	    <div id="admin"><span><a href="admin/">Admin</a></span></div>
             <div id="header">
             <header class="span-24 last prepend-top">
                 <h1 class="bottom"><a href="/<?php echo $uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>

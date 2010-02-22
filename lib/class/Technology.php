@@ -13,12 +13,14 @@
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
-class Technology {
+class Technology implements Display {
     /**
      * Shows the count of how many tech items there are.  Somewhere.
      * @var int
      */
     private $teCount;
+
+    private $teType;
     /**
      * Holds all of the Programming Language tech items.
      * @var array
@@ -55,15 +57,17 @@ class Technology {
      * @param bool $groups Switch for determining whether or not to show the Tech data in groups or in an OL.
      */
     function __construct($dbcon,$userID, $groups) {
+	$this->teType = $groups;
 	    if($groups == 1) {
 		    $this->fillTechLang($dbcon,$userID);
 		    $this->fillTechSys($dbcon,$userID);
 		    $this->fillTechProg($dbcon,$userID);
 		    $this->fillTechOther($dbcon,$userID);
 	    }
-	    elseif($groups==0)
-	    { $this->fillTechNoGroup($dbcon,$userID); }
-	    else  die('Pick a Resume Type, please.') ;
+	    else {
+		$this->fillTechNoGroup($dbcon,$userID);
+	    }
+	    
     }
 
     /**
@@ -270,14 +274,14 @@ class Technology {
      * @deprecated Since v3.0.3 was finished.
      * @param bool $groups
      */
-    public function quickDisplay($groups) {
-	    if($groups==1) {
+    public function display() {
+	    if($this->teType==1) {
 		    $this->displayLang();
 		    $this->displaySys();
 		    $this->displayProg();
 		    $this->displayOther();
 	    }
-	    elseif($groups==0)
+	    elseif($this->teType==0)
 	    { $this->displayNoGroup(); }
 	    else  die('Pick a Resume Type, please.');
     }
