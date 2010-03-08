@@ -1,54 +1,50 @@
 <?php
-include ("../conf/settings.php");
-if (isset($_SESSION['user'])){
-    header( "Location: ".$uriPath."admin/index.php?u=".$slug );
+session_start();
+require_once 'lib/class/Membership.php';
+$membership = new Membership();
+
+// If the user clicks the "Log Out" link on the index page.
+if(isset($_GET['status']) && $_GET['status'] == 'loggedout') {
+	$membership->log_User_Out();
 }
-//$message = "Username or password was <span class=\"bad\">incorrect</span>, please try again.";
-$error = 0;
-if (isset($_GET['e'])){
-    $error = $_GET['e'];
+
+// Did the user enter a password/username and click submit?
+if($_POST && !empty($_POST['username']) && !empty($_POST['pwd'])) {
+	$response = $membership->validate_User($_POST['username'], $_POST['pwd']);
 }
-switch ($error){
-    case 1:
-        $message = "Please enter a <span class=\"bad\">username</span>!";
-	break;
-    case 2:
-	$message = $message . "Please enter a <span class=\"bad\">password</span>!";
-	break;
-    case 3:
-	$message = "Bad <span class=\"bad\">username</span> or <span class=\"bad\">password</span>!";
-	break;
-    default:
-	break;
-}
+
 ?>
-<!doctype html>
-<html>
-    <head>
-        <title>Login | R&eacute;sum&eacute; Admin</title>
-	<link rel="stylesheet" href="../lib/css/admin.css" type="text/css" media="screen" />
-      </head>
-      <body>
-	  <header id="login">
-	      <h1>R&eacute;sum&eacute; Admin Login</h1>
-	  </header>
-	<div id="message">
-	    <?php
-	    echo $_SESSION['ID'];
-	    if (isset($message)){
-		echo "<p>" . $message . "</p>";
-	    }
-	    ?>
-	</div>
-	<div id="loginform">
-	    <form name="whereinwelogin" action="index.php" method="post">
-		<label for="uname">Username</label>
-		<input type="text" name="uname" value="" size="25" />
-		<label for="pwrd">Password</label>
-		<input type="password" name="pwrd" value="" size="25" />
-		<input type="hidden" value="1" name="junk" />
-		<input type="submit" value="Log In" name="login" />
-	    </form>
-	</div>
-    </body>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login to access the secret files!</title>
+<link rel="stylesheet" type="text/css" href="lib/css/default.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/js/main.js"></script>
+</head>
+
+<body>
+<div id="login">
+	<form method="post" action="">
+    	<h2>Login <small>enter your credentials</small></h2>
+        <p>
+        	<label for="name">Username: </label>
+            <input type="text" name="username" />
+        </p>
+        
+        <p>
+        	<label for="pwd">Password: </label>
+            <input type="password" name="pwd" />
+        </p>
+        
+        <p>
+        	<input type="submit" id="submit" value="Login" name="submit" />
+        </p>
+    </form>
+    <?php if(isset($response)) echo "<h4 class='alert'>" . $response . "</h4>"; ?>
+</div><!--end login-->
+</body>
 </html>

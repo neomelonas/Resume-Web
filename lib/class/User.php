@@ -29,10 +29,10 @@ class User{
      * @param object $dbcon
      */
     function __construct($userID, $dbname, $dbcon) {
-	    $this->theuser = new ArrayObject();
-	    $this->setUserInfo('ID',$userID);
-	    $this->fill($dbname, $dbcon);
-	    $this->anotherPageView($dbcon);
+	$this->theuser = new ArrayObject();
+	$this->setUserInfo('ID',$userID);
+	$this->fill($dbname, $dbcon);
+	$this->anotherPageView($dbcon);
     }
     /**
      * Class destructor, kills off the class when stuff is done.
@@ -74,36 +74,36 @@ class User{
      * @param string $case
      */
     public function userFullName($case) {
-	    switch ($case){
-		    case 'long':
-		    if ($this->getUserInfo('mName')) {
-			    if ($this->getUserInfo('MaN')) {
-				return $this->getUserInfo('fName') . ' "'  . $this->getUserInfo('mName') . '" ' . $this->getUserInfo('lName');
-			    }
-			    else {
-				return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . " " . $this->getUserInfo('lName');
-			    }
-		    }
-		    elseif (!$this->getUserInfo('mName')) {
-			return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
-		    }
-		    break;
-		    case 'short':
-			    if (($this->getUserInfo('mName')) && !($this->getUserInfo('MaN'))) {
-				$string = $this->getUserInfo('mName');
-				return $this->getUserInfo('fName') . ' ' . $string[0] . '. ' . $this->getUserInfo('lName');
-			    }
-			    else {
-				return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
-			    }
-			    break;
-		    case 'link':
-			    return $this->getUserInfo('fName') . $this->getUserInfo('lName');
-			    break;
-		    default:
-			return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
-			break;
+	switch ($case){
+	    case 'long':
+	    if ($this->getUserInfo('mName')) {
+		if ($this->getUserInfo('MaN')) {
+		    return $this->getUserInfo('fName') . ' "'  . $this->getUserInfo('mName') . '" ' . $this->getUserInfo('lName');
+		}
+		else {
+		    return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . " " . $this->getUserInfo('lName');
+		}
 	    }
+	    elseif (!$this->getUserInfo('mName')) {
+		return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
+	    }
+	    break;
+	    case 'short':
+		if (($this->getUserInfo('mName')) && !($this->getUserInfo('MaN'))) {
+		    $string = $this->getUserInfo('mName');
+		    return $this->getUserInfo('fName') . ' ' . $string[0] . '. ' . $this->getUserInfo('lName');
+		}
+		else {
+		    return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
+		}
+		break;
+	    case 'link':
+		return $this->getUserInfo('fName') . $this->getUserInfo('lName');
+		break;
+	    default:
+		return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
+		break;
+	}
     }
 
     /**
@@ -115,7 +115,7 @@ class User{
     private function fill($dbname,$dbcon) {
 	$sql = $dbcon->query("
 	    SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`,
-		`userEmail`, `password`, `slug`, DU.dateCreated, DU.lastUpdate,
+		`userEmail`, `slug`, DU.dateCreated, DU.lastUpdate,
 		DU.clickCount, DU.featured, pstate, resTheme, techType, links
 	    FROM ".$dbname.".res_user U
 	    INNER JOIN ".$dbname.".res_data_user DU on U.userID=DU.userID
@@ -130,7 +130,6 @@ class User{
 	    $this->setUserInfo('lName', $row->userLName);
 	    $this->setUserInfo('MaN',$row->middleASnick);
 	    $this->setUserInfo('email', $row->userEmail);
-	    $this->setUserInfo('password',$row->password);
 	    $this->setUserInfo('dateCreated', $row->dateCreated);
 	    $this->setUserInfo('lastUpdate', $row->lastUpdate);
 	    $this->setUserInfo('views' , $views);
