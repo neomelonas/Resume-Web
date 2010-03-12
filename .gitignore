@@ -1,6 +1,7 @@
 # Ignore everything in here apart from the .gitignore file
 lib/php/db.php
 extras
+!extras/*.sql
 *.ico
 conf/settings.*
 !conf/settings.default.php
