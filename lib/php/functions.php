@@ -31,18 +31,7 @@ function mostSearched() {
 		
 	}
 }
-function AnotherPageView($userID) {
-	$GETsql = mysql_query('SELECT clickCount FROM resume_dev2.res_data_user WHERE userID="'. $userID .'" LIMIT 1');
-	while($row = mysql_fetch_object($GETsql)) {
-		
-		$clickCount = $row->clickCount;
-		$clickCount++;
-		
-		$SETsql = mysql_query('UPDATE resume_dev2.res_data_user SET clickCount='. $clickCount .' WHERE userID='. $userID .'');
-		mysql_db_query(resume_dev2, $SETsql);
-	}
-	 echo "<!-- " . $clickCount . " /-->";
-}
+
 function featured($uriPath) {
 	$sql = mysql_query("SELECT U.userID, userFName, userLName, DU.clickCount FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID WHERE featured=1 ORDER BY DU.clickCount DESC LIMIT 5");
 	while($row = mysql_fetch_object($sql)) {
@@ -68,7 +57,13 @@ function recentAddition($uriPath) {
 	}
 }
 function mostViewed($uriPath) {
-	$sql = mysql_query("SELECT U.userID, userFName, userLName, DU.clickCount FROM resume_dev2.res_user U INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID ORDER BY DU.clickCount DESC LIMIT 5");
+	$sql = mysql_query("
+	    SELECT U.userID, userFName, userLName, DU.clickCount
+	    FROM resume_dev2.res_user U
+	    INNER JOIN resume_dev2.res_data_user DU on U.userID=DU.userID
+	    ORDER BY DU.clickCount DESC
+	    LIMIT 5
+	");
 	while($row = mysql_fetch_object($sql))
 	{
 		$userID = $row->userID;

@@ -1,13 +1,36 @@
-<?php  
-include ('lib/conf/settings.inc');
-include ('lib/php/functions.php');
-db_connect($con);
-//if (isset($_GET['s'])) { $sString = $_GET['s']; echo $sString; }  // ECHO IS A TEST WOO.
+<?php
+/**
+ * This page displays resumes!  WHICH IS AWESOME, promise.
+ *
+ * @package resume-web
+ * @subpackage multiuser-resume
+ */
+ /**
+ * @package resume-web
+ * @author neomelonas <neo@neomelonas.com>
+ * @version v3.1.0
+ * @since v3.0.0
+ * @copyright 2009-2010 Neo Melonas
+ */
+
+/**  Loads the settings, currently for db connections. */
+include ('conf/settings.php');
+
+/**
+ * Auto-loads all of the class files.
+ * @param string $loadable guesses the name of the class files.
+ */
+function __autoload($class) {
+    include_once ($uriPath."lib/class/{$class}.php");
+}
+
+if (isset($_GET['u']))
+{ $userID = $_GET['u']; }
 ?>
 <!doctype html>
 <html>
 	<head>
-		<title>WVU MIS R&eacute;sum&eacute; Splash Page</title>
+		<title>WVU MIS R&eacute;sum&eacute; BLANK Page</title>
 		<!-- Using Blueprint-CSS /-->
 		<link rel="stylesheet" href="lib/css/blueprint/screen.css" type="text/css" media="screen, projection">
 		<link rel="stylesheet" href="lib/css/blueprint/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">

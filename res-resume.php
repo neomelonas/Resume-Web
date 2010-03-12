@@ -23,8 +23,6 @@ include ('conf/settings.php');
 function __autoload($class) {
     include_once ($uriPath."lib/class/{$class}.php");
 }
-include_once ("lib/interface/interface.info.php");
-include_once ("lib/interface/interface.display.php");
 
 if (isset($_GET['u']))
 { $userID = $_GET['u']; }
