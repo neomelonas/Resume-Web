@@ -31,6 +31,25 @@ a:visited{color:#0f243e;}
 a:hover{color:#103478;}
 a.noline, a.noslip{text-decoration:none;}
 
+.floater {
+    border:1px solid #000;
+    border-left:none;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-radius-top-right:5px;
+    border-radius-bottom-right:5px;
+    -webkit-border-top-right-radius:5px;
+    -webkit-border-bottom-right-radius:5px;
+    font-size:.9em;
+    top:75px;
+    left:0;
+    padding:5px 3px 5px 1px;
+    position:fixed;
+}
+.floater:hover{
+    background-color:#fee;
+}
+
 .title h2 a {font-weight:bold;outline:none;}
 
 header {margin:10px 0 0 0;text-align:center;}

@@ -236,11 +236,112 @@ class User{
     /**
      * Increments the user's pageviews.
      *
-     * @param object $dbcon
+     * @param mysqli $dbcon
      */
     private function anotherPageView($dbcon) {
-	$sql = $dbcon->query("UPDATE res_data_user SET clickCount=". $this->getUserInfo('views') ." WHERE userID='". $this->getUserInfo('ID') ."'");
+	$sql = $dbcon->query("UPDATE res_data_user SET clickCount=".
+	    $this->getUserInfo('views') ." WHERE userID='". $this->getUserInfo('ID') ."'");
 	$sql->execute;
     }
+    /**
+     * Gets the most viewed resumes
+     *
+     * @param string $uriPath
+     * @param mysqli $dbcon
+     */
+    public static function mostViewed($uriPath, $dbcon) {
+	echo "<ul>";
+	$sql = $dbcon->query("
+	    SELECT U.userID, userFName, userLName, DU.clickCount
+	    FROM res_user U
+	    INNER JOIN res_data_user DU on U.userID=DU.userID
+	    ORDER BY DU.clickCount DESC, U.userlName ASC
+	    LIMIT 5
+	");
+	while($row = $sql->fetch_object())
+	{
+		$userID = $row->userID;
+		$userName = $row->userFName . " " . $row->userLName;
+		$clicks = $row->clickCount;
+		echo "<li><a href='" . $uriPath . "resume/" . $userID .
+		"/' title='". $clicks ." Views'>" . $userName .
+		"</a>  <span class='canhide'>". $clicks .
+		" Views</span></li>";
+	}
+	echo "</ul>";
+    }
+    /**
+     * Gets the most recently added resumes
+     *
+     * @param string $uriPath
+     * @param mysqli $dbcon
+     */
+    public static function recentAddition($uriPath, $dbcon) {
+	$sql = $dbcon->query("
+	    SELECT U.userID, userFName, userLName
+	    FROM res_user U
+	    INNER JOIN res_data_user DU on U.userID=DU.userID
+	    ORDER BY DU.dateCreated DESC, U.userlName ASC
+	    LIMIT 5
+	");
+	echo "<ul>";
+	while($row = $sql->fetch_object()) {
+	    $userID = $row->userID;
+	    $userName = $row->userFName . " " . $row->userLName;
+	    echo "<li><a href=\"" . $uriPath . "resume/" . $userID . "/\">" .
+	    $userName . "</a></li>";
+	}
+	echo "</ul>";
+    }
+    /**
+     * Gets the most recently updated resumes
+     *
+     * @param string $uriPath
+     * @param mysqli $dbcon
+     */
+    public static function recentUpdate($uriPath, $dbcon) {
+	echo "<ul>";
+	$sql = $dbcon->query("
+	    SELECT U.userID, userFName, userLName, lastUpdate
+	    FROM res_user U
+	    INNER JOIN res_data_user DU on U.userID=DU.userID
+	    ORDER BY DU.lastUpdate DESC, U.userlName ASC
+	    LIMIT 5
+	");
+	while($row = $sql->fetch_object()) {
+	    $theUpdate = strtotime($row->lastUpdate);
+	    $theUpdate = date('F d, Y',$theUpdate);
+	    $userID = $row->userID;
+	    $userName = $row->userFName . " " . $row->userLName;
+	    echo "<li><a href=\"" . $uriPath . "resume/" .
+	    $userID . "/\" title=\"Last Updated: " . $theUpdate . "\"\">" . $userName . "</a></li>";
+	}
+	echo "</ul>";
+    }
+    /**
+     * Gets featured resumes
+     *
+     * @param string $uriPath
+     * @param mysqli $dbcon
+     */
+    public static function featured($uriPath, $dbcon) {
+	echo "<ul>";
+	$sql = $dbcon->query("
+	    SELECT U.userID, userFName, userLName
+	    FROM res_user U
+	    INNER JOIN res_data_user DU on U.userID=DU.userID
+	    WHERE featured=1
+	    ORDER BY U.userLName ASC
+	    LIMIT 5
+	");
+	while($row = $sql->fetch_object()) {
+	    $userID = $row->userID;
+	    $userName = $row->userFName . " " . $row->userLName;
+	    echo "<li><a href='" . $uriPath . "resume/" .
+	    $userID . "/'>" . $userName . "</a></li>";
+	}
+	echo "</ul>";
+    }
+
 }
 ?>

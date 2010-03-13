@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-	<title><?php echo $resuser->userFullName('long'); ?> | R&eacute;sum&eacute;</title>
+	<title><?php echo $resuser->userFullName('long') . " | " . sysName;?></title>
 	<link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
 	<!--[if IE]>
 	    <link rel="stylesheet" href="<?php echo $uriPath; ?>lib/css/blueprint/ie.css" type="text/css" media="screen, projection" />
@@ -11,6 +11,7 @@
 	<meta name="description" content="Resume" />
     </head>
 	<body>
+	    <a href="<?php echo $uriPath; ?>" class="floater">&larr;</a>
 	    <a href="<?php echo $uriPath; ?>resetcount.php?u=<?php echo $resuser->getUserInfo('ID'); ?>">Pull this Link</a>
 	    <div class="container">
 		<header class="span-24">
@@ -85,7 +86,7 @@
 		    <p>Page views: <?php echo $resuser->getUserInfo('views'); ?></p>
 		</div></footer>
 	</div>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo "http://".$_SERVER['HTTP_HOST'].$uriPath; ?>lib/js/slide.js"></script>
     </body>
 </html>
