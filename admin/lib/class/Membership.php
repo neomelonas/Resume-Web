@@ -10,6 +10,7 @@ class Membership {
 		
 		if($ensure_credentials) {
 			$_SESSION['status'] = 'authorized';
+			$_SESSION['unm'] = $un;
 			header("location: index.php");
 		} else {
 			$mysql->updateFailure($un);
@@ -17,19 +18,18 @@ class Membership {
 		}
 	} 
 	
-	function log_User_Out() {
-		if(isset($_SESSION['status'])) {
-			unset($_SESSION['status']);
-			
-			if(isset($_COOKIE[session_name()])) 
-				setcookie(session_name(), '', time() - 1000);
-				session_destroy();
-		}
+    function log_User_Out() {
+	if(isset($_SESSION['status'])) {
+	    unset($_SESSION['status']);
+	    if(isset($_COOKIE[session_name()]))
+		setcookie(session_name(), '', time() - 1000);
+		session_destroy();
 	}
+    }
 	
 	function confirm_Member() {
-		session_start();
-		if($_SESSION['status'] !='authorized') header("location: login.php");
+	    session_start();
+	    if($_SESSION['status'] !='authorized') header("location: login.php");
 	}
 	
 }

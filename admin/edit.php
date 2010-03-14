@@ -7,6 +7,13 @@ $membership = New Membership();
 
 $membership->confirm_Member();
 
+if (isset($_GET['s'])){
+    $section = $_GET['s'];
+}
+else{
+    $section = "user";
+}
+
 $admin = new AdminUser($dbcon);
 ?>
 <!DOCTYPE html>
@@ -28,7 +35,7 @@ $admin = new AdminUser($dbcon);
 	    </header>
 	    <nav>
 		<ul>
-		    <li><a href="./">Home</a></li>
+		    <li><a href="<?php echo uriPath;?>admin/">Home</a></li>
 		    <li><a href="<?php echo uriPath;?>admin/user/">User Info</a></li>
 		    <li><a href="<?php echo uriPath;?>admin/education/">Education</a></li>
 		    <li><a href="<?php echo uriPath;?>admin/courses/">Relevant Curriculum</a></li>
@@ -39,12 +46,16 @@ $admin = new AdminUser($dbcon);
 		</ul>
 	    </nav>
 	    <div id="content">
-		<p>Welcome to the <?php echo sysName; ?> Admin interface, <?php echo $admin->getUserName($dbcon); ?>.</p>
+		<form method="POST" name="userInfo" action="">
+		    <?php $admin->editSection($section,$dbcon); ?>
+		    <input type="submit" value="Submit" name="submit"/>
+		    <input type="reset" value="Reset" name="reset"/>
+		</form>
 	    </div>
 	    <footer>
 		<p>&copy; <?php echo date('Y'); ?> <a href="http://neomelonas.com/">Neo Melonas</a></p>
 	    </footer>
-	    
+
 	</div><!--end container-->
     </body>
 </html>

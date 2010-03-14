@@ -12,7 +12,7 @@ class Mysql {
 
     function verify_Username_and_Pass($un, $pwd) {
 	$query = "
-	    SELECT userID
+	    SELECT userID, userFName
 	    FROM res_user
 	    WHERE username = ? AND password = ?
 	    LIMIT 1
@@ -20,6 +20,7 @@ class Mysql {
 	if($stmt = $this->conn->prepare($query)) {
 	    $stmt->bind_param('ss', $un, $pwd);
 	    $stmt->execute();
+	    
 	    if($stmt->fetch()) {
 		$stmt->close();
 		return true;
