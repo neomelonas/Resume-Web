@@ -51,7 +51,7 @@ class Browse {
 		    $ufname = $row->userFName;
 		    $ulname = $row->userLName;
 		    $username = $ufname . " " . $ulname;
-		    echo "<li><a href='/ResumeBeta/resume/". $userID . "/'>" . $username ."</a></li>";
+		    echo "<li><a href='".uriPath."resume/". $userID . "/'>" . $username ."</a></li>";
 		}
 	    }
 	    $letter++;
