@@ -12,7 +12,7 @@
  * @since v3.0.3
  * @copyright 2009-2010 Neo Melonas
  */
-class Technology implements Display {
+class Skills implements Display {
     /**
      * Shows the count of how many tech items there are.  Somewhere.
      * @var int

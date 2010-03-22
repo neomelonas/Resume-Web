@@ -5,7 +5,8 @@
  */
 /**
  * Description of AdminUser
- *
+ * @package resume-web
+ * @subpackage admin
  * @author Neo
  * @version 3.0.9
  * @since 3.0.9
@@ -13,8 +14,16 @@
  */
 class AdminUser {
     public $dbcon;
+    public $arr;
+    public $types;
+    public $numLanguage;
+    public $numOS;
+    public $numProgram;
+    public $numOther;
+
     function __contruct($dbcon){
 	$this->dbcon = $dbcon;
+	$this->types = array('language'=>new ArrayObject(),'OS' => new ArrayObject(),'program' => new ArrayObject(),'other' => new ArrayObject());
     }
     public function getUserName($dbcon){
 	$sql = $dbcon->query("
@@ -128,6 +137,34 @@ class AdminUser {
 		break;
 	}
     }
+
+    public function addNewUser
+    (
+	$dbcon, $fname, $mname, $lname, $email, $mAn, $phone,$uname, $theme, $statement, $objective
+    )
+    {
+	$uID = 0;
+	$email = $dbcon->real_escape_string($email);
+	$pass = sha1($uname);
+	$query = "CALL procInsertNewUser ('".$fname."','".$mname."','".$lname.
+	"','".$email."','".$mAn."','".$phone."','".$uname."','".$pass."','".
+	$theme."','".$statement."','".$objective."',@uID); SELECT @uID;";
+	$dbcon->multi_query($query);
+	do {
+	    if ($result = $dbcon->use_result){
+		while ($row = $result->fetch_row()){
+		    $uID = $row[0];
+		    echo $uID;
+		}
+		$result->close();
+	    }
+	    if ($dbcon->more_results()){
+	    }
+	} while($dbcon->next_result());
+	if ($dbcon->errno){
+	    echo "CRAP! " . $dbcon->error;
+	}
+    }
     private function updateUser($dbcon){
 	$sql = $dbcon->query("
 	    UPDATE res_user
@@ -142,6 +179,59 @@ class AdminUser {
 	");
 	$sql->execute;
     }
+    public function getTechItems($dbcon){
+	$this->types = array('language'=>new ArrayObject(),'OS' => new ArrayObject(),'program' => new ArrayObject(),'other' => new ArrayObject());
+	$this->arr = new ArrayObject($this->types);
+	foreach ($this->types as $type=>$x){
+	    $counter = 0;
+	    $query = "SELECT teID, teDesc, teType FROM res_techexp WHERE teType='".$type."'";
+	    $sql = $dbcon->query($query);
+	    switch ($type){
+		case 'language':
+		    $this->numLanguage = $sql->num_rows;
+		break;
+	    }
+	    while($row = $sql->fetch_object()){
+		$thing = '<input type="checkbox" id="'.$type.$row->teID.'" value="'.$row->teID.'" name="'.$row->teID.'"><label for="'.$type.$row->teID.'">'.$row->teDesc.'</label></input>';
+		$this->arr->offsetGet($type)->offsetSet($counter, $thing);
+		$counter++;
+	    }
+	}
+    }
+    public function showTechItems($dbcon){
+	$this->getTechItems($dbcon);
+	$iter = $this->arr->getIterator();
+	while($iter->valid()){
+	    $iter2 = $this->arr->offsetGet($iter->key())->getIterator();
+	    echo "<fieldset id=\"". $iter->key() ."\"><legend>".strtoupper($iter->key())."</legend>";
+	    while($iter2->valid()){
+		echo $iter2->current()."<br/>";
+		$iter2->next();
+	    }
+	    echo "</fieldset>";
+	    $iter->next();
+	}
+    }
+    public function displayTechForm($dbcon, $action = null){
+	echo '<form action="'.$action.'" method="POST">
+	<input type="submit" class="bigbutton" value="Add to Resume" name="add" />
+	<input type="reset" class="bigbutton" value="OOPS! Try again." name="reset" />';
+	$this->showTechItems($dbcon);
+	    echo '<fieldset id="alternate">
+		<legend>Or, add your own!</legend>
+		<label for="teDesc">New Professional Skill</label><br/>
+		<input type="text" value="" id="teDesc" size="100" maxlength="200" name="teDesc"/><br/>
+		<input type="radio" value="language" name="type" id="ttLa" /><label for="ttLa">Language</label>
+		<input type="radio" value="OS" name="type" id="ttOS" /><label for="ttOS">Operating System</label>
+		<input type="radio" value="program" name="type" id="ttPr" /><label for="ttPr">Program</label>
+		<input type="radio" value="other" name="type" id="ttOt" /><label for="ttOt">Other</label>
+	    </fieldset></form>';
+    }
+    public function insertFromTechForm(){
+	if (isset($_POST['add']) && $_POST['add'] == "Add to Resume"){
+	    $teDesc = $_POST['teDesc'];
 
+	}
+    }
 }
 ?>

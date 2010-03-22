@@ -25,9 +25,16 @@
 		<div id="next">
 		    <?php
 			if (!is_null($resuser->getUserInfo('statement'))){
+			?><div id="personalStatement"><?php
+			    if ($resuser->getUserInfo('objective')){
 			    ?>
-		    <div id="personalStatement">
-			<p><?php echo $resuser->getUserInfo('statement'); ?></p>
+			    <section class="title noslip"><h2><a href="#" class="ps noslip">Objective</a></h2></section>
+			    <?php }
+			    else {
+			    ?>
+			    <section class="title noslip"><h2><a href="#" class="ps noslip">Personal Statement</a></h2></section>
+			    <?php } ?>
+			    <div id="statement"><p><?php echo $resuser->getUserInfo('statement'); ?></p></div>
 		    </div>
 		    <?php
 			}
@@ -41,15 +48,17 @@
 			</section>
 		    </div>
 		    <div class="clear"></div><!-- End of Ed /-->
+		    <?php if ($resuser->getUserInfo('techType') == 1){?>
 		    <div id="teBlock">
 			<section class="title noslip">
-			    <h2><a href="#" class="te noslip">Technology Skills</a></h2>
+			    <h2><a href="#" class="te noslip">Professional Skills</a></h2>
 			</section>
 			<section id="techGroups">
 			    <?php $tech->display(); ?>
 			</section>
 		    </div>
 		    <div class="clear"></div><!-- End of Tech Skills /-->
+		    <?php }?>
 		     <div id="rcBlock">
 			<section class="title noslip">
 			    <h2><a href="#" class="rc noslip">Coursework</a></h2>
@@ -77,6 +86,17 @@
 			</section>
 		    </div>
 		    <div class="clear"></div><!-- End of IntAct /-->
+		    <?php if ($resuser->getUserInfo('techType') == 0){?>
+		    <div id="teBlock">
+			<section class="title noslip">
+			    <h2><a href="#" class="te noslip">Professional Skills</a></h2>
+			</section>
+			<section id="techGroups">
+			    <?php $tech->display(); ?>
+			</section>
+		    </div>
+		    <div class="clear"></div><!-- End of Tech Skills /-->
+		    <?php }?>
 		</div>
 		<hr class="space" />
 		<footer><div id="footer">

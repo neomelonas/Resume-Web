@@ -5,8 +5,7 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
-/**
+ /**
  * @author Neo Melonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.0
@@ -49,7 +48,7 @@ include ('lib/php/functions.php');
             <div id="header">
             <header class="span-24 last prepend-top">
                 <h1 class="bottom"><a href="<?php uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
-                <h2 class="alt top"><!--We Really are Quite Incredibly Awesome/-->THIS IS UNDER CONSTRUCTION</h2>
+                <h2 class="alt top"><!--We Really are Quite Incredibly Awesome/-->WE HAVE <?php echo resumeCount($dbcon); ?> RESUMES!</h2>
             </header>
             </div>
             <hr />
@@ -102,6 +101,7 @@ include ('lib/php/functions.php');
                             <li><a href="<?php uriPath; ?>browse/name/">By Name</a></li>
                             <li><a href="<?php uriPath; ?>browse/year/">By Graduation Year</a></li>
 			    <li><a href="<?php uriPath; ?>browse/major/">By Major</a></li>
+			    <li><a href="<?php uriPath; ?>browse/minor/">By Minor</a></li>
                         </ul>
                     </section>
                 </div>

@@ -1,11 +1,10 @@
 <?php
 /**
- * This page displays resumes!  WHICH IS AWESOME, promise.
- *
  * @package resume-web
  * @subpackage multiuser-resume
  */
  /**
+ * This page displays resumes!  WHICH IS AWESOME, promise.
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.1.0
@@ -32,7 +31,7 @@ if (isset($userID)) {
     $home = new Location($dbname,1,$resuser->getUserID(),$dbcon);
     $local = new Location($dbname,0,$resuser->getUserID(),$dbcon);
     $education = new Education($dbcon,$resuser->getUserID());
-    $tech = new Technology($dbcon,$resuser->getUserID(),$resuser->getUserInfo('techType'));
+    $tech = new Skills($dbcon,$resuser->getUserID(),$resuser->getUserInfo('techType'));
     $course = new Course($dbcon, $resuser->getUserID());
     $experience = new ExpDetail($dbcon,$resuser->getUserID());
     $intact = new IntAct($dbcon,$resuser->getUserID());

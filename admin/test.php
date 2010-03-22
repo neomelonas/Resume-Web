@@ -1,44 +1,31 @@
-<?php require_once ('lib/class/class.twit-clean.php'); ?>
+<?php
+require_once 'D:\Server\xampp\htdocs\ResumeBeta\conf\settings.php';
+require_once 'D:\Server\xampp\htdocs\ResumeBeta\admin\lib\class\AdminUser.php';
+$admin = new AdminUser($dbcon);
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>TweetClean Test</title>
+        <title>test</title>
+	<link type="text/css" rel="stylesheet" href="test.css">
     </head>
     <body>
-        <?php
-	$tweet = "RT @neomelonas: Don't do #drugs, @neomelonas!";
-	$tweet2 = "Working on a #PHP thing to translate #Twenglish into Something Like English. Any suggestions as to what/how I should convert from A to B?";
-	$tweet3 = "Interesting find on the iPad keyboard. http://bit.ly/cwrJzq I sure hope it's multitasking.";
-	$tweet4 = "@BreakingNews: Canada beats Slovakia in ice hockey, 3-2, setting up U.S.- Canada gold-medal game Sunday at Olympics http://bit.ly/axTB2J";
 
-	$toast = TwitterCleaner::cleanAt($tweet);
-	$toast = TwitterCleaner::cleanRT($toast);
-	$toast = TwitterCleaner::cleanHash($toast);
-	echo $toast;
-
-	echo "<br/>";
-
-	$toast = new TwitterCleaner();
-	echo $toast->doTweetClean($tweet);
-
-	echo "<br/>";
-
-	$other = new TwitterCleaner();
-	echo $other->doTweetClean($tweet2);
-	
-	echo "<br/>";
-
-	$crap = new TwitterCleaner();
-	echo $crap->expandBitly($tweet3);
-
-	echo "<br/>";
-	
-	$junk = new TwitterCleaner();
-	echo $junk->doTweetClean($tweet4);
-
-	echo "<pre>";
-	echo "</pre>";
-	?>
+	    <?php
+//		$fname = "Test";
+//		$mname = "Y";
+//		$lname = "McTesterson";
+//		$email = "test@test.org";
+//		$mAn = "false";
+//		$phone = "203-444-3210";
+//		$uname = "testerz";
+//		$theme = "elegant";
+//		$statement = "null";
+//		$objective = "false";
+		//$uID = $admin->addNewUser($dbcon,$fname,$mname,$lname,$email,$mAn,$phone,$uname,$theme,$statement,$objective);
+		//echo $uID;
+		$admin->displayTechForm($dbcon);
+	    ?>
     </body>
 </html>

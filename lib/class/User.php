@@ -78,10 +78,20 @@ class User{
 	    case 'long':
 	    if ($this->getUserInfo('mName')) {
 		if ($this->getUserInfo('MaN')) {
-		    return $this->getUserInfo('fName') . ' "'  . $this->getUserInfo('mName') . '" ' . $this->getUserInfo('lName');
+		    if (strlen($this->getUserInfo('mName')) == 1){
+			return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . ". " . $this->getUserInfo('lName');
+		    }
+		    else {
+			return $this->getUserInfo('fName') . ' "'  . $this->getUserInfo('mName') . '" ' . $this->getUserInfo('lName');
+		    }
 		}
 		else {
-		    return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . " " . $this->getUserInfo('lName');
+		    if (strlen($this->getUserInfo('mName')) == 1){
+			return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . ". " . $this->getUserInfo('lName');
+		    }
+		    else {
+			return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . " " . $this->getUserInfo('lName');
+		    }
 		}
 	    }
 	    elseif (!$this->getUserInfo('mName')) {
@@ -112,17 +122,18 @@ class User{
      * @param string $dbname
      * @param object $dbcon
      */
-    private function fill($dbname,$dbcon) {
-	$sql = $dbcon->query("
+    private function fill($dbname, $dbcon) {
+	$sql = "
 	    SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`,
 		`userEmail`, `slug`, DU.dateCreated, DU.lastUpdate,
-		DU.clickCount, DU.featured, pstate, resTheme, techType, links
-	    FROM ".$dbname.".res_user U
-	    INNER JOIN ".$dbname.".res_data_user DU on U.userID=DU.userID
-	    INNER JOIN res_user_options o ON U.userID=o.userID
+		DU.clickCount, DU.featured, `statement`, `theme`, `techType`, 
+		`links`, `objective`
+	    FROM res_user U
+	    INNER JOIN res_data_user DU on U.userID=DU.userID
 	    WHERE U.userID='". $this->getUserID() ."' LIMIT 1
-	");
-	while ($row = $sql->fetch_object()) {
+	";
+	$run = $dbcon->query($sql);
+	while ($row = $run->fetch_object()) {
 	    $links = array();
 	    $views = $row->clickCount + 1;
 	    $this->setUserInfo('fName', $row->userFName);
@@ -137,13 +148,10 @@ class User{
 	    $this->setUserInfo('slug', $row->userSlug);
 	    $this->setUserInfo('phone', $row->phonenum);
 	    $this->setUserInfo('theme', $row->resTheme);
-	    $this->setUserInfo('statement', $row->pstate);
-	    $quicklink = explode(',',$row->links);
-	    foreach($quicklink as $key){
-		array_push($links,$key);
-	    }
-	    $this->setUserInfo('links', $links);
+	    $this->setUserInfo('statement', $row->statement);
+	    $this->setUserInfo('links', $row->links);
 	    $this->setUserInfo('techType', $row->techType);
+	    $this->setUserInfo('objective', $row->objective);
 	}
     }
 
@@ -163,36 +171,60 @@ class User{
      */
     public function docLinks($list) {
 	$pile = "";
-	$c = count($list);
-	$counter = 0;
-	foreach ($list as $case){
-	    $counter ++;
-	    switch ($case){
-		case 'pdf':
-		    $plop = "<a href=\"/doc/". $this->userFullName('link').
-		    ".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
-		    break;
-		case 'doc':
-		    $plop = "<a href=\"/doc/" . $this->userFullName('link') .
-		    ".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
-		    break;
-		case 'docx':
-		    $plop = "<a href=\"/doc/" . $this->userFullName('link') .
-		    ".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
-		    break;
-		case 'zip':
-		    $plop = "<a href=\"/doc/" . $this->userFullName('link') .
-		    ".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
-		    break;
-		default:
-		    $arr = array('pdf','doc','docx','zip');
-		    $this->docFiller($arr);
-		    break;
-	    }
-	    $pile = $pile . $plop;
-	    if ($counter != $c){
-		 $pile = $pile . " &bull; ";
-	    }
+	$pdf = "<a href=\"/doc/". $this->userFullName('link').
+	".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
+	$doc = "<a href=\"/doc/" . $this->userFullName('link') .
+	".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
+	$docx = "<a href=\"/doc/" . $this->userFullName('link') .
+	".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
+	$zip = "<a href=\"/doc/" . $this->userFullName('link') .
+	".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
+	switch ($list){
+	   case '1':
+	       $pile = $pdf;
+	   break;
+	   case '2':
+	       $pile = $doc;
+	   break;
+	   case '3':
+	       $pile = $pdf .' &bull; '. $doc;
+	   break;
+	   case '4':
+	       $pile = $docx;
+	   break;
+	   case '5':
+	       $pile = $pdf .' &bull; '. $docx;
+	   break;
+	   case '6':
+	       $pile = $doc .' &bull; '. $docx;
+	   break;
+	   case '7':
+	       $pile = $pdf .' &bull; '. $doc .' &bull; '. $docx;
+	   break;
+	   case '8':
+	       $pile = $zip;
+	   break;
+	   case '9':
+	       $pile = $pdf .' &bull; '. $zip;
+	   break;
+	   case '10':
+	       $pile = $doc .' &bull; '. $zip;
+	   break;
+	   case '11':
+	       $pile = $pdf .' &bull; '. $doc .' &bull; '. $zip;
+	   break;
+	   case '12':
+	       $pile = $docx .' &bull; '. $zip;
+	   break;
+	   case '13':
+	       $pile = $pdf .' &bull; '. $docx .' &bull; '. $zip;
+	   break;
+	   case '14':
+	       $pile = $doc .' &bull; '. $docx .' &bull; '. $zip;
+	   break;
+	   case '15':
+	       $pile = $pdf .' &bull; '. $doc .' &bull; '. $docx .' &bull; '. $zip;
+	   break;
 	}
 	return $pile;
     }
@@ -255,6 +287,7 @@ class User{
 	    SELECT U.userID, userFName, userLName, DU.clickCount
 	    FROM res_user U
 	    INNER JOIN res_data_user DU on U.userID=DU.userID
+	    WHERE DU.clickCount > 1
 	    ORDER BY DU.clickCount DESC, U.userlName ASC
 	    LIMIT 5
 	");

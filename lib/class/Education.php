@@ -49,7 +49,7 @@ class Education {
     private function fill($dbcon, $userID) {
 	$sql = $dbcon->query("
 	    SELECT `ucID`, `edName`, `edCity`, `edState`, `edStart`, `edEnd`,
-		`gradMonth`, `gradYear`
+		`gradMonth`, `gradYear`, `other`
 	    FROM res_user_ed ue
 	    INNER JOIN res_education e ON ue.edID=e.edID
 	    WHERE ue.userID='" . $userID . "'
@@ -75,6 +75,7 @@ class Education {
 		'edEnd'=>$row->edEnd,
 		'gradMonth'=>$row->gradMonth,
 		'gradYear'=>$row->gradYear,
+		'other'=>$row->other,
 		'college'=>$college,
 		'degree'=>$degree,
 		'major'=>$major,
@@ -189,41 +190,46 @@ class Education {
 	    $counterM1 = 0;
 	    $counter = 0;
 	    $gpa = 0;
-
+	    
 	    while($itercol->valid()){
-		$collegeI = $itercol->key() . "|";
-		$collegeN = $itercol->current() . "|";
-		$counterC++;
-		$itercol->next();
+	    	$collegeI = $itercol->key() . "|";
+	    	$collegeN = $itercol->current() . "|";
+	    	$counterC++;
+	    	$itercol->next();
 	    }
 	    $collegeI = explode("|", $collegeI);
 	    $collegeN = explode("|", $collegeN);
-	    $college = "<span class=\"col" . $collegeI[0] . "\">" . $collegeN[0] . "</span>";
-
+	    if ($collegeI[0] !== 'Array'){
+		$college = "<span class=\"colID" . $collegeI[0] . "\">" . $collegeN[0] . "</span>";
+	    }
+	    else { $college = null; }
 	    while($itermajor->valid()){
-		$major = $itermajor->key() . "|" . $major;
-		if ($itermajor->current() > $gpa){
-		    $gpa = $itermajor->current();
-		}
-		$counterM1++;
-		$itermajor->next();
+	    	$major = $itermajor->key() . "|" . $major;
+	    	if ($itermajor->current() > $gpa){
+	    	    $gpa = $itermajor->current();
+	    	}
+	    	$counterM1++;
+	    	$itermajor->next();
 	    }
 	    switch ($counterM1){
-		case 1:
-		    $major = explode("|",$major);
-		    $major = "Major: " . $major[0];
-		    break;
-		case 2:
-		    $major = explode("|",$major);
-		    $major = "Dual Major: " . $major[0] . " & " . $major [1];
-		    break;
-		case 3:
-		    $major = explode("|",$major);
-		    $major = "Triple Major: " . $major[0] . ", " . $major[1] . ", & " . $major[2];
+	    	case 1:
+	    	    $major = explode("|",$major);
+	    		$major = "Major: " . $major[0];
+	    	    break;
+	    	case 2:
+	    	    $major = explode("|",$major);
+	    	    $major = "Dual Major: " . $major[0] . " & " . $major [1];
+	    	    break;
+	    	case 3:
+	    	    $major = explode("|",$major);
+	    	    $major = "Triple Major: " . $major[0] . ", " . $major[1] . ", & " . $major[2];
+	    	    break;
+		default:
+		    $major = null;
 		    break;
 	    }
 	    while($iterminor->valid()){
-		$minor = $iterminor->current() . "|" . $major;
+		$minor = $iterminor->current() . "|" . $minor;
 		$counter++;
 		$iterminor->next();
 	    }
@@ -249,16 +255,18 @@ class Education {
 		    <p class=\"degree\">". $this->getInfo($iter->key(), 'degree')->getIterator()->current() ."</p>
 		    <p class=\"majors\">". $major ."</p>
 		    <p class=\"minors\">". $minor ."</p>
+		    <p class=\"others\">". $this->getInfo($iter->key(), 'other') ."</p>
 		</section>
 		<section class=\"col2\">
 		    <p class=\"loc\">". $this->edLocation($iter->key()) ."</p>
 		</section>
 		<section class=\"col3\">
 		    <p class=\"timespan\">". $this->edTimeSpan($iter->key()) ."</p>";
-		    if ($this->getInfo($iter->key(),'gradYear') !=  $this->getInfo($iter->key(), 'edEnd') ){
+		    if (($this->getInfo($iter->key(),'gradYear') !=  $this->getInfo($iter->key(), 'edEnd'))
+			&& $this->getInfo($iter->key(),'gradYear') != null){
 			echo "<p class=\"grad\">Graduation: ". $this->edGrad($iter->key()) ."</p>";
 		    }
-		    if ($gpa != 0) {echo "<p class=\"gpa\">GPA: " . $gpa . "</p>"; }
+		    if ($gpa != 0 || $gpa != null) {echo "<p class=\"gpa\">GPA: " . $gpa . "</p>"; }
 		echo "</section>
 	    </article>";
 	    $iter->next();

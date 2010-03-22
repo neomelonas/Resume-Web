@@ -9,19 +9,7 @@ CREATE TABLE IF NOT EXISTS `res_courses` (
   PRIMARY KEY (`rcID`),
   KEY `rcCourseDesc` (`rcCourseDesc`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `res_data_index`
---
-
-CREATE TABLE IF NOT EXISTS `res_data_index` (
-  `dataID` int(11) NOT NULL,
-  `indexText` longtext COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`dataID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -47,6 +35,8 @@ CREATE TABLE IF NOT EXISTS `res_data_terms` (
 CREATE TABLE IF NOT EXISTS `res_data_user` (
   `userID` int(11) NOT NULL,
   `dateCreated` date NOT NULL,
+  `techType` int(11) NOT NULL DEFAULT '0',
+  `links` int NOT NULL default 13,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `clickCount` bigint(11) NOT NULL DEFAULT '1',
   `featured` bit(1) NOT NULL DEFAULT b'0',
@@ -68,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `res_education` (
   `edState` char(2) NOT NULL,
   PRIMARY KEY (`edID`),
   KEY `edName` (`edName`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -81,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `res_ed_col` (
   `colName` varchar(40) NOT NULL,
   PRIMARY KEY (`colID`),
   KEY `colName` (`colName`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -97,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `res_ed_degree` (
   PRIMARY KEY (`degreeID`),
   KEY `degreeName` (`degreeName`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -107,14 +97,14 @@ CREATE TABLE IF NOT EXISTS `res_ed_degree` (
 
 CREATE TABLE IF NOT EXISTS `res_ed_major` (
   `majorID` int(11) NOT NULL AUTO_INCREMENT,
-  `majorName` varchar(40) NOT NULL,
+  `majorName` varchar(100) NOT NULL,
   `colID` int(11) NOT NULL,
   `inputingUserID` int(11) NOT NULL,
   PRIMARY KEY (`majorID`),
   KEY `colID` (`colID`),
   KEY `majorName` (`majorName`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -130,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `res_ed_minor` (
   PRIMARY KEY (`minorID`),
   KEY `edID` (`edID`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -149,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `res_exp_detail` (
   KEY `expID` (`expID`),
   KEY `detailDesc` (`detailDesc`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -164,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `res_intact` (
   PRIMARY KEY (`iaID`),
   KEY `iaDesc` (`iaDesc`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -182,26 +172,7 @@ CREATE TABLE IF NOT EXISTS `res_location` (
   `inputingUserID` int(11) NOT NULL,
   PRIMARY KEY (`locID`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `res_phone`
---
-
-CREATE TABLE IF NOT EXISTS `res_phone` (
-  `phID` int(11) NOT NULL AUTO_INCREMENT,
-  `phArea` int(11) NOT NULL,
-  `phZone` int(11) NOT NULL,
-  `phLocal` int(11) NOT NULL,
-  `phType` enum('Home','Mobile','Google','Other') NOT NULL,
-  `userID` int(11) NOT NULL,
-  `prefPhone` bit(1) NOT NULL DEFAULT b'1',
-  PRIMARY KEY (`phID`),
-  UNIQUE KEY `phType` (`phType`,`userID`,`prefPhone`),
-  KEY `userID` (`userID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -218,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `res_proexp` (
   PRIMARY KEY (`expID`),
   KEY `expName` (`expName`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -234,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `res_techexp` (
   PRIMARY KEY (`teID`),
   KEY `teDesc` (`teDesc`),
   KEY `inputingUserID` (`inputingUserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -254,11 +225,12 @@ CREATE TABLE IF NOT EXISTS `res_user` (
   `password` varchar(90) COLLATE utf8_bin NOT NULL,
   `slug` varchar(15) COLLATE utf8_bin NOT NULL,
   `theme` varchar(30) COLLATE utf8_bin DEFAULT NULL,
-  `pstate` text COLLATE utf8_bin,
+  `statement` text COLLATE utf8_bin,
+  `objective` bit(1) DEFAULT 0,
   PRIMARY KEY (`userID`),
   UNIQUE KEY `userStuff` (`userEmail`,`username`,`slug`),
   KEY `slug` (`slug`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Triggers `res_user`
@@ -312,11 +284,12 @@ CREATE TABLE IF NOT EXISTS `res_user_ed` (
   `edStart` int(4) NOT NULL,
   `edEnd` int(4) DEFAULT NULL,
   `gradMonth` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `gradYear` int(11) NOT NULL,
+  `gradYear` int(11) DEFAULT NULL,
+  `other` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ucID`,`userID`,`edID`),
   KEY `edID` (`edID`),
   KEY `userID` (`userID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -337,20 +310,7 @@ CREATE TABLE IF NOT EXISTS `res_user_exp` (
   KEY `userID` (`userID`),
   KEY `expID` (`expID`),
   KEY `expPosition` (`expPosition`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `res_user_gpa`
---
-
-CREATE TABLE IF NOT EXISTS `res_user_gpa` (
-  `userID` int(11) NOT NULL,
-  `gpa` decimal(4,3) NOT NULL,
-  `gpaName` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -412,20 +372,6 @@ CREATE TABLE IF NOT EXISTS `res_user_minor` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `res_user_options`
---
-
-CREATE TABLE IF NOT EXISTS `res_user_options` (
-  `userID` int(11) NOT NULL,
-  `resTheme` int(11) NOT NULL DEFAULT '0',
-  `techType` int(11) NOT NULL DEFAULT '1',
-  `links` set('pdf','doc','docx','zip') NOT NULL,
-  PRIMARY KEY (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `res_user_rc`
 --
 
@@ -453,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `res_user_tech` (
 --
 -- Constraints for dumped tables
 --
-
+USE resume_dev2;
 --
 -- Constraints for table `res_courses`
 --
@@ -464,8 +410,8 @@ ALTER TABLE `res_courses`
 -- Constraints for table `res_data_user`
 --
 ALTER TABLE `res_data_user`
-  ADD CONSTRAINT `res_data_user_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `res_user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
-  ALTER TABLE  `res_data_user` CHANGE  `lastUpdate`  `lastUpdate` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  ADD CONSTRAINT `res_data_user_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `res_user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CHANGE  `lastUpdate`  `lastUpdate` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 --
 -- Constraints for table `res_ed_degree`
@@ -508,12 +454,6 @@ ALTER TABLE `res_location`
   ADD CONSTRAINT `res_location_ibfk_1` FOREIGN KEY (`inputingUserID`) REFERENCES `res_user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `res_phone`
---
-ALTER TABLE `res_phone`
-  ADD CONSTRAINT `res_phone_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `res_user` (`userID`);
-
---
 -- Constraints for table `res_proexp`
 --
 ALTER TABLE `res_proexp`
@@ -554,12 +494,6 @@ ALTER TABLE `res_user_exp`
   ADD CONSTRAINT `res_user_exp_ibfk_2` FOREIGN KEY (`expID`) REFERENCES `res_proexp` (`expID`);
 
 --
--- Constraints for table `res_user_gpa`
---
-ALTER TABLE `res_user_gpa`
-  ADD CONSTRAINT `res_user_gpa_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `res_user` (`userID`);
-
---
 -- Constraints for table `res_user_ia`
 --
 ALTER TABLE `res_user_ia`
@@ -586,12 +520,6 @@ ALTER TABLE `res_user_major`
 ALTER TABLE `res_user_minor`
   ADD CONSTRAINT `res_user_minor_ibfk_2` FOREIGN KEY (`minorID`) REFERENCES `res_ed_minor` (`minorID`),
   ADD CONSTRAINT `res_user_minor_ibfk_3` FOREIGN KEY (`ecdID`) REFERENCES `res_user_ed` (`ucID`);
-
---
--- Constraints for table `res_user_options`
---
-ALTER TABLE `res_user_options`
-  ADD CONSTRAINT `res_user_options_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `res_user` (`userID`);
 
 --
 -- Constraints for table `res_user_rc`

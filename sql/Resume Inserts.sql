@@ -1,33 +1,19 @@
--- phpMyAdmin SQL Dump
--- version 3.2.0.1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Mar 09, 2010 at 11:45 PM
--- Server version: 5.1.37
--- PHP Version: 5.3.0
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
---
--- Database: `resume_dev2`
---
-
-USE `resume_dev2`;
-
---
--- Dumping data for table `res_user`
---
-
-INSERT INTO `res_user` (`userID`, `userFName`, `userMName`, `userLName`, `userEmail`, `middleASnick`, `phonenum`, `username`, `password`, `slug`, `theme`, `pstate`) VALUES
-(1, 'Neoptolemos', 'Neo', 'Melonas', 'neo@neomelonas.com', b'1', '304-676-5498', 'neomelonas', 'd1a54264c9a86503f1b6f95f875a0b8a97ce2354', 'neomelonas', '0', NULL),
-(2, 'Ryan', NULL, 'Shepherd', 'reshep1@gmail.com', b'0', '347-724-1964', 'reshep1', '8995264a4e1051b38f324cdf71a0098e4901f038', 'ryanshep', '0', NULL),
-(3, 'Julie', NULL, 'Dunn', 'jdunn9@mix.wvu.edu', b'0', '304-210-0258', 'jdunn9', '1df0490f000fb9bb161cb6933e36e85630c53660', 'jdunn', '0', NULL);
-
---
--- Dumping data for table `res_courses`
---
-
+INSERT INTO `res_user` (`userID`, `userFName`, `userMName`, `userLName`, `userEmail`, `middleASnick`, `phonenum`, `username`, `password`, `slug`, `theme`, `statement`, `objective`) VALUES
+(1, 'Neoptolemos', 'Neo', 'Melonas', 'neo@neomelonas.com', b'1', '304-676-5498', 'neomelonas', 'd1a54264c9a86503f1b6f95f875a0b8a97ce2354', 'neomelonas', '0', NULL, b'0'),
+(2, 'Ryan', NULL, 'Shepherd', 'reshep1@gmail.com', b'0', '347-724-1964', 'reshep1', '8995264a4e1051b38f324cdf71a0098e4901f038', 'ryanshep', '0', NULL, b'0'),
+(3, 'Julie', NULL, 'Dunn', 'jdunn9@mix.wvu.edu', b'0', '304-210-0258', 'jdunn9', '1df0490f000fb9bb161cb6933e36e85630c53660', 'jdunn', '0', NULL, b'0'),
+(4, 'Nathan', 'G', 'Bartlett', 'nbartlet@mix.wvu.edu', b'0', '304-288-9594', 'nbartlet', 'nbartlet', 'nbartlet', 'elegant', NULL, b'0'),
+(5, 'Kevin', NULL, 'Beckett', 'kbecket1@mix.wvu.edu', b'0', '304-561-5219', 'kbecket1', 'kbecket1', 'kbecket1', 'elegant', NULL, b'0'),
+(6, 'Kasha', 'M', 'Beidler', 'kmb7seven@excite.com', b'0', '304-627-4389', 'kbeidler', 'kbeidler', 'kbeidler', 'elegant', NULL, b'0'),
+(7, 'Patrick', NULL, 'Carroll', 'pcarrol2@mix.wvu.edu', b'0', '304-541-0565', 'pcarrol2', 'pcarrol2', 'pcarrol2', 'elegant', NULL, b'0'),
+(11, 'Victoria', 'J', 'Colasessano', 'vcolases@mix.wvu.edu', b'0', '304-476-1438', 'vcolases', 'vcolases', 'vcolases', 'elegant', 'An employment opportunity or internship to acquire skills for my field of study, Management Information Systems.', b'1'),
+(12, 'Justin', 'E', 'Collins', 'jcolli18@mix.wvu.edu', b'0', '304-415-5405', 'jcolli18', 'jcolli18', 'jcolli18', 'elegant', NULL, b'0'),
+(13, 'Christopher', NULL, 'Fedonick', 'cfedonic@mix.wvu.edu', b'0', '304-562-3474', 'cfedonic', 'cfedonic', 'cfedonic', 'elegant', NULL, b'0'),
+(14, 'Nicholas', 'S', 'Gambino', 'ngambino@mix.wvu.edu', b'0', '609-254-0629', 'ngambino', 'ngambino', 'ngambino', 'elegant', NULL, b'0'),
+(15, 'Timothy', 'P', 'Jones', 'tjones24@mix.wvu.edu', b'0', '304-559-7125', 'tjones24', 'tjones24', 'tjones24', 'elegant', NULL, b'0'),
+(16, 'Matthew', 'A', 'Lake', 'MatthewALake@gmail.com', b'0', '304-319-1386', 'mlake', 'mlake', 'mlake', 'elegant', NULL, b'0');
+UPDATE `res_data_user` SET featured=1 WHERE userID in (1,2,3);
 INSERT INTO `res_courses` (`rcID`, `rcCourseName`, `rcCourseNum`, `rcCourseDesc`, `inputingUserID`) VALUES
 (1, 'Business Core', '370H', 'Managing Individuals & Teams', 1),
 (2, 'Management', '351', 'Database Management Systems', 1),
@@ -56,61 +42,25 @@ INSERT INTO `res_courses` (`rcID`, `rcCourseName`, `rcCourseNum`, `rcCourseDesc`
 (25, NULL, NULL, 'Advanced Composition', 3),
 (26, NULL, NULL, 'Microeconomics', 3),
 (27, NULL, NULL, 'Operations Management', 3);
-
---
--- Dumping data for table `res_data_index`
---
-
-
---
--- Dumping data for table `res_data_terms`
---
-
-
---
--- Dumping data for table `res_education`
---
-
 INSERT INTO `res_education` (`edID`, `edName`, `edCity`, `edState`) VALUES
-(1, 'West Virginia University', 'Morgantown', 'WV');
-
---
--- Dumping data for table `res_ed_col`
---
-
+(1, 'West Virginia University', 'Morgantown', 'WV'),
+(2, 'Alderson Broaddus College', 'Philippe', 'WV');
 INSERT INTO `res_ed_col` (`colID`, `colName`) VALUES
 (1, 'College of Business & Economics'),
 (2, 'Eberly College of Arts &amp; Sciences');
-
---
--- Dumping data for table `res_ed_degree`
---
-
 INSERT INTO `res_ed_degree` (`degreeID`, `colID`, `degreeName`, `inputingUserID`) VALUES
 (1, 1, 'Bachelor of Science in Business Administration', 1),
 (2, 2, 'Bachelor of Arts in Criminology', 2);
-
---
--- Dumping data for table `res_ed_major`
---
-
 INSERT INTO `res_ed_major` (`majorID`, `majorName`, `colID`, `inputingUserID`) VALUES
 (1, 'Management Information Systems', 1, 1),
 (2, 'Accounting', 1, 1),
 (3, 'Criminology', 2, 2);
-
---
--- Dumping data for table `res_ed_minor`
---
-
 INSERT INTO `res_ed_minor` (`minorID`, `minorName`, `edID`, `inputingUserID`) VALUES
 (1, 'Economics', 1, 2),
-(2, 'Professional Writing &amp; Editing', 1, 3);
-
---
--- Dumping data for table `res_proexp`
---
-
+(2, 'Professional Writing &amp; Editing', 1, 3),
+(3, 'Communications', 1, 6),
+(4, 'Military Science', 1, 16),
+(5, 'Studio Art', 1, 16);
 INSERT INTO `res_proexp` (`expID`, `expName`, `expCity`, `expState`, `inputingUserID`) VALUES
 (1, 'WVU College of B&E', 'Morgantown', 'WV', 1),
 (2, 'Ross, Langan, & McKendree, LLP', 'McLean', 'VA', 1),
@@ -123,11 +73,6 @@ INSERT INTO `res_proexp` (`expID`, `expName`, `expCity`, `expState`, `inputingUs
 (9, 'Olive Garden', 'Morgantown', 'WV', 3),
 (10, 'Agusta Apartments', 'Morgantown', 'WV', 3),
 (11, 'Twila&#39;s Restaurant', 'Bruceton Mills', 'WV', 3);
-
---
--- Dumping data for table `res_user_exp`
---
-
 INSERT INTO `res_user_exp` (`expPosID`, `userID`, `expID`, `expPosition`, `expStartMonth`, `expStartYear`, `expEndMonth`, `expEndYear`) VALUES
 (1, 1, 1, 'Teachers'' Assisstant', 'August', 2009, '', 0),
 (2, 1, 2, 'Accounting & Audit Intern', 'June', 2008, 'August', 2008),
@@ -140,11 +85,6 @@ INSERT INTO `res_user_exp` (`expPosID`, `userID`, `expID`, `expPosition`, `expSt
 (9, 3, 9, 'Server', 'May', 2008, 'September', 2008),
 (10, 3, 10, 'House Cleaner', 'September', 2007, 'December', 2007),
 (11, 3, 11, 'Server', 'June', 2005, 'August', 2007);
-
---
--- Dumping data for table `res_exp_detail`
---
-
 INSERT INTO `res_exp_detail` (`detailID`, `posID`, `expID`, `detailDesc`, `inputingUserID`) VALUES
 (1, 1, 1, 'Tutor students in Database Management Systems', 1),
 (2, 1, 1, 'Assisted professors in classroom activities', 1),
@@ -188,17 +128,11 @@ INSERT INTO `res_exp_detail` (`detailID`, `posID`, `expID`, `detailDesc`, `input
 (40, 10, 10, 'Directed and organized cleaning supplies', 3),
 (41, 10, 10, 'Administered tasks and facilitated cleaning deadlines', 3),
 (42, 11, 11, 'Served guests in a family atmosphere', 3),
-(43, 11, 11, 'Trained to multi&ndashtask', 3),
-(44, 11, 11, 'Served &amp; bused tables', 3),
-(45, 11, 11, 'Washed dishes like whoa', 3);
-
---
--- Dumping data for table `res_intact`
---
-
+(43, 11, 11, 'Trained to multi&ndash;task', 3),
+(44, 11, 11, 'Served &amp; bused tables', 3);
 INSERT INTO `res_intact` (`iaID`, `iaDesc`, `inputingUserID`) VALUES
 (22, '2nd Place in MISA Case Challenge &ndash Spring 2009', 1),
-(23, 'Vice President of WVU MISA (Management Information Systems Association)', 1),
+(23, 'Vice President of WVU MISA/AIS(Management Information Systems Association/Association of Information Systems', 1),
 (24, 'WVU Honors College', 1),
 (25, 'Presidential & Promise Scholarships', 1),
 (26, 'Leader of Stalnaker & Dadisman Math & Engineering Study Lab', 1),
@@ -213,30 +147,27 @@ INSERT INTO `res_intact` (`iaID`, `iaDesc`, `inputingUserID`) VALUES
 (35, 'Public Relations Chair for Management Information Systems Association', 3),
 (36, 'Social Chair for the National Society of Collegiate Scholars', 3),
 (37, 'Vice President of Standards for the Alpha Omicron Pi Fraternity', 3);
-
---
--- Dumping data for table `res_location`
---
-
 INSERT INTO `res_location` (`locID`, `locStreet`, `locStreet2`, `locCity`, `locState`, `locZIP`, `inputingUserID`) VALUES
 (1, '56 Cobblestone Court', NULL, 'Martinsburg', 'WV', 25403, 1),
 (2, '545 Locust Avenue', 'Apartment B', 'Morgantown', 'WV', 26505, 1),
 (3, '224 Creekside Drive', NULL, 'Morgantown', 'WV', 26508, 2),
-(4, '299 Prospect Street', NULL, 'Morgantown', 'WV', 26505, 3);
-
---
--- Dumping data for table `res_phone`
---
-
-INSERT INTO `res_phone` (`phID`, `phArea`, `phZone`, `phLocal`, `phType`, `userID`, `prefPhone`) VALUES
-(1, 304, 676, 5498, 'Mobile', 1, b'1'),
-(2, 404, 635, 6627, 'Google', 1, b'0'),
-(3, 347, 724, 1964, 'Mobile', 2, b'1');
-
---
--- Dumping data for table `res_techexp`
---
-
+(4, '299 Prospect Street', NULL, 'Morgantown', 'WV', 26505, 3),
+(5, '1021 Village Drive', NULL, 'Morgantown', 'WV', 26505, 4),
+(6, '81 Grandview Estate', NULL, 'Clendenin', 'WV', 25045, 5),
+(7, '805 Chateau Royal Court', NULL, 'Morgantown', 'WV', 26505, 5),
+(8, 'Route 5', 'Box 5', 'Clarksburg', 'WV', 26301, 6),
+(9, '320 Raymond Street', NULL, 'Morgantown', 'WV', 26505, 7),
+(10, '2608 Virginia Avenue', NULL, 'Charleston', 'WV', 25304, 7),
+(11, '506 Pennsylvania Avenue', NULL, 'Fairmont', 'WV', 26554, 11),
+(12, '503 Timberline', NULL, 'Morgantown', 'WV', 26505, 12),
+(13, 'Route 1', 'Box 29A', 'Frametown', 'WV', 26623, 12),
+(14, '500 Kochler Drive', 'Apartment 13403A', 'Morgantown', 'WV', 26505, 13),
+(15, 'Route 4', 'Box 356', 'Hurricane', 'WV', 25526, 13),
+(16, '22 Hawk Lane', NULL, 'Marlton', 'NJ', 8052, 14),
+(17, '181 Chapel Road', NULL, 'Wheeling', 'WV', 26003, 15),
+(18, '413A Arnold Apartments', NULL, 'Morgantown', 'WV', 26505, 15),
+(19, '634 Ashworth Lane', NULL, 'Morgantown', 'WV', 26508, 16),
+(20, '15 Timberline Drive', NULL, 'Fairmont', 'WV', 26554, 16);
 INSERT INTO `res_techexp` (`teID`, `teDesc`, `teType`, `inputingUserID`) VALUES
 (1, 'HTML 4 &amp; 5', 'language', 1),
 (2, 'CSS 2.1 &amp; 3', 'language', 1),
@@ -268,46 +199,52 @@ INSERT INTO `res_techexp` (`teID`, `teDesc`, `teType`, `inputingUserID`) VALUES
 (28, 'C#', 'nogroup', 1),
 (29, 'WireShark', 'nogroup', 1),
 (30, 'MySQL', 'nogroup', 3);
-
---
--- Dumping data for table `res_user_ed`
---
-
-INSERT INTO `res_user_ed` (`ucID`, `userID`, `edID`, `edStart`, `edEnd`, `gradMonth`, `gradYear`) VALUES
-(1, 1, 1, 2005, NULL, 'May', 2010),
-(2, 2, 1, 2002, 2006, 'May', 2006),
-(3, 2, 1, 2007, NULL, 'May', 2010),
-(4, 3, 1, 2007, NULL, 'May', 2011);
-
---
--- Dumping data for table `res_user_college`
---
-
+INSERT INTO `res_user_ed` (`ucID`, `userID`, `edID`, `edStart`, `edEnd`, `gradMonth`, `gradYear`, `other`) VALUES
+(1, 1, 1, 2005, NULL, 'May', 2010, NULL),
+(2, 2, 1, 2002, 2006, 'May', 2006, NULL),
+(3, 2, 1, 2007, NULL, 'May', 2010, NULL),
+(4, 3, 1, 2007, NULL, 'May', 2011, NULL),
+(5, 7, 1, 2006, NULL, 'December', 2010, NULL),
+(6, 4, 1, 2007, NULL, 'May', 2010, NULL),
+(7, 4, 2, 2006, 2007, NULL, NULL, 'Accepted into Physician Assistant Program'),
+(8, 5, 1, 2006, NULL, 'May', 2010, 'AACSB International Accredited'),
+(9, 6, 1, 2007, NULL, 'May', 2011, 'Paying for seventy-five percent of tuition out of own pocket'),
+(10, 11, 1, 2007, NULL, 'May', 2011, 'A.A.C.S.B.'),
+(11, 12, 1, 2007, NULL, 'May', 2011, NULL),
+(12, 13, 1, 2006, NULL, 'May', 2010, NULL),
+(13, 14, 1, 2006, NULL, 'May', 2010, NULL),
+(14, 15, 1, 2005, NULL, 'December', 2009, NULL),
+(15, 16, 1, 2005, NULL, 'May', 2010, NULL);
 INSERT INTO `res_user_college` (`colID`, `ecdID`) VALUES
 (1, 1),
 (1, 3),
 (1, 4),
+(1, 5),
+(1, 6),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
 (2, 2);
-
---
--- Dumping data for table `res_user_degree`
---
-
 INSERT INTO `res_user_degree` (`degreeID`, `ecdID`) VALUES
 (1, 1),
 (1, 3),
 (1, 4),
+(1, 5),
+(1, 6),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
 (2, 2);
-
---
--- Dumping data for table `res_user_gpa`
---
-
-
---
--- Dumping data for table `res_user_ia`
---
-
 INSERT INTO `res_user_ia` (`userID`, `iaID`, `iaWeight`) VALUES
 (1, 22, '1.00'),
 (1, 23, '1.00'),
@@ -325,49 +262,50 @@ INSERT INTO `res_user_ia` (`userID`, `iaID`, `iaWeight`) VALUES
 (3, 35, '1.00'),
 (3, 36, '1.00'),
 (3, 37, '1.00');
-
---
--- Dumping data for table `res_user_loc`
---
-
 INSERT INTO `res_user_loc` (`userID`, `locID`, `homeLoc`) VALUES
 (1, 1, b'1'),
 (1, 2, b'0'),
 (2, 3, b'1'),
-(3, 4, b'0');
-
---
--- Dumping data for table `res_user_major`
---
-
+(3, 4, b'0'),
+(4, 5, b'1'),
+(5, 6, b'1'),
+(5, 7, b'0'),
+(6, 8, b'1'),
+(7, 9, b'0'),
+(7, 10, b'1'),
+(11, 11, b'1'),
+(12, 12, b'0'),
+(12, 13, b'1'),
+(13, 14, b'0'),
+(13, 15, b'1'),
+(14, 16, b'1'),
+(15, 17, b'1'),
+(15, 18, b'0'),
+(16, 19, b'0'),
+(16, 20, b'1');
 INSERT INTO `res_user_major` (`ecdID`, `majorID`, `gpa`) VALUES
 (1, 1, '3.790'),
 (1, 2, NULL),
 (2, 3, '3.000'),
 (3, 1, NULL),
-(4, 1, '0.000');
-
---
--- Dumping data for table `res_user_minor`
---
-
+(4, 1, '0.000'),
+(5, 1, NULL),
+(6, 1, NULL),
+(8, 1, '3.430'),
+(9, 1, '3.000'),
+(10, 1, '3.230'),
+(11, 1, NULL),
+(12, 1, '3.730'),
+(13, 1, '3.000'),
+(14, 1, '3.780'),
+(15, 1, NULL);
 INSERT INTO `res_user_minor` (`ecdID`, `minorID`) VALUES
 (2, 1),
-(4, 2);
-
---
--- Dumping data for table `res_user_options`
---
-
-INSERT INTO `res_user_options` (`userID`, `resTheme`, `techType`, `links`) VALUES
-(1, 0, 1, 'pdf,doc,docx,zip'),
-(2, 0, 0, 'doc,docx'),
-(3, 0, 0, 'pdf');
-
---
--- Dumping data for table `res_user_rc`
---
-
+(4, 2),
+(9, 3),
+(14, 3),
+(15, 4),
+(15, 5);
 INSERT INTO `res_user_rc` (`userID`, `rcID`, `rcWeight`) VALUES
 (1, 1, NULL),
 (1, 2, NULL),
@@ -399,11 +337,6 @@ INSERT INTO `res_user_rc` (`userID`, `rcID`, `rcWeight`) VALUES
 (3, 25, NULL),
 (3, 26, NULL),
 (3, 27, NULL);
-
---
--- Dumping data for table `res_user_tech`
---
-
 INSERT INTO `res_user_tech` (`userID`, `teID`) VALUES
 (1, 1),
 (1, 2),

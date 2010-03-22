@@ -12,28 +12,53 @@
  * @copyright 2010 Neo Melonas
  */
 class Browse {
-    public static function browseName($dbcon){
+    function __construct($dbcon, $type){
+	if ($type == 'name'){
+	    $this->browseName($dbcon);
+	}
+	else if ($type == 'major'){
+	    $this->browseMajor($dbcon);
+	}
+	else if ($type == 'year'){
+	    $this->browseYear($dbcon);
+	}
+	else if ($type == 'minor'){
+	    $this->browseMinor($dbcon);
+	}
+    }
+
+    private function browseName($dbcon){
         $letter = "A";
+	echo "<nav><ul class='inline'>";
+	$navLetter = "A";
+	for ($counter = 1; $counter <= 26; $counter++) {
+	    echo "<li><a href=#" . $navLetter . ">" . $navLetter . "</a></li>";
+	    $navLetter++;
+	}
+	echo "</ul></nav>";;
+	
 	for ($counter = 1; $counter <= 26; $counter++){
-	    echo "<h4><a id=". $letter .">". $letter ."</a></h4><ul id='browsename'>";
 	    $sql = $dbcon->query("
 		SELECT userID, userFName, userLName
 		FROM res_user
 		WHERE `userLName` LIKE '". $letter ."%'
 		ORDER BY userLName ASC;
 	    ");
-	    while($row = $sql->fetch_object()){
-		$userID = $row->userID;
-		$ufname = $row->userFName;
-		$ulname = $row->userLName;
-		$username = $ufname . " " . $ulname;
-		echo "<li><a href='/ResumeBeta/resume/". $userID . "/'>" . $username ."</a></li>";
+	    if ($sql->num_rows >= 1){
+		echo "<h4><a id=". $letter .">". $letter ."</a></h4><ul id='browsename'>";
+		while($row = $sql->fetch_object()){
+		    $userID = $row->userID;
+		    $ufname = $row->userFName;
+		    $ulname = $row->userLName;
+		    $username = $ufname . " " . $ulname;
+		    echo "<li><a href='/ResumeBeta/resume/". $userID . "/'>" . $username ."</a></li>";
+		}
 	    }
 	    $letter++;
 	    echo "</ul>";
 	}
     }
-    public static function browseMajor($dbcon){
+    private function browseMajor($dbcon){
 	$major = $dbcon->query("SELECT colID, colName FROM res_ed_col");
 	while($junk = $major->fetch_object()){
 	    echo "<h3>". $junk->colName ."</h3><ul>";
@@ -64,7 +89,7 @@ class Browse {
 	    echo "</ul>";
 	}
     }
-    public static function browseYear($dbcon){
+    private function browseYear($dbcon){
 	$finding = $dbcon->query("
 	    SELECT DISTINCT `gradYear`
 	    FROM res_user_ed
@@ -88,6 +113,32 @@ class Browse {
 	    }
 	    echo "</ul>";
 	}
+    }
+    private function browseMinor($dbcon){
+	echo "<ul>";
+	$sql = $dbcon->query("
+	    SELECT minorID, minorName
+	    FROM res_ed_minor
+	");
+	while($row = $sql->fetch_object()) {
+	    echo "<li><h4>" . $row->minorName ."</h4><ul>";
+	    $moreSQL = $dbcon->query("
+		SELECT u.userID, `userFName`, `userLName`
+		FROM res_user u
+		INNER JOIN res_user_ed ue ON u.userID=ue.userID
+		INNER JOIN res_user_minor um ON ue.ucID=um.ecdID
+		WHERE um.minorID=" . $row->minorID . "
+	    ");
+	    while($lines = $moreSQL->fetch_object()) {
+		$userID = $lines->userID;
+		$ufname = $lines->userFName;
+		$ulname = $lines->userLName;
+		$username = $ufname . " " . $ulname;
+		echo "<li><a href=\"" . uriPath . "resume/" . $userID . "\"/>" . $username . "</a></li>";
+	    }
+	    echo "</ul></li>";
+	}
+	echo "</ul>";
     }
 }
 ?>
