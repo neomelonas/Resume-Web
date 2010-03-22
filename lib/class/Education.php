@@ -197,8 +197,12 @@ class Education {
 	    	$counterC++;
 	    	$itercol->next();
 	    }
-	    $collegeI = explode("|", $collegeI);
-	    $collegeN = explode("|", $collegeN);
+	    if (isset($collegeI)){
+		$collegeI = explode("|", $collegeI);
+	    }
+	    if (isset($collegeN)){
+		$collegeN = explode("|", $collegeN);
+	    }
 	    if ($collegeI[0] !== 'Array'){
 		$college = "<span class=\"colID" . $collegeI[0] . "\">" . $collegeN[0] . "</span>";
 	    }
