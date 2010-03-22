@@ -1,17 +1,17 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 INSERT INTO `res_user` (`userID`, `userFName`, `userMName`, `userLName`, `userEmail`, `middleASnick`, `phonenum`, `username`, `password`, `slug`, `theme`, `statement`, `objective`) VALUES
-(1, 'Neoptolemos', 'Neo', 'Melonas', 'neo@neomelonas.com', b'1', '304-676-5498', 'neomelonas', 'd1a54264c9a86503f1b6f95f875a0b8a97ce2354', 'neomelonas', '0', NULL, b'0'),
-(2, 'Ryan', NULL, 'Shepherd', 'reshep1@gmail.com', b'0', '347-724-1964', 'reshep1', '8995264a4e1051b38f324cdf71a0098e4901f038', 'ryanshep', '0', NULL, b'0'),
+(1, 'Neoptolemos', 'Neo', 'Melonas', 'neo@neomelonas.com', b'1', '304-676-5498', 'neomelonas', 'd1a54264c9a86503f1b6f95f875a0b8a97ce2354', 'nmelonas', '0', NULL, b'0'),
+(2, 'Ryan', NULL, 'Shepherd', 'reshep1@gmail.com', b'0', '347-724-1964', 'reshep1', '8995264a4e1051b38f324cdf71a0098e4901f038', 'rshepherd', '0', NULL, b'0'),
 (3, 'Julie', NULL, 'Dunn', 'jdunn9@mix.wvu.edu', b'0', '304-210-0258', 'jdunn9', '1df0490f000fb9bb161cb6933e36e85630c53660', 'jdunn', '0', NULL, b'0'),
-(4, 'Nathan', 'G', 'Bartlett', 'nbartlet@mix.wvu.edu', b'0', '304-288-9594', 'nbartlet', 'nbartlet', 'nbartlet', 'elegant', NULL, b'0'),
-(5, 'Kevin', NULL, 'Beckett', 'kbecket1@mix.wvu.edu', b'0', '304-561-5219', 'kbecket1', 'kbecket1', 'kbecket1', 'elegant', NULL, b'0'),
+(4, 'Nathan', 'G', 'Bartlett', 'nbartlet@mix.wvu.edu', b'0', '304-288-9594', 'nbartlet', 'nbartlet', 'nbartlett', 'elegant', NULL, b'0'),
+(5, 'Kevin', NULL, 'Beckett', 'kbecket1@mix.wvu.edu', b'0', '304-561-5219', 'kbecket1', 'kbecket1', 'kbeckett', 'elegant', NULL, b'0'),
 (6, 'Kasha', 'M', 'Beidler', 'kmb7seven@excite.com', b'0', '304-627-4389', 'kbeidler', 'kbeidler', 'kbeidler', 'elegant', NULL, b'0'),
-(7, 'Patrick', NULL, 'Carroll', 'pcarrol2@mix.wvu.edu', b'0', '304-541-0565', 'pcarrol2', 'pcarrol2', 'pcarrol2', 'elegant', NULL, b'0'),
-(11, 'Victoria', 'J', 'Colasessano', 'vcolases@mix.wvu.edu', b'0', '304-476-1438', 'vcolases', 'vcolases', 'vcolases', 'elegant', 'An employment opportunity or internship to acquire skills for my field of study, Management Information Systems.', b'1'),
-(12, 'Justin', 'E', 'Collins', 'jcolli18@mix.wvu.edu', b'0', '304-415-5405', 'jcolli18', 'jcolli18', 'jcolli18', 'elegant', NULL, b'0'),
-(13, 'Christopher', NULL, 'Fedonick', 'cfedonic@mix.wvu.edu', b'0', '304-562-3474', 'cfedonic', 'cfedonic', 'cfedonic', 'elegant', NULL, b'0'),
+(7, 'Patrick', NULL, 'Carroll', 'pcarrol2@mix.wvu.edu', b'0', '304-541-0565', 'pcarrol2', 'pcarrol2', 'pcarroll', 'elegant', NULL, b'0'),
+(11, 'Victoria', 'J', 'Colasessano', 'vcolases@mix.wvu.edu', b'0', '304-476-1438', 'vcolases', 'vcolases', 'vcolasessano', 'elegant', 'An employment opportunity or internship to acquire skills for my field of study, Management Information Systems.', b'1'),
+(12, 'Justin', 'E', 'Collins', 'jcolli18@mix.wvu.edu', b'0', '304-415-5405', 'jcolli18', 'jcolli18', 'jcollins', 'elegant', NULL, b'0'),
+(13, 'Christopher', NULL, 'Fedonick', 'cfedonic@mix.wvu.edu', b'0', '304-562-3474', 'cfedonic', 'cfedonic', 'cfedonick', 'elegant', NULL, b'0'),
 (14, 'Nicholas', 'S', 'Gambino', 'ngambino@mix.wvu.edu', b'0', '609-254-0629', 'ngambino', 'ngambino', 'ngambino', 'elegant', NULL, b'0'),
-(15, 'Timothy', 'P', 'Jones', 'tjones24@mix.wvu.edu', b'0', '304-559-7125', 'tjones24', 'tjones24', 'tjones24', 'elegant', NULL, b'0'),
+(15, 'Timothy', 'P', 'Jones', 'tjones24@mix.wvu.edu', b'0', '304-559-7125', 'tjones24', 'tjones24', 'tjones', 'elegant', NULL, b'0'),
 (16, 'Matthew', 'A', 'Lake', 'MatthewALake@gmail.com', b'0', '304-319-1386', 'mlake', 'mlake', 'mlake', 'elegant', NULL, b'0');
 UPDATE `res_data_user` SET featured=1 WHERE userID in (1,2,3);
 INSERT INTO `res_courses` (`rcID`, `rcCourseName`, `rcCourseNum`, `rcCourseDesc`, `inputingUserID`) VALUES

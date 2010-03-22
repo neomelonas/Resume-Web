@@ -10,14 +10,13 @@ header, nav, article, section, aside, footer {display:block;}
 @media print{html{background-color:#ffffff;color:#000000;}}
 #wrapper {margin:auto;width:850px;line-height:1.1em;}
 html,body {font-family:arial;font-size:1em;height: 100%;margin: 0 0 1px;padding: 0;}
-h1{font-size:2.5em;}
-h2{font-size:1.1em;;padding-bottom:5px;}
-h3{font-size:.8em;}
-h4{font-size:.7em;text-align:center;}
+h1{font-size:2.5em;text-transform:uppercase;}
+h2{font-size:2em;;padding-bottom:5px;}
+h3{font-size:1em;}
+h4{font-size:.8em;text-align:center;}
 h1, h2, h3, h4 {margin:0;}
 h1,h2,h3,h4,hr{line-height:1em;}
 footer hr, footer p{margin:0;}
-h1,h4{text-transform: uppercase;}
 
 ul,ol{list-style-position:inside;}
 sup {font-size: 0.6em; line-height: 0.5em}
@@ -36,8 +35,8 @@ a.noline, a.noslip{text-decoration:none;}
     border-left:none;
     -moz-border-radius-topright: 5px;
     -moz-border-radius-bottomright: 5px;
-    border-radius-top-right:5px;
-    border-radius-bottom-right:5px;
+    /*border-radius-top-right:5px;
+    border-radius-bottom-right:5px;*/
     -webkit-border-top-right-radius:5px;
     -webkit-border-bottom-right-radius:5px;
     font-size:.9em;
@@ -53,17 +52,16 @@ a.noline, a.noslip{text-decoration:none;}
 .title h2 a {font-weight:bold;outline:none;}
 
 header {margin:10px 0 0 0;text-align:center;}
-header h3 {text-align:center;text-transform:uppercase;}
+header h3 {text-align:center;text-transform:capitalize;}
 
 .citystate {text-align:left;}
 .timeframe {text-align:right;}
 
-nav,.nav{margin:10px 0 5px;padding:5px 0;}
-nav ul,.nav ul{list-style:none;text-align:center;}
-nav li,.nav li{display:inline;padding:5px;}
+nav{margin:10px 0;padding:5px 0;}
+nav ul{list-style:none;text-align:center;}
+nav li{display:inline;padding:0 5px;}
 
 
-#personalStatement{margin:5px 0 10px;}
 #personalStatement p{text-align:center;}
 #statement{padding-top:10px;}
 
@@ -114,3 +112,6 @@ footer {text-align:center;margin-bottom:10px;}
 .last{text-align:right;}
 p+p{text-indent:0;}
 #statement,#education,#techGroups,#intact,#proexp,#courses{border-top:1px #000 solid;}
+
+.slip{display:none;}
+@media print{.slip{display:block;}}

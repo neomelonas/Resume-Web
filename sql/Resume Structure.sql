@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `resume_dev2`;
 CREATE DATABASE IF NOT EXISTS `resume_dev2`;
 USE `resume_dev2`;
 CREATE TABLE IF NOT EXISTS `res_courses` (

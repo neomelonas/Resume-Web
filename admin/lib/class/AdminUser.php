@@ -190,6 +190,15 @@ class AdminUser {
 		case 'language':
 		    $this->numLanguage = $sql->num_rows;
 		break;
+		case 'OS':
+		    $this->numOS = $sql->num_rows;
+		break;
+		case 'program':
+		    $this->numProgram = $sql->num_rows;
+		break;
+		case 'other':
+		    $this->numOther = $sql->num_rows;
+		break;
 	    }
 	    while($row = $sql->fetch_object()){
 		$thing = '<input type="checkbox" id="'.$type.$row->teID.'" value="'.$row->teID.'" name="'.$row->teID.'"><label for="'.$type.$row->teID.'">'.$row->teDesc.'</label></input>';
@@ -230,6 +239,7 @@ class AdminUser {
     public function insertFromTechForm(){
 	if (isset($_POST['add']) && $_POST['add'] == "Add to Resume"){
 	    $teDesc = $_POST['teDesc'];
+	    $teType = $_POST['type'];
 
 	}
     }

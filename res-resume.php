@@ -25,6 +25,12 @@ function __autoload($class) {
 
 if (isset($_GET['u']))
 { $userID = $_GET['u']; }
+if (isset($_GET['n'])){
+    $sql = $dbcon->query("SELECT userID FROM res_user WHERE slug='".$_GET['n']."'");
+    while($row = $sql->fetch_object()){
+	$userID = $row->userID;
+    }
+}
 
 if (isset($userID)) {
     $resuser = new User($userID,$dbname,$dbcon);
@@ -36,11 +42,11 @@ if (isset($userID)) {
     $experience = new ExpDetail($dbcon,$resuser->getUserID());
     $intact = new IntAct($dbcon,$resuser->getUserID());
 }
-else {die ('User ID not specified.'); }
+else {die ('User Does Not Exist'); }
 
 if ($resuser->getUserInfo('theme') != null){
-    if (file_exists($absPath."res-theme/".$resuser->getUserInfo('theme').".php")){
-	include ($absPath."res-theme/".$resuser->getUserInfo('theme').".php");
+    if (file_exists($absPath."res-theme/".$resuser->getUserInfo('theme')."/index.php")){
+	include ($absPath."res-theme/".$resuser->getUserInfo('theme')."/index.php");
     }
     else {
 	include ($absPath."res-theme/elegant/index.php");

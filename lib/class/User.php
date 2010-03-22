@@ -106,13 +106,16 @@ class User{
 		else {
 		    return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
 		}
-		break;
+	    break;
 	    case 'link':
 		return $this->getUserInfo('fName') . $this->getUserInfo('lName');
-		break;
+	    break;
+	    case 'resume':
+		return substr($this->getUserInfo('fName'),1,1).$this->getUserInfo('lName');
+	    break;
 	    default:
 		return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
-		break;
+	    break;
 	}
     }
 
@@ -171,13 +174,13 @@ class User{
      */
     public function docLinks($list) {
 	$pile = "";
-	$pdf = "<a href=\"/doc/". $this->userFullName('link').
+	$pdf = "<a href=\"".uriPath."doc/". $this->userFullName('link').
 	".pdf\"  class=\"noline\" title=\"PDF R&eacute;sum&eacute;\">PDF</a>";
-	$doc = "<a href=\"/doc/" . $this->userFullName('link') .
+	$doc = "<a href=\"".uriPath."doc/" . $this->userFullName('link') .
 	".doc\" class=\"noline\" title=\"DOC R&eacute;sum&eacute;\">DOC</a>";
-	$docx = "<a href=\"/doc/" . $this->userFullName('link') .
+	$docx = "<a href=\"".uriPath."doc/" . $this->userFullName('link') .
 	".docx\" class=\"noline\" title=\"DOCX R&eacute;sum&eacute;\">DOCX</a>";
-	$zip = "<a href=\"/doc/" . $this->userFullName('link') .
+	$zip = "<a href=\"".uriPath."doc/" . $this->userFullName('link') .
 	".zip\" class=\"noline\" title=\"ZIP R&eacute;sum&eacute;\">ZIP</a>";
 	switch ($list){
 	   case '1':
@@ -239,12 +242,12 @@ class User{
     public function userListItem($uriPath, $view) {
 	switch ($view) {
 	    case '1':
-		echo "<li><a href='". $uriPath. "resume/". $this->getUserInfo('ID') . "/' title='" . $this->getUserInfo('views') . " views'>";
+		echo "<li><a href='". $uriPath. "resume/". $this->userFullName('resume') . "/' title='" . $this->getUserInfo('views') . " views'>";
 		echo $this->userFullName('short');
 		echo "</a></li>";
 		break;
 	    case '0':
-		echo "<li><a href='". $uriPath. "resume/". $this->getUserInfo('ID') . "'>";
+		echo "<li><a href='". $uriPath. "resume/". $this->userFullName('resume') . "'>";
 		echo $this->userFullName('short');
 		echo "</a></li>";
 		break;
@@ -284,7 +287,7 @@ class User{
     public static function mostViewed($uriPath, $dbcon) {
 	echo "<ul>";
 	$sql = $dbcon->query("
-	    SELECT U.userID, userFName, userLName, DU.clickCount
+	    SELECT slug, userFName, userLName, DU.clickCount
 	    FROM res_user U
 	    INNER JOIN res_data_user DU on U.userID=DU.userID
 	    WHERE DU.clickCount > 1
@@ -293,10 +296,10 @@ class User{
 	");
 	while($row = $sql->fetch_object())
 	{
-		$userID = $row->userID;
+		$slug = $row->slug;
 		$userName = $row->userFName . " " . $row->userLName;
 		$clicks = $row->clickCount;
-		echo "<li><a href='" . $uriPath . "resume/" . $userID .
+		echo "<li><a href='" . $uriPath . "resume/" . $slug .
 		"/' title='". $clicks ." Views'>" . $userName .
 		"</a>  <span class='canhide'>". $clicks .
 		" Views</span></li>";
@@ -311,7 +314,7 @@ class User{
      */
     public static function recentAddition($uriPath, $dbcon) {
 	$sql = $dbcon->query("
-	    SELECT U.userID, userFName, userLName
+	    SELECT slug, userFName, userLName
 	    FROM res_user U
 	    INNER JOIN res_data_user DU on U.userID=DU.userID
 	    ORDER BY DU.dateCreated DESC, U.userlName ASC
@@ -319,9 +322,9 @@ class User{
 	");
 	echo "<ul>";
 	while($row = $sql->fetch_object()) {
-	    $userID = $row->userID;
+	    $slug = $row->slug;
 	    $userName = $row->userFName . " " . $row->userLName;
-	    echo "<li><a href=\"" . $uriPath . "resume/" . $userID . "/\">" .
+	    echo "<li><a href=\"" . $uriPath . "resume/" . $slug . "/\">" .
 	    $userName . "</a></li>";
 	}
 	echo "</ul>";
@@ -335,7 +338,7 @@ class User{
     public static function recentUpdate($uriPath, $dbcon) {
 	echo "<ul>";
 	$sql = $dbcon->query("
-	    SELECT U.userID, userFName, userLName, lastUpdate
+	    SELECT slug, userFName, userLName, lastUpdate
 	    FROM res_user U
 	    INNER JOIN res_data_user DU on U.userID=DU.userID
 	    ORDER BY DU.lastUpdate DESC, U.userlName ASC
@@ -344,10 +347,9 @@ class User{
 	while($row = $sql->fetch_object()) {
 	    $theUpdate = strtotime($row->lastUpdate);
 	    $theUpdate = date('F d, Y',$theUpdate);
-	    $userID = $row->userID;
+	    $slug = $row->slug;
 	    $userName = $row->userFName . " " . $row->userLName;
-	    echo "<li><a href=\"" . $uriPath . "resume/" .
-	    $userID . "/\" title=\"Last Updated: " . $theUpdate . "\"\">" . $userName . "</a></li>";
+	    echo "<li><a href=\"" . $uriPath . "resume/" .  $slug . "/\" title=\"Last Updated: " . $theUpdate . "\"\">" . $userName . "</a></li>";
 	}
 	echo "</ul>";
     }
@@ -360,7 +362,7 @@ class User{
     public static function featured($uriPath, $dbcon) {
 	echo "<ul>";
 	$sql = $dbcon->query("
-	    SELECT U.userID, userFName, userLName
+	    SELECT slug, userFName, userLName
 	    FROM res_user U
 	    INNER JOIN res_data_user DU on U.userID=DU.userID
 	    WHERE featured=1
@@ -368,13 +370,12 @@ class User{
 	    LIMIT 5
 	");
 	while($row = $sql->fetch_object()) {
-	    $userID = $row->userID;
+	    $slug = $row->slug;
 	    $userName = $row->userFName . " " . $row->userLName;
 	    echo "<li><a href='" . $uriPath . "resume/" .
-	    $userID . "/'>" . $userName . "</a></li>";
+	    $slug . "/'>" . $userName . "</a></li>";
 	}
 	echo "</ul>";
     }
 
 }
-?>
