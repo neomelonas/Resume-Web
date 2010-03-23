@@ -6,6 +6,7 @@
 /**
  * Course lists the different relevant coursework attributed to the user.
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author Neo Melonas
  * @version 3.1.0
  * @since 3.0.6

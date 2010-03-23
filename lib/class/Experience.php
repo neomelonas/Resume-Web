@@ -7,6 +7,7 @@
  * The Experience class logics out the info for
  * Professional Experience
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.1.0
  * @since v3.0.3

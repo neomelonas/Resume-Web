@@ -6,6 +6,7 @@
 /**
  * User is the class that allows users to exist.
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.1.0
  * @since v3.0.0

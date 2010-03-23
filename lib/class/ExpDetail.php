@@ -8,6 +8,7 @@
  * It allows users to list different attributes of their
  * professional experience.
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.1.0
  * @since v3.0.3

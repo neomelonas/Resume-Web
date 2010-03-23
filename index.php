@@ -106,7 +106,6 @@ include ('lib/php/functions.php');
                     </section>
                 </div>
                 <hr class="space" />
-                <footer class="span-24"><?php include ('lib/inc/footer.inc'); ?></footer>
             </div>
         </div>
     </body>

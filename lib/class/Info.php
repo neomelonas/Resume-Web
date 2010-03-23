@@ -7,6 +7,7 @@
 /**
  * Info
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.0.5
  * @since v3.0.0

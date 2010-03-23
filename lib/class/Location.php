@@ -6,6 +6,7 @@
 /**
  * The Location class provides support for users to be located somewhere.
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.1.0
  * @since v3.0.0

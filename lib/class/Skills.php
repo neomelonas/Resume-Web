@@ -7,6 +7,7 @@
  * The Technology class provides users multiple styles
  * of lists of their technology backgrounds.
  * @package resume-web
+ * @subpackage multiuser-resume
  * @author neomelonas <neo@neomelonas.com>
  * @version v3.1.0
  * @since v3.0.3

@@ -58,8 +58,6 @@ else { $browse = $_GET['b']; }
 		<?php $browsy = new Browse($dbcon, $browse); ?>
 		</div>
 		<hr class="space" />
-		<article class="span-22 prepend-1 clear">Like, I go toward the bottom?  But not at the bottom? Yea.</article>
-		<footer class="span-24"><?php include ('lib/inc/footer.inc'); ?></footer>
 	    </div>
 	</div>
     </body>
