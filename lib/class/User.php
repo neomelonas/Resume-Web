@@ -77,28 +77,29 @@ class User{
     public function userFullName($case) {
 	switch ($case){
 	    case 'long':
-	    if ($this->getUserInfo('mName')) {
-		if ($this->getUserInfo('MaN')) {
-		    if (strlen($this->getUserInfo('mName')) == 1){
-			return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . ". " . $this->getUserInfo('lName');
+		if ($this->getUserInfo('mName')) {
+		    if ($this->getUserInfo('MaN')) {
+			if (strlen($this->getUserInfo('mName')) == 1){
+			    return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . ". " . $this->getUserInfo('lName');
+			}
+			else {
+			    return $this->getUserInfo('fName') . ' "'  . $this->getUserInfo('mName') . '" ' . $this->getUserInfo('lName');
+			}
 		    }
 		    else {
-			return $this->getUserInfo('fName') . ' "'  . $this->getUserInfo('mName') . '" ' . $this->getUserInfo('lName');
+			if (strlen($this->getUserInfo('mName')) == 1){
+			    return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . ". " . $this->getUserInfo('lName');
+			}
+			else {
+			    return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . " " . $this->getUserInfo('lName');
+			}
 		    }
 		}
-		else {
-		    if (strlen($this->getUserInfo('mName')) == 1){
-			return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . ". " . $this->getUserInfo('lName');
-		    }
-		    else {
-			return $this->getUserInfo('fName') . " " . $this->getUserInfo('mName') . " " . $this->getUserInfo('lName');
-		    }
+		elseif (!$this->getUserInfo('mName')) {
+		    return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
 		}
-	    }
-	    elseif (!$this->getUserInfo('mName')) {
-		return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
-	    }
-	    break;
+		break;
+
 	    case 'short':
 		if (($this->getUserInfo('mName')) && !($this->getUserInfo('MaN'))) {
 		    $string = $this->getUserInfo('mName');
@@ -107,16 +108,19 @@ class User{
 		else {
 		    return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
 		}
-	    break;
+		break;
+
 	    case 'link':
 		return $this->getUserInfo('fName') . $this->getUserInfo('lName');
-	    break;
+		break;
+
 	    case 'resume':
 		return substr($this->getUserInfo('fName'),1,1).$this->getUserInfo('lName');
-	    break;
+		break;
+	    
 	    default:
 		return $this->getUserInfo('fName') . ' ' . $this->getUserInfo('lName');
-	    break;
+		break;
 	}
     }
 
@@ -131,7 +135,7 @@ class User{
 	    SELECT `userFName`, `userMName`, `userLName`, `middleASnick`, `phonenum`,
 		`userEmail`, `slug`, DU.dateCreated, DU.lastUpdate,
 		DU.clickCount, DU.featured, `statement`, `theme`, `techType`, 
-		`links`, `objective`
+		`links`, `objective`, `userWeb`
 	    FROM res_user U
 	    INNER JOIN res_data_user DU on U.userID=DU.userID
 	    WHERE U.userID='". $this->getUserID() ."' LIMIT 1
@@ -151,11 +155,12 @@ class User{
 	    $this->setUserInfo('featured', ord($row->featured));
 	    $this->setUserInfo('slug', $row->userSlug);
 	    $this->setUserInfo('phone', $row->phonenum);
-	    $this->setUserInfo('theme', $row->resTheme);
+	    $this->setUserInfo('theme', $row->theme);
 	    $this->setUserInfo('statement', $row->statement);
 	    $this->setUserInfo('links', $row->links);
 	    $this->setUserInfo('techType', $row->techType);
 	    $this->setUserInfo('objective', $row->objective);
+	    $this->setUserInfo('web', $row->userWeb);
 	}
     }
 
@@ -163,9 +168,16 @@ class User{
      * Reformats and displays the user's phone number.
      * There are EXPLOSIONS.
      */
-    public function phoneNumber() {
+    public function phoneNumber($how = null) {
 	    $exPhone = explode("-",$this->getUserInfo('phone'));
-	    return "(" . $exPhone[0] . ") " . $exPhone[1] .  "&ndash;" . $exPhone[2];
+	    if (!is_null($how)){
+		if ($how == 'hcard'){
+		    return $exPhone[0] . "-" . $exPhone[1] . "-" . $exPhone[2];
+		}
+	    }
+	    else {
+		return "(" . $exPhone[0] . ") " . $exPhone[1] .  "&ndash;" . $exPhone[2];
+	    }
     }
 
     /**

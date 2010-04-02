@@ -7,8 +7,8 @@
  * This page displays resumes!  WHICH IS AWESOME, promise.
  * @package resume-web
  * @author neomelonas <neo@neomelonas.com>
- * @version v3.1.0
- * @since v3.0.0
+ * @version 3.5.0
+ * @since 3.0.0
  * @copyright 2009-2010 Neo Melonas
  */
 
@@ -42,17 +42,56 @@ if (isset($userID)) {
     $experience = new ExpDetail($dbcon,$resuser->getUserID());
     $intact = new IntAct($dbcon,$resuser->getUserID());
 }
-else {die ('User Does Not Exist'); }
+else { die ('User Does Not Exist'); }
 
 if ($resuser->getUserInfo('theme') != null){
-    if (file_exists($absPath."res-theme/".$resuser->getUserInfo('theme')."/index.php")){
+    if (file_exists($absPath."res-theme/".$resuser->getUserInfo('theme')."/header.php")
+	&& file_exists($absPath."res-theme/".$resuser->getUserInfo('theme')."/body.php")
+	&& file_exists($absPath."res-theme/".$resuser->getUserInfo('theme')."/footer.php")
+	){
+	?>
+	<!doctype html>
+	<html>
+	    <head>
+		<?php include ($absPath."res-theme/".$resuser->getUserInfo('theme')."/header.php"); ?>
+	    </head>
+	    <body>
+		<?php include ($absPath."res-theme/".$resuser->getUserInfo('theme')."/body.php"); ?>
+		<?php include ($absPath."res-theme/".$resuser->getUserInfo('theme')."/footer.php"); ?>
+	    </body>
+	</html>
+	<?php
+    }
+    else if (file_exists($absPath."res-theme/".$resuser->getUserInfo('theme')."/index.php")){
 	include ($absPath."res-theme/".$resuser->getUserInfo('theme')."/index.php");
     }
     else {
-	include ($absPath."res-theme/elegant/index.php");
+	?>
+	<!doctype html>
+	<html>
+	    <head>
+		<?php include ($absPath."res-theme/elegant/header.php"); ?>
+	    </head>
+	    <body>
+		<?php include ($absPath."res-theme/elegant/body.php"); ?>
+		<?php include ($absPath."res-theme/elegant/footer.php"); ?>
+	    </body>
+	</html>
+	<?php
     }
 }
 else {
-    include ($absPath."res-theme/elegant/index.php");
+    ?>
+    <!doctype html>
+    <html>
+	<head>
+	    <?php include ($absPath."res-theme/elegant/header.php"); ?>
+	</head>
+	<body>
+	    <?php include ($absPath."res-theme/elegant/body.php"); ?>
+	    <?php include ($absPath."res-theme/elegant/footer.php"); ?>
+	</body>
+    </html>
+    <?php
 }
 ?>

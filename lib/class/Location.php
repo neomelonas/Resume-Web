@@ -61,6 +61,15 @@ class Location {
     private $state;
 
     /**
+     * stateLong
+     *
+     * The long name of state line of the user's street address.
+     *
+     * @var string The long name of state line of the user's street address.
+     */
+    private $stateLong;
+
+    /**
      * ZIP
      *
      * The ZIP code of a user's street address.
@@ -68,6 +77,15 @@ class Location {
      * @var int The ZIP code of the street address.
      */
     private $ZIP;
+
+    /**
+     * Country
+     *
+     * The country code of a user's street address.
+     *
+     * @var char The country code of the street address.
+     */
+     private $country;
 
     /**
      * locStatus
@@ -100,7 +118,8 @@ class Location {
     function __construct($dbname, $locStatus, $userID, $dbcon)
     {
 	    $this->locStatus = $locStatus;
-	    $this->populateLocation($dbname,$userID,$dbcon);
+	    $this->fill($dbname,$userID,$dbcon);
+	    $this->setStateLong($dbcon);
     }
 
     public function getLocID() { return $this->locationID; }
@@ -108,16 +127,19 @@ class Location {
     public function getStreet2() { return $this->street2; }
     public function getCity() { return $this->city; }
     public function getState() { return $this->state; }
+    public function getStateLong() { return $this->stateLong; }
     public function getZIP() { return $this->ZIP; }
+    public function getCountry() { return $this->country; }
     public function getLocStatus() { return $this->locStatus; }
     public function getLoc() { return $this->loc; }
 
-    public function setLocID($extLocID) { $this->locationID = $extLocID; }
-    public function setLocStreet($extLocStreet) { $this->street1 = $extLocStreet; }
-    public function setLocStreet2($extLocStreet2) { $this->street2 = $extLocStreet2; }
-    public function setLocCity($extLocCity) { $this->city = $extLocCity; }
-    public function setLocState($extLocState) { $this->state = $extLocState; }
-    public function setLocZIP($extLocZIP) { $this->ZIP = $extLocZIP; }
+    private function setLocID($extLocID) { $this->locationID = $extLocID; }
+    private function setLocStreet($extLocStreet) { $this->street1 = $extLocStreet; }
+    private function setLocStreet2($extLocStreet2) { $this->street2 = $extLocStreet2; }
+    private function setLocCity($extLocCity) { $this->city = $extLocCity; }
+    private function setLocState($extLocState) { $this->state = $extLocState; }
+    private function setLocZIP($extLocZIP) { $this->ZIP = $extLocZIP; }
+    private function setLocCountry($extLocCountry) { $this->country = $extLocCountry; }
 
     /**
      * Set the location status (Home vs. Local)
@@ -141,32 +163,33 @@ class Location {
      * @param int $userID
      * @param object $dbcon
      */
-    public function populateLocation($dbname, $userID, $dbcon) {
-	    $sql = $dbcon->query("
-		SELECT L.locID, `locStreet`, `locStreet2`, `locCity`, `locState`, `locZIP`
-		FROM res_location L
-		INNER JOIN res_user_loc UL on L.locID=UL.locID
-		WHERE userID='".$userID."' AND homeLoc='".$this->getLocStatus()."'");
-	    if (!$sql) {echo "Bad SQL: "; echo "class.location " . $userID . "\nLocID: " . $this->getLocStatus() . "\n";}
-	    while ($row = $sql->fetch_object()) {
-		    $this->setLocID($row->locID);
-		    $this->setLocStreet($row->locStreet);
-		    if (isset($row->locStreet2)) { $this->setLocStreet2($row->locStreet2); }
-		    $this->setLocCity($row->locCity);
-		    $this->setLocState($row->locState);
-		    $this->setLocZIP($row->locZIP);
-	    }
+    public function fill($dbname, $userID, $dbcon) {
+	$sql = $dbcon->query("
+	    SELECT L.locID, `locStreet`, `locStreet2`, `locCity`, `locState`, `locZIP`, `locCountry`
+	    FROM res_location L
+	    INNER JOIN res_user_loc UL on L.locID=UL.locID
+	    WHERE userID='".$userID."' AND homeLoc='".$this->getLocStatus()."'");
+	if (!$sql) {echo "Bad SQL: "; echo "class.location " . $userID . "\nLocID: " . $this->getLocStatus() . "\n";}
+	while ($row = $sql->fetch_object()) {
+	    $this->setLocID($row->locID);
+	    $this->setLocStreet($row->locStreet);
+	    if (isset($row->locStreet2)) { $this->setLocStreet2($row->locStreet2); }
+	    $this->setLocCity($row->locCity);
+	    $this->setLocState($row->locState);
+	    $this->setLocZIP($row->locZIP);
+	    $this->setLocCountry($row->locCountry);
+	}
     }
 
     /**
      * Show the location.
      */
     public function display() {
-	    if (!is_null($this->getLocID())){
-		    echo $this->place() . "<span class='street'>" . $this->getStreet() . "</span> &bull; ";
-		    echo $this->aSecondStreet() ;
-		    echo "<span class='city'>" . $this->getCity() . "</span>, <span class='state'>" . $this->getState() . "</span> <span class='zip'>" . $this->getZIP() . "</span>";
-	    }
+	if (!is_null($this->getLocID())){
+	    echo $this->place() . "<span class='street'>" . $this->getStreet() . "</span> &bull; ";
+	    echo $this->aSecondStreet() ;
+	    echo "<span class='city'>" . $this->getCity() . "</span>, <span class='state'>" . $this->getState() . "</span> <span class='zip'>" . $this->getZIP() . "</span>";
+	}
     }
 
     /**
@@ -176,6 +199,15 @@ class Location {
 	if ($this->getStreet2()) {
 	    echo "<span class='street'>" . $this->getStreet2() . "</span> &bull; ";
 	}
+    }
+
+    private function setStateLong($dbcon) {
+	$sql = $dbcon->query("SELECT stateName FROM states WHERE stateID='". $this->state ."'");
+	while($row = $sql->fetch_object()){
+	    $stateLong = $row->stateName;
+	}
+	$stateLong = ucfirst(strtolower($stateLong));
+	$this->stateLong = $stateLong;
     }
 }
 ?>
