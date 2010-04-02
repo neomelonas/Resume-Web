@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /ResumeBeta/admin
+# Allows stylesheets, images, docs, & zips to pass through touched.
+RewriteRule \.(css|jpe?g|gif|png|docx?|pdf|zip)$ - [L]
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule admin/$ admin.php [L]
+RewriteRule ^edit/$ edit.php [L]
+RewriteRule ^(\w+)/?$ edit.php?s=$1 [L]

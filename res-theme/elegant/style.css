@@ -1,0 +1,117 @@
+/*
+Theme Name: Elegant
+Theme URI: http://projects.neomelonas.com/Resume-Web/
+Description: The default Resume-Web theme.
+Author: Neo Melonas
+Author URI: http://neomelonas.com
+Version: 3.0.0
+*/
+header, nav, article, section, aside, footer {display:block;}
+@media print{html{background-color:#ffffff;color:#000000;}}
+#wrapper {margin:auto;width:850px;line-height:1.1em;}
+html,body {font-family:arial;font-size:1em;height: 100%;margin: 0 0 1px;padding: 0;}
+h1{font-size:2.5em;text-transform:uppercase;}
+h2{font-size:2em;;padding-bottom:5px;}
+h3{font-size:1em;}
+h4{font-size:.8em;text-align:center;}
+h1, h2, h3, h4 {margin:0;}
+h1,h2,h3,h4,hr{line-height:1em;}
+footer hr, footer p{margin:0;}
+
+ul,ol{list-style-position:inside;}
+sup {font-size: 0.6em; line-height: 0.5em}
+hr{width:100%;}
+
+h1, h2, header, nav, footer{font-family:garamond;}
+
+a{color:#0f243e;}
+a:link{color:#0f243e;}
+a:visited{color:#0f243e;}
+a:hover{color:#103478;}
+a.noline, a.noslip{text-decoration:none;}
+
+.floater {
+    border:1px solid #000;
+    border-left:none;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    /*border-radius-top-right:5px;
+    border-radius-bottom-right:5px;*/
+    -webkit-border-top-right-radius:5px;
+    -webkit-border-bottom-right-radius:5px;
+    font-size:.9em;
+    top:75px;
+    left:0;
+    padding:5px 3px 5px 1px;
+    position:fixed;
+}
+.floater:hover{
+    background-color:#fee;
+}
+
+.title h2 a {font-weight:bold;outline:none;}
+
+header {margin:10px 0 0 0;text-align:center;}
+header h3 {text-align:center;text-transform:capitalize;}
+
+.citystate {text-align:left;}
+.timeframe {text-align:right;}
+
+nav{margin:10px 0;padding:5px 0;}
+nav ul{list-style:none;text-align:center;}
+nav li{display:inline;padding:0 5px;}
+
+
+#personalStatement p{text-align:center;}
+#statement{padding-top:10px;}
+
+
+#stuff a{color:#000000;text-decoration:none;}
+
+#edblock {padding-bottom:20px;}
+#education {padding:0 1.5em 20px;}
+#education p{padding:0;margin:0;}
+#education .college, #education .degree, #education .majors, #education .minors{}
+#education .college, #education .degree {font-style:italic;}
+#education .timespan{}
+#education article {padding:15px 0;}
+
+article.educate{clear:both;}
+#education .col1{position:relative;float:left;width:25em;}
+#education .col2{position:relative;float:left;width:15em;}
+#education .col3{position:relative;float:left;width:15em;text-align:right;}
+
+
+#intact ul {padding-top:10px;}
+#intact li {padding-left:20px;}
+
+#tech{}
+#tech li{padding-left:2px;}
+.teTitle{font-style:italic;text-align:left;}
+#techGroups,#techGroups ul {padding-bottom:0;margin-bottom:0;}
+#techGroups{padding:10px 0;}
+.ngrp {text-align:center;}
+
+.techDetails li{list-style:none;padding:0;text-align:right;display:inline;width:100%;}
+.techDetails li:first-child{text-align:left;}
+
+#courses {padding-bottom:10px;}
+#courses ul {padding-top:10px;}
+#courses li {padding-left:20px;}
+
+
+#proexp{padding:10px 0 0 0;}
+#proexp article{margin:10px 1.5em;}
+#proexp span.workname{width:400px;}
+#proexp span.position{width:400px;font-style:italic;}
+
+footer {text-align:center;margin-bottom:10px;}
+
+/*.slip{display:none;}*/
+
+.last{text-align:right;}
+p+p{text-indent:0;}
+#statement,#education,#techGroups,#intact,#proexp,#courses{border-top:1px #000 solid;}
+
+.slip{display:none;}
+@media print{.slip{display:block;}}

@@ -1,8 +1,0 @@
-##
-## rewrite map! usernames to userIDs.  NOEDITS
-## This file is AUTO GENERATED.  Any edits made
-## will be destroyed.  DO NOT EDIT THIS, OKAY?
-##
-
-NeoMelonas	1	# hahawoo.
-RyanShepherd	2	# ah, maybeworkzyea

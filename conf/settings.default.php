@@ -1,5 +1,10 @@
 <?php
 /**
+ * The Default Settings
+ *
+ * You MUST change uriPath, absPath, sysName, and the db stuff
+ * if you want this thing to work.
+ *
  * @package resume-web
  * @subpackage multiuser-resume
  */
@@ -22,7 +27,6 @@
  * </code>
  */
 $uriPath    = "/path/to/resume/";
-
 /**
  * $absPath MUST be set.
  *
@@ -35,8 +39,17 @@ $uriPath    = "/path/to/resume/";
  * $absPath = C:/Resume/
  * </code>
  */
-$absPath    = "C:/xampp/htdocs/resume/";
-
+$absPath    = "C:/path/to/resume/";
+/**
+ * This sets the global site name.
+ * You should reallllly change this.
+ * Or else, you get to look the fool with a title including the word 'Default'
+ * Example
+ * <code>
+ * $sysName = "Not the Default R&eacute;sum&eacute; Book";
+ * </code>
+ */
+$sysName    = "Default  R&eacute;sum&eacute; Book";
 /**
  * The following variables are for an abstracted Database connection.
  *
@@ -56,15 +69,13 @@ $dbpass		= 'password';
 /** @var the Database to be used */
 $dbname		= 'resumeDB';
 
+/*	    !!STOP EDITING NOW!!	    */
+//					    //
+/*	    SERIOUSLY.  STOP NOW.	    */
+$dbcon	    = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
+if (mysqli_connect_errno()) { echo ("OH NO!  Here's what happened: ".mysqli_connect_error()); exit(); }
 
-/*	    !!STOP EDITING NOW!!	     */
-
-/** Include the ADOdb database abstraction stuff. */
-include ('lib/inc/adodb/adodb.inc.php');
-
-$dbcon = ADONewConnection($dbtype);
-$dbcon->PConnect($dbhost, $dbuser, $dbpass, $dbname);
-
-//$dbcon	    = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
-//if (mysqli_connect_errno()) { echo ("OH NO!  Here's what happened: ".mysqli_connect_error()); exit(); }
+DEFINE('uriPath',$uriPath);
+DEFINE('absPath',$absPath);
+DEFINE('sysName',$sysName);
 ?>

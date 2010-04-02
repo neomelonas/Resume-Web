@@ -5,8 +5,7 @@
  * @package resume-web
  * @subpackage multiuser-resume
  */
- 
-/**
+ /**
  * @author Neo Melonas <neo@neomelonas.com>
  * @version v3.0.4
  * @since v3.0.0
@@ -15,28 +14,20 @@
 
 /** Loads the settings, currently for db connections. */
 include ('conf/settings.php');
-
-/** Stupid thing.  Needs to be killed.
- * @deprecated
+/**
+ * Auto-loads all of the necessary class files.
+ * @param string $class Guesses the name of the class files.
  */
-include ('conf/settings.inc');
-
+function __autoload($class) {
+    include_once ($uriPath."lib/class/{$class}.php");
+}
 /** Does some procedural stuff that really does not need done in OOP. */
 include ('lib/php/functions.php');
-
-/**
- * Database connection
- *
- * Uses mysql, not mysqli.
- *
- * @deprecated
- */
-db_connect($con);
 ?>
 <!doctype html>
 <html>
     <head>
-        <title>WVU MIS R&eacute;sum&eacute; Splash Page</title>
+        <title><?php echo sysName; ?></title>
 	<!-- Using Blueprint-CSS /-->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /><!-- Favicon /-->
         <link rel="stylesheet" href="lib/css/blueprint/screen.css" type="text/css" media="screen, projection" />
@@ -53,10 +44,11 @@ db_connect($con);
     </head>
     <body>
         <div class="container">
+	    <div id="admin"><span><a href="admin/">Admin</a></span></div>
             <div id="header">
             <header class="span-24 last prepend-top">
-                <h1 class="bottom"><a href="/<?php echo $uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
-                <h2 class="alt top"><!--We Really are Quite Incredibly Awesome/-->THIS IS UNDER CONSTRUCTION</h2>
+                <h1 class="bottom"><a href="<?php uriPath; ?>">WVU MIS R&eacute;sum&eacute; Book</a></h1>
+                <h2 class="alt top"><!--We Really are Quite Incredibly Awesome/-->WE HAVE <?php echo resumeCount($dbcon); ?> RESUMES!</h2>
             </header>
             </div>
             <hr />
@@ -73,28 +65,28 @@ db_connect($con);
                      </form>
                 </aside>
                 <hr class="space" />
-                <article class="span-20 prepend-3" id="firstrow">
+                <div class="span-20 prepend-3" id="firstrow">
                     <section id="mostviewed" class="column list span-5">
                         <h3>Most Viewed R&eacute;sum&eacute;s:</h3>
-                        <ul><?php mostViewed($uriPath); ?></ul>
-                    </section>
+                        <?php User::mostViewed($uriPath, $dbcon); ?>
+		    </section>
                     <section id="featured" class="prepend-2 colborder column list span-5">
                         <h3>Featured R&eacute;sum&eacute;s:</h3>
-                        <ul><?php featured($uriPath); ?></ul>
+                        <?php User::featured($uriPath, $dbcon); ?>
                     </section>
                     <section id="recentlyadded" class="prepend-2 column list last">
                         <h3>Recently Added R&eacute;sum&eacute;s:</h3>
-                        <ul><?php recentAddition($uriPath); ?></ul>
+                        <?php User::recentAddition($uriPath, $dbcon); ?>
                     </section>
-                </article>
+                </div>
                 <hr class="space" />
-                <article class="span-20 prepend-3" id="secondrow">
+                <div class="span-20 prepend-3" id="secondrow">
                     <section id="recentlyupdated" class="column list span-5">
                         <h3>Recently Updated:</h3>
-                        <ul><?php recentUpdate($uriPath); ?></ul>
+                        <?php User::recentUpdate($uriPath, $dbcon); ?>
                     </section>
                     <section id="mostsearched" class="prepend-2 column list span-5">
-                        <h3 class='error'>Most Searched Terms:</h3>
+                        <h3>Most Searched Terms:</h3>
                         <ul><?php //mostSearched($uriPath); ?>
                             <li>LIST ONE</li>
                             <li>LIST TWO</li>
@@ -103,40 +95,17 @@ db_connect($con);
                             <li>LIST FIVE</li>
                         </ul>
                     </section>
-                    <section id="browse" class="prepend-2 column list last">
+                    <section id="browsed" class="prepend-2 column span-5 list last">
                         <h3>Browse...</h3>
                         <ul>
-                            <li><a href="./browse/name/">By Name</a></li>
-                            <li><a href="./browse/year/">By Intended Graduation Year</a></li>
-                            <li><a href="./browse/major/">By Major</a></li>
+                            <li><a href="<?php uriPath; ?>browse/name/">By Name</a></li>
+                            <li><a href="<?php uriPath; ?>browse/year/">By Graduation Year</a></li>
+			    <li><a href="<?php uriPath; ?>browse/major/">By Major</a></li>
+			    <li><a href="<?php uriPath; ?>browse/minor/">By Minor</a></li>
                         </ul>
                     </section>
-                </article>
+                </div>
                 <hr class="space" />
-                <article class="span-22 prepend-1 clear">
-                    <?php
-                    $ip = $_SERVER['REMOTE_ADDR'];
-                    $hostaddress = gethostbyaddr($ip);
-                    $browser = $_SERVER['HTTP_USER_AGENT'];
-                    $referred = $_SERVER['HTTP_REFERER']; // a quirky spelling mistake that stuck in php
-
-                    print "<strong>Display IP address:</strong><br />\n";
-                    print "$ip<br /><br />\n";
-                    print "<strong>More detailed host address:</strong><br />\n";
-                    print "$hostaddress<br /><br />\n";
-                    print "<strong>Display browser info</strong>:<br />\n";
-                    print "$browser<br /><br />\n";
-                    print "<strong>Where you came from (if you clicked on a link to get here</strong>:<br />\n";
-                    if ($referred == "") {
-                        print "Page was directly requested";
-                    }
-                    else {
-                        print "$referred";
-                    }
-                    ?>
-
-                </article>
-                <footer class="span-24"><?php include ('lib/inc/footer.inc'); ?></footer>
             </div>
         </div>
     </body>
