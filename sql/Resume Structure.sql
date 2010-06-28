@@ -1,6 +1,5 @@
-DROP DATABASE IF EXISTS `resume_dev2`;
-CREATE DATABASE IF NOT EXISTS `resume_dev2`;
-USE `resume_dev2`;
+CREATE DATABASE IF NOT EXISTS `resume_dev`;
+USE `resume_dev`;
 CREATE TABLE IF NOT EXISTS `res_courses` (
   `rcID` int(11) NOT NULL AUTO_INCREMENT,
   `rcCourseName` varchar(20) DEFAULT NULL,
@@ -170,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `res_location` (
   `locCity` varchar(30) NOT NULL,
   `locState` char(2) NOT NULL,
   `locZIP` int(5) NOT NULL,
+  `locCountry` char(3) NOT NULL DEFAULT 'US',
   `inputingUserID` int(11) NOT NULL,
   PRIMARY KEY (`locID`),
   KEY `inputingUserID` (`inputingUserID`)
@@ -228,6 +228,7 @@ CREATE TABLE IF NOT EXISTS `res_user` (
   `theme` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   `statement` text COLLATE utf8_bin,
   `objective` bit(1) DEFAULT 0,
+  `userWeb` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`userID`),
   UNIQUE KEY `userStuff` (`userEmail`,`username`,`slug`),
   KEY `slug` (`slug`)
@@ -236,9 +237,9 @@ CREATE TABLE IF NOT EXISTS `res_user` (
 --
 -- Triggers `res_user`
 --
-DROP TRIGGER IF EXISTS `resume_dev2`.`trgFinishUserCreate`;
+DROP TRIGGER IF EXISTS `resume_dev`.`trgFinishUserCreate`;
 DELIMITER //
-CREATE TRIGGER `resume_dev2`.`trgFinishUserCreate` AFTER INSERT ON `resume_dev2`.`res_user`
+CREATE TRIGGER `resume_dev`.`trgFinishUserCreate` AFTER INSERT ON `resume_dev`.`res_user`
  FOR EACH ROW INSERT INTO res_data_user (userID, dateCreated) VALUES
 (NEW.userID, CURRENT_DATE())
 //
@@ -400,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `res_user_tech` (
 --
 -- Constraints for dumped tables
 --
-USE resume_dev2;
+USE resume_dev;
 --
 -- Constraints for table `res_courses`
 --

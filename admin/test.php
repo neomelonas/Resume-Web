@@ -23,8 +23,8 @@ $admin = new AdminUser($dbcon);
 //		$theme = "elegant";
 //		$statement = "null";
 //		$objective = "false";
-		//$uID = $admin->addNewUser($dbcon,$fname,$mname,$lname,$email,$mAn,$phone,$uname,$theme,$statement,$objective);
-		//echo $uID;
+//		$uID = $admin->addNewUser($dbcon,$fname,$mname,$lname,$email,$mAn,$phone,$uname,$theme,$statement,$objective);
+//		echo $uID;
 		$admin->displayTechForm($dbcon);
 	    ?>
     </body>
