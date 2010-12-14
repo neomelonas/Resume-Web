@@ -1,0 +1,73 @@
+/* 
+    Document   : admin.css
+    Created on : Mar 13, 2010, 6:30:30 PM
+    Author     : Neo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+html,body{
+    height:100%;
+    margin:0 0 1px;
+    padding:0;
+}
+header, nav, article, section, aside, footer{
+    display:block;
+}
+h1{
+    font-size:2em;
+}
+header{
+    background-color:#003366;
+    height:45px;
+    padding:20px 0 20px;
+    width:100%;
+}
+header h1{
+    float:left;
+    color:#FFCC00;
+    padding:0 10px;
+}
+.logout{
+    float:right;
+    padding:10px;
+}
+.logout a{
+    color:#fff;
+}
+nav{
+    background-color:#E6B333;
+    float:left;
+    height:400px;
+    padding:20px 0;
+    position:relative;
+    width:200px;
+}
+nav a{
+    color:#336699;
+    text-decoration:none;
+    padding:0 10px
+}
+nav a:hover{
+    padding-left:15px;
+}
+#content{
+    float:left;
+    min-height:400px;
+    margin:10px;
+    position:relative;
+    width:750px;
+}
+footer{
+    float:right;
+    margin:0 15px;
+}
+fieldset{
+    border:1px solid #eee;
+    margin:20px;
+    padding:10px
+}
+input{
+    border:1px solid #eee;
+    color:#004;
+    outline-color:#232;
+}

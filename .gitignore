@@ -1,0 +1,7 @@
+# Ignore everything in here apart from the .gitignore file
+lib/php/db.php
+*.ico
+conf/*
+!conf/settings.default.php
+docs/*
+lib/test
